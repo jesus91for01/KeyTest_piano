@@ -1,0 +1,2835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>성경 타자 연습</title>
+<style>:root{--bg-color:#f3f4f6;--box-bg:#ffffff;--primary-color:#3b82f6;--text-untyped:#9ca3af;--text-typed:#1f2937;--text-error:#ef4444;--bg-error:rgba(239,68,68,0.2);--caret-color:#fbbf24;--border-color:#e5e7eb;--ui-text:#6b7280}[data-theme="dark"]{--bg-color:#111827;--box-bg:#1f2937;--text-untyped:#4b5563;--text-typed:#f3f4f6;--text-error:#f87171;--bg-error:rgba(248,113,113,0.25);--caret-color:#fbbf24;--border-color:#374151;--ui-text:#9ca3af}body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:var(--bg-color);color:var(--ui-text);margin:0;padding:20px;transition:background-color .4s ease,color .4s ease;line-height:1.6}header{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto 30px}header h1{margin:0;font-size:1.2em;font-weight:600;letter-spacing:-.5px;color:var(--text-typed)}nav{max-width:900px;margin:0 auto 40px;display:flex;gap:15px;border-bottom:1px solid var(--border-color);padding-bottom:10px}button{background:0 0;border:none;cursor:pointer;font-family:inherit;font-size:1rem;color:var(--ui-text);transition:all .2s}#theme-toggle{font-size:.9em;padding:5px 10px;border-radius:4px;background-color:var(--box-bg);border:1px solid var(--border-color)}.header-btns{display:flex;gap:10px;align-items:center}#help-toggle{font-size:.9em;padding:5px 10px;border-radius:4px;background-color:var(--box-bg);border:1px solid var(--border-color)}#help-toggle:hover,#theme-toggle:hover{background-color:var(--bg-color)}.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.5);display:none;justify-content:center;align-items:center;z-index:1000;opacity:0;animation:modalFadeIn .2s forwards}.modal-overlay.show{display:flex;opacity:1}.modal-content{background-color:var(--box-bg);color:var(--text-typed);width:90%;max-width:500px;max-height:85vh;overflow-y:auto;padding:30px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}.modal-content h2{margin-top:0;color:var(--primary-color);border-bottom:2px solid var(--border-color);padding-bottom:10px}.modal-content h3{font-size:1.1em;margin-top:25px;margin-bottom:10px;color:var(--text-typed)}.modal-content p,.modal-content ul{font-size:.95em;color:var(--ui-text);line-height:1.6}.modal-content ul{padding-left:20px}.modal-content li{margin-bottom:8px}.close-modal-btn{background-color:var(--text-typed);color:var(--box-bg);border:none;padding:10px 20px;border-radius:6px;font-weight:700;width:100%;margin-top:20px;cursor:pointer}@keyframes modalFadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}nav button{padding:5px 0;font-weight:500;position:relative}nav button.active{color:var(--text-typed);font-weight:700}nav button.active::after{content:'';position:absolute;bottom:-11px;left:0;width:100%;height:2px;background-color:var(--primary-color)}main{max-width:900px;margin:0 auto}#section-manage{background-color:var(--box-bg);padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.03)}.manage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;flex-wrap:wrap;gap:15px}.manage-header h2{margin:0;color:var(--text-typed);font-size:1.4em}.data-btns{display:flex;gap:10px}.data-btn{background-color:var(--bg-color);color:var(--text-typed);border:1px solid var(--border-color);padding:8px 14px;font-size:.9em;border-radius:6px;font-weight:600}.data-btn:hover{background-color:var(--border-color)}.input-group{display:flex;flex-direction:column;gap:15px;margin-bottom:40px}input[type="text"],textarea,select{padding:15px;border:1px solid var(--border-color);border-radius:8px;background-color:var(--bg-color);color:var(--text-typed);font-size:1rem;font-family:inherit;outline:0;transition:border-color .2s}input[type="text"]:focus,textarea:focus,select:focus{border-color:var(--primary-color)}textarea{resize:vertical;min-height:100px}#add-verse-btn{background-color:var(--primary-color);color:#fff;padding:15px;border-radius:8px;font-weight:600}#add-verse-btn:hover{background-color:#2563eb}#verse-list{padding:0;margin:0}details.chapter-details{margin-bottom:15px;border:1px solid var(--border-color);border-radius:8px;background-color:var(--box-bg);overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.02)}summary.chapter-header{font-size:1.05em;font-weight:700;color:var(--primary-color);padding:15px 20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background-color:var(--box-bg);transition:background-color .2s}summary.chapter-header:hover{background-color:var(--bg-color)}summary.chapter-header::-webkit-details-marker{display:none}summary.chapter-header::after{content:'▼';font-size:.8em;color:var(--ui-text);transition:transform .3s ease}details[open] summary.chapter-header::after{transform:rotate(180deg)}details[open] summary.chapter-header{border-bottom:1px solid var(--border-color)}details.chapter-details ul{list-style:none;padding:0;margin:0;background-color:var(--bg-color)}details.chapter-details li.verse-item{display:flex;justify-content:space-between;align-items:flex-start;padding:15px 20px;border-bottom:1px dashed var(--border-color);gap:20px}details.chapter-details li.verse-item:last-child{border-bottom:none}.verse-info strong{color:var(--text-typed);display:block;margin-bottom:5px}.verse-info span{color:var(--ui-text);line-height:1.5}.action-btns{display:flex;flex-direction:column;gap:8px;min-width:65px}.repeat-btn,.delete-btn{background-color:var(--box-bg);font-size:.85em;padding:6px 10px;border-radius:6px;width:100%;border:1px solid;transition:all .2s}.repeat-btn{color:var(--primary-color);border-color:var(--primary-color)}.repeat-btn:hover{background-color:var(--primary-color);color:#fff}.delete-btn{color:var(--text-error);border-color:var(--text-error)}.delete-btn:hover{background-color:var(--text-error);color:#fff;text-decoration:none}.practice-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;font-size:.95em}.chapter-selector select{padding:6px 12px;font-weight:600;background-color:transparent;border:1px solid var(--border-color);border-radius:4px}.minimal-stats{display:flex;gap:20px;font-family:monospace;font-size:1.1em;color:var(--ui-text)}.minimal-stats strong{color:var(--text-typed);font-weight:400}.toggles-group{display:flex;gap:15px;align-items:center;flex-wrap:wrap}.typing-container{position:relative;margin-top:20px;cursor:text}#current-ref{color:var(--primary-color);margin-bottom:20px;font-size:1.1em;font-weight:600}.typing-area{font-size:2.2em;line-height:1.7;letter-spacing:-.5px;white-space:pre-wrap;word-break:keep-all;position:relative;min-height:200px}.typing-area span{color:var(--text-untyped);transition:color .1s ease;position:relative}.typing-area span.correct{color:var(--text-typed)}.typing-area span.incorrect{color:var(--text-error);background-color:var(--bg-error);border-radius:3px;position:relative}.typing-area span.incorrect::after{content:attr(data-typed);position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:.55em;line-height:1;margin-top:4px;color:var(--text-error);font-weight:700;pointer-events:none;text-shadow:none}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}.typing-area span.current-char::before{content:'';position:absolute;left:-2px;top:10%;height:80%;width:3px;background-color:var(--caret-color);animation:blink 1s infinite;border-radius:2px}.typing-area span.end-caret::before{left:0}.typing-area.blind-mode span:not(.correct):not(.current-char):not(.composing){color:transparent!important;text-shadow:0 0 12px var(--text-untyped)}.typing-area span.composing{color:var(--text-typed);border-bottom:2px solid var(--text-typed)}.hidden-textarea{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;z-index:10;cursor:text;resize:none;color:transparent;background:transparent;border:none;outline:0;font-size:16px}.feedback-msg{text-align:left;font-size:1.1em;color:var(--ui-text);margin-top:30px;min-height:30px;opacity:0;transition:opacity .3s}.feedback-msg.show{opacity:1}.empty-state{text-align:center;padding:60px 20px;color:var(--ui-text)}#section-results{background-color:var(--box-bg);padding:40px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.03)}.results-list{list-style:none;padding:0;margin:30px 0}.results-list li{padding:20px 0;border-bottom:1px dashed var(--border-color)}.results-list .verse-ref{color:var(--primary-color);font-weight:600;display:block;margin-bottom:5px}.results-list .verse-text{display:block;font-size:1.1em;color:var(--text-typed);margin-bottom:10px}.results-list .verse-stats{font-family:monospace;color:var(--ui-text);font-size:.95em}#btn-back-to-manage{background-color:var(--text-typed);color:var(--box-bg);padding:12px 25px;border-radius:6px;font-weight:600;display:block;margin:0 auto}#btn-back-to-manage:hover{opacity:.8}.btn-mobile-next{display:none;width:100%;background-color:var(--primary-color);color:#fff;padding:15px;margin-top:15px;border-radius:8px;font-weight:700;font-size:1.1em;text-align:center;border:none;cursor:pointer;animation:fadeIn .3s}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.verse-nav-btns{display:flex;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:1px dashed var(--border-color)}.nav-btn{color:var(--ui-text);font-size:.95em;padding:8px 15px;border-radius:6px;background-color:var(--box-bg);border:1px solid var(--border-color);transition:all .2s}.nav-btn:hover:not(:disabled){background-color:var(--border-color);color:var(--text-typed)}.nav-btn:disabled{opacity:.3;cursor:not-allowed;border-color:transparent;background-color:transparent}@media (max-width:600px){header h1{font-size:1.1em}nav{gap:10px;margin-bottom:25px}main{padding:0;box-shadow:none;background:0 0}#section-manage,#section-results{padding:20px}.practice-header{flex-direction:column;align-items:flex-start;gap:15px}.minimal-stats{font-size:1em;width:100%;justify-content:space-between}.toggles-group{width:100%;justify-content:flex-end}.typing-area{font-size:1.5em;min-height:150px;padding:15px 0}ul#verse-list li.verse-item{flex-direction:column;gap:15px}.action-btns{flex-direction:row;width:100%;justify-content:flex-end}.repeat-btn,.delete-btn{width:auto;padding:8px 20px}}</style>
+<style>
+/* ===== 언어 선택 ===== */
+.lang-switch{display:inline-flex;border:1px solid var(--border-color);border-radius:6px;overflow:hidden}
+.lang-switch button{padding:4px 12px;font-size:.9em;font-weight:600;border-radius:0}
+.lang-switch button.active{background-color:var(--primary-color);color:#fff}
+#current-ref .ref-note{font-size:.75em;color:var(--ui-text);font-weight:400;margin-left:8px}
+/* ===== 입력창: 커서 위치를 따라다님 (자동 스크롤) ===== */
+.hidden-textarea{position:absolute;top:0;left:0;width:24px;height:1.2em;padding:0;margin:0;overflow:hidden;opacity:0;z-index:10;resize:none;border:none;outline:0;font-size:16px;color:transparent;background:transparent;caret-color:transparent;pointer-events:none}
+/* ===== 성경에서 불러오기 ===== */
+.bible-lookup{border:1px dashed var(--primary-color);border-radius:8px;padding:15px;background-color:var(--bg-color)}
+.lookup-title{font-weight:700;color:var(--text-typed);margin-bottom:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.lookup-title #lookup-status{font-weight:400;font-size:.85em;color:var(--ui-text)}
+.lookup-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--text-typed)}
+.lookup-row select{padding:8px 10px;background-color:var(--box-bg)}
+.lookup-row select:disabled{opacity:.5}
+.lookup-hint{font-size:.85em;margin-top:10px;line-height:1.5}
+.ref-row{display:flex;gap:10px}
+.ref-row input{flex:1;min-width:0}
+.sub-btn{background-color:var(--box-bg);border:1px solid var(--primary-color);color:var(--primary-color);padding:8px 16px;border-radius:8px;font-weight:600;white-space:nowrap}
+.sub-btn:hover:not(:disabled){background-color:var(--primary-color);color:#fff}
+.sub-btn:disabled{opacity:.5;cursor:not-allowed}
+/* ===== 키보드 테스트 ===== */
+body{--key-bg:#ffffff;--key-shadow:#d1d5db;--key-tested-bg:#d1fae5;--key-tested-text:#065f46;--key-tested-border:#34d399}
+body[data-theme="dark"]{--key-bg:#374151;--key-shadow:#111827;--key-tested-bg:#064e3b;--key-tested-text:#a7f3d0;--key-tested-border:#10b981}
+#section-keyboard{background-color:var(--box-bg);padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.03)}
+.kb-top{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.kb-top h2{margin:0 0 6px;color:var(--text-typed);font-size:1.4em}
+.kb-top p{margin:0;font-size:.9em}
+.kb-actions{display:flex;gap:10px;flex-wrap:wrap}
+.via-btn{display:inline-flex;align-items:center;gap:6px;background-color:var(--primary-color);color:#fff;padding:8px 16px;border-radius:8px;font-weight:600;text-decoration:none;font-size:.95em}
+.via-btn:hover{background-color:#2563eb}
+.kb-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.kb-stat{background-color:var(--bg-color);border:1px solid var(--border-color);border-radius:8px;padding:10px 14px}
+.kb-stat .label{font-size:.8em;display:block}
+.kb-stat .value{font-family:monospace;font-size:1.25em;color:var(--text-typed);font-weight:700;word-break:break-all}
+.kb-progress{height:6px;background-color:var(--border-color);border-radius:3px;overflow:hidden;margin-top:6px}
+.kb-progress div{height:100%;width:0;background-color:var(--key-tested-border);transition:width .2s}
+.kb-scroll{overflow-x:auto;padding-bottom:6px}
+.keyboard{position:relative;width:100%;min-width:760px;aspect-ratio:22.5/6.5;container-type:inline-size;user-select:none}
+.key{position:absolute;box-sizing:border-box;padding:2px;display:block}
+.key>span{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;box-sizing:border-box;background-color:var(--key-bg);border:1px solid var(--border-color);border-bottom:3px solid var(--key-shadow);border-radius:6px;color:var(--text-typed);font-size:1.15cqw;line-height:1.15;text-align:center;white-space:pre-line;transition:background-color .08s,transform .08s}
+.key small{font-size:.8em;color:var(--ui-text)}
+.key.tested>span{background-color:var(--key-tested-bg);border-color:var(--key-tested-border);color:var(--key-tested-text)}
+.key.tested small{color:var(--key-tested-text)}
+.key.pressed>span{background-color:var(--primary-color);border-color:var(--primary-color);color:#fff;transform:translateY(2px);border-bottom-width:1px}
+.key.pressed small{color:#fff}
+.kb-lock{display:flex;gap:14px;margin:14px 0 0;font-size:.85em;flex-wrap:wrap}
+.kb-lock span::before{content:'●';margin-right:4px;color:var(--border-color)}
+.kb-lock span.on::before{color:#22c55e}
+.kb-extra{margin-top:14px;font-size:.9em}
+.kb-extra .chip{display:inline-block;background-color:var(--key-tested-bg);color:var(--key-tested-text);border:1px solid var(--key-tested-border);border-radius:12px;padding:2px 10px;margin:3px 4px 0 0;font-family:monospace;font-size:.9em}
+.kb-history{font-family:monospace;font-size:.9em;margin-top:10px;min-height:1.4em;word-break:break-all}
+.kb-note{margin-top:20px;padding:15px;border-radius:8px;background-color:var(--bg-color);border:1px dashed var(--border-color);font-size:.88em;line-height:1.6}
+.kb-note ul{margin:6px 0 0;padding-left:20px}
+.practice-header{flex-wrap:wrap;gap:12px 20px}
+/* 언어·반복·블라인드·키보드 보기는 처음부터 둘째 줄에 (타수가 커질 때 줄이 바뀌며 흔들리지 않도록) */
+.practice-header .toggles-group{flex-basis:100%;justify-content:flex-start}
+.minimal-stats span{white-space:nowrap}
+.toggles-group label{white-space:nowrap}
+/* 타자 소리 */
+.sound-ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sound-ctrl select{padding:3px 8px;font-size:.85em;border-radius:6px}
+.sound-ctrl input[type="range"]{width:80px;accent-color:var(--primary-color)}
+.sound-ctrl:not(.on) input[type="range"],.sound-ctrl:not(.on) .song-ctl-toggle,.sound-ctrl:not(.song) .song-ctl{display:none}
+.song-edit-btn{padding:3px 10px;font-size:.85em}
+.song-progress{font-family:monospace;font-size:.85em;color:var(--primary-color)}
+.song-progress.empty{font-family:inherit;color:var(--text-error)}
+.keyboard.mini .key.song-hit>span{background-color:#f59e0b;border-color:#f59e0b;color:#fff}
+.keyboard.mini .key.song-hit .k-note{color:#fff}
+/* 곡 편집 창 */
+.song-modal{max-width:640px}
+.song-form{display:flex;flex-direction:column;gap:12px}
+.song-form .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.song-form .row>select,.song-form .row>input{flex:1;min-width:0;padding:10px}
+.song-form textarea{min-height:150px;font-family:inherit;line-height:1.6}
+.song-form .se-key{flex:0 0 auto!important}
+#se-status{font-size:.9em;color:var(--key-tested-text)}
+#se-status.warn{color:var(--text-error)}
+.se-btns{display:flex;gap:8px;flex-wrap:wrap}
+.se-btns button{flex:1;padding:10px;border-radius:6px;font-weight:600;border:1px solid var(--border-color);background-color:var(--bg-color);color:var(--text-typed)}
+.se-btns button.primary{background-color:var(--primary-color);border-color:var(--primary-color);color:#fff}
+.se-btns button:disabled{opacity:.4;cursor:not-allowed}
+.song-help{font-size:.85em;line-height:1.7;color:var(--ui-text);background-color:var(--bg-color);border-radius:8px;padding:12px 14px}
+.se-import-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.se-import-panel{display:flex;flex-direction:column;gap:8px;padding:12px 14px;border:1px dashed var(--primary-color);border-radius:8px;font-size:.9em;color:var(--text-typed)}
+.se-import-panel label{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.se-import-panel select{padding:4px 8px;max-width:100%}
+.song-help code{background-color:var(--box-bg);border:1px solid var(--border-color);border-radius:4px;padding:0 4px}
+/* 계이름 표시 · 건반 연주 (키보드 보기 + 타자 소리) */
+.keyboard.mini .k-label{display:flex;flex-direction:column;align-items:center}
+.keyboard.mini .k-note{display:none}
+.keyboard.mini.show-notes .k-label{font-size:.72em;opacity:.65}
+.keyboard.mini.show-notes .k-note{display:block;order:-1;font-weight:700;font-size:1.05em;line-height:1.2}
+.keyboard.mini .k-note.do{color:var(--primary-color)}
+.keyboard.mini .k-note.accidental{color:var(--ui-text);font-weight:500}
+.keyboard.mini .key.pressed .k-note{color:#fff}
+.keyboard.mini.show-notes{touch-action:none;cursor:pointer}
+.note-hint{display:none;text-align:center;font-size:.85em;margin-bottom:8px}
+.practice-kb.show-notes .note-hint{display:block}
+/* 연습 화면의 키보드 보기: 화면 아래에 붙어 있음 */
+.practice-kb{position:sticky;bottom:0;z-index:5;margin-top:20px;padding:10px 0 12px;background-color:var(--bg-color);border-top:1px solid var(--border-color)}
+.keyboard.mini{min-width:0;max-width:760px;margin:0 auto;aspect-ratio:15/5}
+.keyboard.mini .key>span{font-size:1.7cqw}
+.ms-top{margin-top:40px;padding-top:30px;border-top:1px solid var(--border-color)}
+.ms-area{display:flex;gap:30px;align-items:center;padding:25px;border:2px dashed var(--border-color);border-radius:12px;background-color:var(--bg-color);user-select:none;-webkit-user-select:none;cursor:crosshair;flex-wrap:wrap}
+.ms-svg{width:150px;flex-shrink:0;margin:0 auto}
+.ms-body{fill:var(--key-bg);stroke:var(--key-shadow);stroke-width:2}
+.ms-part{fill:var(--key-bg);stroke:var(--border-color);stroke-width:1;transition:fill .08s}
+.ms-part.tested{fill:var(--key-tested-bg);stroke:var(--key-tested-border)}
+.ms-part.pressed{fill:var(--primary-color)}
+.ms-line{stroke:var(--key-shadow);stroke-width:2}
+.ms-arrow{fill:var(--border-color);transition:fill .1s}
+.ms-arrow.tested{fill:var(--key-tested-border)}
+.ms-arrow.flash{fill:var(--primary-color)}
+.ms-label{fill:var(--ui-text);font-size:14px;font-weight:700;text-anchor:middle;pointer-events:none}
+.ms-side{fill:var(--ui-text);font-size:8px;pointer-events:none}
+.ms-info{flex:1;min-width:260px}
+.ms-table{width:100%;border-collapse:collapse;font-size:.9em;margin-bottom:14px;color:var(--text-typed)}
+.ms-table th{font-weight:600;color:var(--ui-text);text-align:left;padding:6px 8px;border-bottom:1px solid var(--border-color)}
+.ms-table td{padding:6px 8px;border-bottom:1px dashed var(--border-color);font-family:monospace}
+.ms-table td:first-child{font-family:inherit}
+.ms-table tr.tested td:first-child{color:var(--key-tested-text);font-weight:700}
+.ms-table td.warn{color:var(--text-error);font-weight:700}
+.ms-stats{margin-bottom:0}
+@media (max-width:600px){#section-keyboard{padding:20px}.ms-area{padding:15px}
+  nav{gap:6px}
+  nav button{flex:1;font-size:.95em;line-height:1.35;text-align:center;word-break:keep-all}}
+/* ===== 성경 필사 ===== */
+body{--paper-bg:#fffdf6;--paper-line:#eee4cc;--paper-text:#3b3326;--gold:#f59e0b;--ok:#10b981}
+body[data-theme="dark"]{--paper-bg:#1d2129;--paper-line:#343b4a;--paper-text:#e7e1d3}
+#section-transcribe{min-height:300px}
+.tr-loading{text-align:center;padding:60px 0}
+.tr-verbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;font-weight:600;color:var(--text-typed)}
+.tr-verbar .tr-tip{font-weight:400}
+.tr-data-btns{margin-left:auto;display:flex;gap:8px}
+.tr-data-btns .data-btn{padding:6px 12px;font-size:.85em}
+.tr-stat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tr-chip{display:flex;flex-direction:column;background-color:rgba(255,255,255,.15);border-radius:10px;padding:6px 12px;min-width:74px}
+.tr-chip span{font-size:.75em;opacity:.85}
+.tr-chip strong{font-size:1.15em;font-family:monospace}
+.tr-chip small{font-size:.7em;opacity:.8}
+/* 타수·정확도 플로팅 창 */
+.float-stats{position:fixed;right:16px;top:50%;z-index:900;transform:translate(130%,-50%);opacity:0;pointer-events:none;background-color:var(--box-bg);border:1px solid var(--border-color);border-left:4px solid var(--primary-color);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:10px 14px;min-width:120px;transition:transform .25s ease,opacity .25s}
+.float-stats.show{transform:translate(0,-50%);opacity:.96}
+.fs-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:.8em;color:var(--ui-text);line-height:1.9}
+.fs-row strong{font-family:monospace;font-size:1.3em;color:var(--text-typed)}
+.fs-row:first-child strong{color:var(--primary-color)}
+@media (max-width:600px){.float-stats{top:8px;right:8px;transform:translateY(-160%);display:flex;gap:10px;padding:6px 10px;min-width:0}.float-stats.show{transform:none}.fs-row{gap:4px;line-height:1.4}.fs-row strong{font-size:1.1em}.tr-data-btns{margin-left:0}}
+.tr-paper.en,.tr-votd.en{font-family:Georgia,'Times New Roman',serif}
+.tr-hero{display:flex;gap:24px;flex-wrap:wrap;background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border-radius:16px;padding:28px;box-shadow:0 10px 30px rgba(59,130,246,.25)}
+.tr-hero-main{flex:1;min-width:240px}
+.tr-hero-label{font-weight:700;opacity:.9}
+.tr-hero-pct{font-size:3.4em;font-weight:800;line-height:1.1;margin:6px 0 10px;font-family:monospace}
+.tr-hero-pct small{font-size:.45em;margin-left:4px}
+.tr-bar{height:10px;background-color:rgba(127,127,127,.2);border-radius:5px;overflow:hidden}
+.tr-bar>div{height:100%;width:0;background-color:var(--ok);border-radius:5px;transition:width .6s ease}
+.tr-hero .tr-bar{background-color:rgba(255,255,255,.25)}
+.tr-hero .tr-bar>div{background-color:#fff}
+.tr-bar.big{height:14px;border-radius:7px}
+.tr-hero-sub{margin-top:10px;font-size:.95em;opacity:.95}
+.tr-cheer{margin-top:14px;background-color:rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;font-size:.95em;line-height:1.5}
+.tr-hero-side{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:150px;margin:0 auto}
+.tr-ring-wrap{position:relative;width:110px;height:110px}
+.tr-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.tr-ring circle{fill:none;stroke-width:8}
+.tr-ring .bg{stroke:rgba(255,255,255,.25)}
+.tr-ring .fg{stroke:#fde68a;stroke-linecap:round;stroke-dasharray:238.76;stroke-dashoffset:238.76;transition:stroke-dashoffset .6s}
+.tr-ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
+.tr-ring-text strong{font-size:1.6em}
+.tr-ring-text span{font-size:.8em}
+.tr-ring-text small{font-size:.75em;opacity:.85}
+.tr-goal{font-size:.85em;display:flex;align-items:center;gap:6px}
+.tr-goal select{padding:2px 6px;font-size:.95em;border-radius:6px;background-color:rgba(255,255,255,.92);color:#1f2937;border:none}
+.tr-resume{display:block;width:100%;margin:18px 0;padding:16px;border-radius:12px;background-color:var(--text-typed);color:var(--box-bg);font-weight:700;font-size:1.1em}
+.tr-resume:hover{opacity:.9}
+.tr-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tr-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:14px;font-size:.85em;background-color:var(--box-bg);border:1px solid var(--border-color);color:var(--ui-text);opacity:.5;filter:grayscale(1)}
+.tr-badge.on{opacity:1;filter:none;background-color:#fef3c7;border-color:var(--gold);color:#92400e;font-weight:700}
+body[data-theme="dark"] .tr-badge.on{background-color:#422006;color:#fde68a}
+.tr-votd{font-family:'Nanum Myeongjo','Batang','바탕','AppleMyungjo',serif;background-color:var(--paper-bg);color:var(--paper-text);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;margin-bottom:10px;line-height:1.7}
+.tr-votd small{display:block;margin-top:4px;color:var(--ui-text)}
+.tr-h3{color:var(--text-typed);margin:26px 0 10px;font-size:1.1em}
+.tr-h3 small{font-weight:400;color:var(--ui-text);font-size:.8em;margin-left:6px}
+.tr-books{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.tr-book{position:relative;text-align:left;padding:10px 12px 12px;border-radius:10px;background-color:var(--box-bg);border:1px solid var(--border-color);overflow:hidden}
+.tr-book:hover{border-color:var(--primary-color)}
+.tr-book .name{display:block;font-weight:700;color:var(--text-typed);font-size:.95em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tr-book .name.long{font-size:.8em;letter-spacing:-.5px;line-height:1.5}
+.tr-book .pct{display:block;font-size:.75em;margin:2px 0 6px;font-family:monospace}
+.tr-book .tr-bar{height:5px}
+.tr-book.started{background-image:linear-gradient(0deg,rgba(16,185,129,.1),transparent)}
+.tr-book.full{border:2px solid var(--gold);background-color:#fffbeb}
+.tr-book.full .name::after{content:' 👑'}
+body[data-theme="dark"] .tr-book.full{background-color:#2a2111}
+.tr-topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.tr-topbar h2{margin:0;color:var(--text-typed);font-size:1.3em}
+.tr-sub{font-size:.9em}
+.tr-tip{font-size:.85em;color:var(--ui-text)}
+.tr-chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px;margin-top:10px}
+.tr-ch{--p:0%;height:46px;border-radius:8px;border:1px solid var(--border-color);font-weight:700;color:var(--text-typed);background:linear-gradient(0deg,rgba(16,185,129,.4) var(--p),var(--box-bg) var(--p))}
+.tr-ch:hover{border-color:var(--primary-color)}
+.tr-ch.full{background:var(--ok);color:#fff;border-color:var(--ok)}
+.tr-ch.full::after{content:' ✓'}
+.tr-ch.last{outline:2px solid var(--primary-color);outline-offset:1px}
+.tr-live{display:flex;gap:14px;margin-left:auto;font-family:monospace}
+.tr-live strong{color:var(--text-typed)}
+#tr-verse-select{padding:6px 10px}
+.tr-chapter-progress{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.tr-chapter-progress .tr-bar{flex:1}
+.tr-chapter-progress span{font-size:.85em;white-space:nowrap;font-family:monospace}
+.tr-paper{background-color:var(--paper-bg);color:var(--paper-text);border-radius:12px;padding:22px 26px;font-family:'Nanum Myeongjo','Batang','바탕','AppleMyungjo',serif;font-size:1.25em;line-height:1.9;box-shadow:inset 0 0 0 1px var(--paper-line)}
+.tr-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--paper-line)}
+.tr-row .vn{flex:0 0 2.4em;text-align:right;font-size:.72em;color:var(--ui-text);padding-top:.45em;font-family:monospace;white-space:nowrap}
+.tr-row .vbody{flex:1;min-width:0;word-break:keep-all}
+.tr-row.todo,.tr-row.done{cursor:pointer}
+.tr-row.todo .vt{opacity:.45}
+.tr-row.done .vt{font-weight:700;opacity:1}
+.tr-row.done .vn::before{content:'✓ ';color:var(--ok)}
+.tr-row.auto .vt{opacity:.35;font-size:.8em;font-style:italic}
+.tr-row.current{background-color:rgba(59,130,246,.07);border-radius:8px;border-bottom-color:transparent;padding:10px 8px;margin:4px -8px}
+.tr-row.current .vt span{color:var(--text-untyped)}
+.tr-row.current .vt span.ok{color:var(--paper-text)}
+.tr-row.current .vt span.bad{color:var(--text-error);background-color:var(--bg-error);border-radius:2px}
+.tr-row.current .vt span.comp{color:var(--paper-text);border-bottom:2px solid var(--paper-text)}
+.tr-row.current .vt span.cur{box-shadow:-2px 0 0 var(--caret-color)}
+.tr-input{display:block;width:100%;box-sizing:border-box;margin-top:8px;padding:8px 10px;border:none;border-bottom:2px solid var(--primary-color);border-radius:6px 6px 0 0;background-color:rgba(127,127,127,.07);color:var(--paper-text);font:inherit;line-height:1.7;resize:none;overflow:hidden;outline:none;min-height:0}
+.tr-hint{font-size:.7em;margin-top:6px;color:var(--ui-text);font-family:-apple-system,'Segoe UI',sans-serif;min-height:1.2em}
+.tr-hint.warn{color:var(--text-error)}
+.tr-writer-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.tr-toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background-color:var(--text-typed);color:var(--box-bg);padding:10px 18px;border-radius:20px;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:1200;max-width:90vw;text-align:center}
+.tr-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.tr-celebrate-box{text-align:center;overflow:hidden}
+.tr-cele-emoji{font-size:4em;animation:trPop .5s ease}
+@keyframes trPop{0%{transform:scale(.3)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.tr-btns{display:flex;gap:8px;margin-top:18px;position:relative;z-index:1}
+.tr-btns button{flex:1;padding:12px;border-radius:8px;font-weight:700;border:1px solid var(--border-color);background-color:var(--bg-color);color:var(--text-typed)}
+.tr-btns button.primary{background-color:var(--primary-color);border-color:var(--primary-color);color:#fff}
+.tr-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.tr-confetti i{position:absolute;top:-14px;width:8px;height:12px;border-radius:2px;animation:trFall linear forwards}
+@keyframes trFall{to{transform:translateY(460px) rotate(560deg);opacity:.15}}
+@media (max-width:600px){.tr-hero{padding:20px}.tr-hero-pct{font-size:2.6em}.tr-paper{padding:14px 12px;font-size:1.1em}.tr-live{margin-left:0}.tr-books{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}}
+</style>
+</head>
+<body>
+<header>
+  <h1>📖 성경 타자 연습</h1>
+  <div class="header-btns"><button id="help-toggle">❓ 사용법</button><button id="theme-toggle">🌙 Dark</button></div>
+</header>
+<nav><button id="tab-practice" class="active">성경 타자 연습</button><button id="tab-transcribe">성경 필사</button><button id="tab-manage">나만의 말씀 노트</button><button id="tab-keyboard">키보드·마우스 테스트</button></nav>
+<main>
+  <section id="section-manage" style="display:none">
+    <div class="manage-header">
+      <h2>나만의 말씀 노트</h2>
+      <div class="data-btns">
+        <button id="btn-backup" class="data-btn">💾 백업</button>
+        <button id="btn-restore" class="data-btn">📂 불러오기</button>
+        <input type="file" id="file-restore" accept=".json" style="display:none">
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="bible-lookup">
+        <div class="lookup-title"><span>📖 성경(개역한글)에서 불러오기</span><span id="lookup-status"></span></div>
+        <div class="lookup-row">
+          <select id="lk-book" disabled></select>
+          <select id="lk-chapter" disabled></select><span id="lk-chapter-unit">장</span>
+          <select id="lk-vstart" disabled></select><span>절 ~</span>
+          <select id="lk-vend" disabled></select><span>절</span>
+          <button id="lk-load" class="sub-btn" disabled>불러오기</button>
+        </div>
+        <div class="lookup-hint">또는 아래 장절 칸에 <strong>요 3:16</strong>, <strong>롬 8:28~30</strong>, <strong>시 23편</strong>처럼 입력하고 [본문 찾기]를 누르세요.</div>
+      </div>
+      <input type="text" id="verse-chapter" list="chapter-list" placeholder="챕터 / 분류 (예: 암송 1주차)">
+      <datalist id="chapter-list"></datalist>
+      <div class="ref-row">
+        <input type="text" id="verse-ref" placeholder="장절 (예: 요한복음 3:16)">
+        <button id="btn-find-ref" class="sub-btn">본문 찾기</button>
+      </div>
+      <textarea id="verse-text" placeholder="암송할 말씀을 입력하세요 (위에서 불러오면 자동으로 채워집니다)"></textarea>
+      <button id="add-verse-btn">말씀 추가하기</button>
+    </div>
+    <div id="verse-list"></div>
+  </section>
+
+  <section id="section-practice">
+    <div class="practice-header">
+      <div class="chapter-selector"><select id="chapter-select"></select></div>
+      <div class="minimal-stats">
+        <span>타수 <strong id="wpm-display">0</strong></span>
+        <span>정확도 <strong id="accuracy-display">100</strong>%</span>
+        <span style="margin-left:10px;color:var(--primary-color)" id="progress-text">1/1</span>
+      </div>
+      <div class="toggles-group">
+        <div class="lang-switch" id="lang-switch">
+          <button data-lang="ko">한글</button><button data-lang="en">English</button>
+        </div>
+        <label style="cursor:pointer;display:flex;align-items:center;gap:5px;color:var(--primary-color);font-weight:700"><input type="checkbox" id="repeat-toggle"> 🔁 반복</label>
+        <label style="cursor:pointer;display:flex;align-items:center;gap:5px"><input type="checkbox" id="blind-toggle"> 🙈 블라인드</label>
+        <label style="cursor:pointer;display:flex;align-items:center;gap:5px"><input type="checkbox" id="kbview-toggle"> ⌨️ 키보드 보기</label>
+        <span class="sound-ctrl" id="sound-ctrl">
+          <label style="cursor:pointer;display:flex;align-items:center;gap:5px"><input type="checkbox" id="sound-toggle"> 🔊 피아노 소리</label>
+          <input type="range" id="sound-vol" min="5" max="100" value="80" title="소리 크기">
+          <label class="song-ctl-toggle" style="cursor:pointer;display:flex;align-items:center;gap:5px"><input type="checkbox" id="song-toggle"> 🎼 연주 모드</label>
+          <select id="song-select" class="song-ctl" title="연주할 곡"></select>
+          <button id="song-edit" class="data-btn song-ctl song-edit-btn" type="button">✏️ 곡 편집</button>
+          <span id="song-progress" class="song-ctl song-progress"></span>
+        </span>
+      </div>
+    </div>
+    <div class="typing-container" id="typing-container">
+      <div id="current-ref">말씀을 불러오는 중...</div>
+      <div id="typing-display" class="typing-area"></div>
+      <textarea id="user-input" class="hidden-textarea" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+    </div>
+    <p id="feedback-msg" class="feedback-msg"></p>
+    <button id="btn-mobile-next" class="btn-mobile-next">다음 구절로 넘어가기 (터치/Enter)</button>
+    <div class="verse-nav-btns">
+      <button id="btn-prev-verse" class="nav-btn">← 이전 구절</button>
+      <button id="btn-next-verse" class="nav-btn">다음 구절 →</button>
+    </div>
+    <div class="practice-kb" id="practice-kb" style="display:none"><div class="keyboard mini" id="practice-keyboard"></div></div>
+  </section>
+
+  <section id="section-transcribe" style="display:none">
+    <div class="tr-verbar">
+      <span>📖 번역본</span>
+      <div class="lang-switch" id="tr-ver"><button data-ver="ko" type="button">개역한글</button><button data-ver="en" type="button">NKJV (영어)</button></div>
+      <span class="tr-tip">번역본마다 필사 기록이 따로 저장됩니다</span>
+      <span class="tr-data-btns">
+        <button id="tr-backup" class="data-btn" type="button">💾 필사 기록 백업</button>
+        <button id="tr-restore" class="data-btn" type="button">📂 불러오기</button>
+        <input type="file" id="tr-restore-file" accept=".json" style="display:none">
+      </span>
+    </div>
+    <div id="tr-loading" class="tr-loading">성경 데이터를 불러오는 중...</div>
+
+    <div id="tr-home" style="display:none">
+      <div class="tr-hero">
+        <div class="tr-hero-main">
+          <div class="tr-hero-label" id="tr-hero-label">📜 성경 전체 필사</div>
+          <div class="tr-hero-pct"><span id="tr-pct">0</span><small>%</small></div>
+          <div class="tr-bar big"><div id="tr-bar"></div></div>
+          <div class="tr-hero-sub"><strong id="tr-done-count">0</strong> / <span id="tr-total">0</span>절 필사</div>
+          <div class="tr-stat-chips">
+            <div class="tr-chip"><span>구약</span><strong id="tr-ot">0%</strong></div>
+            <div class="tr-chip"><span>신약</span><strong id="tr-nt">0%</strong></div>
+            <div class="tr-chip"><span>📅 필사 기간</span><strong id="tr-period">-</strong><small id="tr-period-sub"></small></div>
+            <div class="tr-chip"><span>⌨️ 평균 타수</span><strong id="tr-avg-cpm">-</strong></div>
+            <div class="tr-chip"><span>🎯 평균 정확도</span><strong id="tr-avg-acc">-</strong></div>
+          </div>
+          <div class="tr-cheer" id="tr-cheer"></div>
+        </div>
+        <div class="tr-hero-side">
+          <div class="tr-ring-wrap">
+            <svg class="tr-ring" viewBox="0 0 90 90"><circle class="bg" cx="45" cy="45" r="38"/><circle class="fg" id="tr-ring-fg" cx="45" cy="45" r="38"/></svg>
+            <div class="tr-ring-text"><strong id="tr-today">0</strong><span>/ <span id="tr-goal-num">10</span>절</span><small>오늘</small></div>
+          </div>
+          <div>🔥 <strong id="tr-streak">0</strong>일 연속</div>
+          <label class="tr-goal">하루 목표
+            <select id="tr-goal"><option>5</option><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option></select>절
+          </label>
+        </div>
+      </div>
+      <button id="tr-resume" class="tr-resume" type="button"></button>
+      <div class="tr-badges" id="tr-badges"></div>
+      <div class="tr-votd" id="tr-votd"></div>
+      <h3 class="tr-h3">구약 <small id="tr-ot-sub"></small></h3>
+      <div class="tr-books" id="tr-books-ot"></div>
+      <h3 class="tr-h3">신약 <small id="tr-nt-sub"></small></h3>
+      <div class="tr-books" id="tr-books-nt"></div>
+    </div>
+
+    <div id="tr-book" style="display:none">
+      <div class="tr-topbar">
+        <button class="nav-btn" id="tr-book-back" type="button">← 전체 보기</button>
+        <h2 id="tr-book-title"></h2>
+        <span id="tr-book-sub" class="tr-sub"></span>
+      </div>
+      <div class="tr-bar"><div id="tr-book-bar"></div></div>
+      <p class="tr-tip">필사할 장을 고르세요. 이미 쓴 절은 건너뛰고, 아직 쓰지 않은 첫 절부터 시작합니다. (파란 테두리 = 마지막으로 쓰던 장)</p>
+      <div class="tr-chapter-grid" id="tr-chapter-grid"></div>
+    </div>
+
+    <div id="tr-writer" style="display:none">
+      <div class="tr-topbar">
+        <button class="nav-btn" id="tr-writer-back" type="button">← 목록</button>
+        <h2 id="tr-writer-title"></h2>
+        <select id="tr-verse-select" title="절 선택"></select>
+        <div class="tr-live"><span>타수 <strong id="tr-cpm">0</strong></span><span>정확도 <strong id="tr-acc">100</strong>%</span></div>
+      </div>
+      <div class="tr-chapter-progress"><div class="tr-bar"><div id="tr-ch-bar"></div></div><span id="tr-ch-text"></span></div>
+      <div class="tr-paper" id="tr-paper"></div>
+      <div class="tr-writer-nav">
+        <button class="nav-btn" id="tr-prev-ch" type="button">◀ 이전 장</button>
+        <span class="tr-tip">모두 맞게 쓰면 자동으로 다음 절로 · 오타가 있으면 고치거나 Enter로 넘어가기</span>
+        <button class="nav-btn" id="tr-next-ch" type="button">다음 장 ▶</button>
+      </div>
+    </div>
+
+    <div id="tr-toast" class="tr-toast"></div>
+    <div id="tr-celebrate" class="modal-overlay">
+      <div class="modal-content tr-celebrate-box">
+        <div class="tr-confetti" id="tr-confetti"></div>
+        <div class="tr-cele-emoji" id="tr-cele-emoji">🎉</div>
+        <h2 id="tr-cele-title"></h2>
+        <p id="tr-cele-text"></p>
+        <div class="tr-btns">
+          <button id="tr-cele-list" type="button">목록으로</button>
+          <button id="tr-cele-next" class="primary" type="button">다음 장 계속 ▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="section-results" style="display:none">
+    <h2 id="results-chapter-title" style="text-align:center;margin-bottom:20px;color:var(--text-typed)">🎉 암송 완료</h2>
+    <div class="minimal-stats" style="justify-content:center;margin-bottom:30px;font-size:1.3em" id="results-average-board"></div>
+    <ul id="results-list" class="results-list"></ul>
+    <button id="btn-back-to-manage">목록으로 돌아가기</button>
+  </section>
+
+  <section id="section-keyboard" style="display:none">
+    <div class="kb-top">
+      <div>
+        <h2>⌨️ 키보드 테스트</h2>
+        <p>키를 하나씩 눌러 보세요. 누르는 동안 <strong style="color:var(--primary-color)">파란색</strong>, 정상 입력된 키는 <strong style="color:var(--key-tested-border)">초록색</strong>으로 표시됩니다.</p>
+      </div>
+      <div class="kb-actions">
+        <button id="kb-reset" class="data-btn">🔄 초기화</button>
+        <a class="via-btn" href="https://www.usevia.app/" target="_blank" rel="noopener noreferrer">🛠️ VIA 열기 (키 설정)</a>
+      </div>
+    </div>
+    <div class="kb-stats">
+      <div class="kb-stat"><span class="label">마지막 입력 (key)</span><span class="value" id="kb-last-key">-</span></div>
+      <div class="kb-stat"><span class="label">코드 (code / keyCode)</span><span class="value" id="kb-last-code">-</span></div>
+      <div class="kb-stat"><span class="label">동시 입력 (최대)</span><span class="value" id="kb-held">0 (0)</span></div>
+      <div class="kb-stat"><span class="label">테스트 완료</span><span class="value" id="kb-count">0 / 0</span><div class="kb-progress"><div id="kb-progress-bar"></div></div></div>
+    </div>
+    <div class="kb-scroll"><div class="keyboard" id="keyboard"></div></div>
+    <div class="kb-lock">
+      <span id="kb-lock-caps">Caps Lock</span><span id="kb-lock-num">Num Lock</span><span id="kb-lock-scroll">Scroll Lock</span>
+    </div>
+    <div class="kb-history" id="kb-history"></div>
+    <div class="kb-extra" id="kb-extra" style="display:none">기타 입력된 키: <span id="kb-extra-list"></span></div>
+
+    <div class="kb-top ms-top">
+      <div>
+        <h2>🖱️ 마우스 테스트</h2>
+        <p>아래 테스트 영역 안에서 마우스 버튼을 누르고 휠을 굴려 보세요.</p>
+      </div>
+      <div class="kb-actions"><button id="ms-reset" class="data-btn">🔄 초기화</button></div>
+    </div>
+    <div class="ms-area" id="ms-area">
+      <svg class="ms-svg" viewBox="0 0 140 220" aria-label="마우스 그림">
+        <defs><clipPath id="ms-clip"><rect x="20" y="10" width="100" height="200" rx="50"/></clipPath></defs>
+        <rect class="ms-body" x="20" y="10" width="100" height="200" rx="50"/>
+        <g clip-path="url(#ms-clip)">
+          <rect class="ms-part" data-btn="0" x="20" y="10" width="50" height="85"/>
+          <rect class="ms-part" data-btn="2" x="70" y="10" width="50" height="85"/>
+        </g>
+        <line class="ms-line" x1="70" y1="10" x2="70" y2="95"/>
+        <line class="ms-line" x1="20" y1="95" x2="120" y2="95"/>
+        <rect class="ms-part ms-wheel" data-btn="1" x="61" y="28" width="18" height="40" rx="9"/>
+        <path class="ms-arrow" id="ms-wheel-up" d="M70 16 l-6 7 h12 z"/>
+        <path class="ms-arrow" id="ms-wheel-down" d="M70 80 l-6 -7 h12 z"/>
+        <rect class="ms-part" data-btn="4" x="10" y="104" width="13" height="26" rx="4"/>
+        <rect class="ms-part" data-btn="3" x="10" y="134" width="13" height="26" rx="4"/>
+        <text class="ms-label" x="45" y="60">L</text><text class="ms-label" x="95" y="60">R</text>
+        <text class="ms-side" x="2" y="121">앞</text><text class="ms-side" x="2" y="151">뒤</text>
+      </svg>
+      <div class="ms-info">
+        <table class="ms-table">
+          <thead><tr><th>버튼</th><th>클릭</th><th>최소 간격</th><th>더블클릭 의심</th></tr></thead>
+          <tbody id="ms-tbody"></tbody>
+        </table>
+        <div class="kb-stats ms-stats">
+          <div class="kb-stat"><span class="label">휠 ↑ / ↓</span><span class="value" id="ms-wheel">0 / 0</span></div>
+          <div class="kb-stat"><span class="label">휠 ← / → (틸트)</span><span class="value" id="ms-tilt">0 / 0</span></div>
+          <div class="kb-stat"><span class="label">더블클릭 인식</span><span class="value" id="ms-dbl">0</span></div>
+          <div class="kb-stat"><span class="label">마지막 입력</span><span class="value" id="ms-last">-</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-note">
+      <strong>참고</strong>
+      <ul>
+        <li><strong>한/영, 한자</strong> 키는 키보드에 따라 오른쪽 Alt·Ctrl 신호로 들어오기도 해서 같은 자리에 함께 표시됩니다.</li>
+        <li>Fn 키와 Ctrl+W, Alt+F4, Win+L 같은 Windows·브라우저 단축키는 웹페이지에서 감지하거나 막을 수 없습니다.</li>
+        <li>Print Screen은 Windows에서 키를 뗄 때만 신호가 들어옵니다.</li>
+        <li><strong>더블클릭 의심</strong>: 한 번 눌렀는데 80ms(0.08초) 안에 클릭이 또 들어오면 표시됩니다. 사람이 이렇게 빨리 누르기는 어려워서, 자주 뜬다면 스위치가 닳아 한 번 누른 것이 두 번으로 들어가는 경우일 수 있습니다.</li>
+        <li>앞/뒤(사이드) 버튼은 테스트 탭에서는 페이지를 이동시키지 않습니다. 모든 마우스에 있는 버튼은 아닙니다.</li>
+        <li><strong>VIA</strong>는 VIA를 지원하는 키보드(QMK/VIA 펌웨어)의 키 배열·매크로·조명을 설정하는 사이트입니다. <strong>Chrome 또는 Edge</strong>에서 열고, 키보드를 연결한 뒤 'Authorize device'를 눌러 연결하세요. VIA 안의 <strong>Key Tester</strong> 메뉴에서도 키 테스트를 할 수 있습니다.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="song-modal" class="modal-overlay">
+  <div class="modal-content song-modal">
+    <h2>🎼 연주 곡 편집</h2>
+    <div class="song-form">
+      <div class="row">
+        <select id="se-song" title="곡 선택"></select>
+        <button id="se-new" class="data-btn" type="button">➕ 새 곡</button>
+      </div>
+      <div class="row">
+        <input type="text" id="se-title" placeholder="곡 제목">
+        <select id="se-key" class="se-key" title="조 (도의 위치)">
+          <option value="C">C장조 (다장조)</option><option value="Db">D♭장조</option><option value="D">D장조 (라장조)</option>
+          <option value="Eb">E♭장조 (내림마장조)</option><option value="E">E장조 (마장조)</option><option value="F">F장조 (바장조)</option>
+          <option value="F#">F♯장조</option><option value="G">G장조 (사장조)</option><option value="Ab">A♭장조 (내림가장조)</option>
+          <option value="A">A장조 (가장조)</option><option value="Bb">B♭장조 (내림나장조)</option><option value="B">B장조</option>
+        </select>
+      </div>
+      <textarea id="se-notes" placeholder="예) 낮은솔 | 도 미 도 | 미 레 | 도 낮은라 | 낮은솔 낮은솔 | ..."></textarea>
+      <div id="se-status"></div>
+      <div class="se-import-row">
+        <button id="se-import-btn" class="data-btn" type="button">🎹 MIDI / MusicXML 불러오기</button>
+        <input type="file" id="se-import-file" accept=".mid,.midi,.musicxml,.xml,.mxl" style="display:none">
+        <span class="tr-tip">악보 파일을 고르면 선율과 화음이 계이름으로 자동 입력됩니다</span>
+      </div>
+      <div id="se-import-panel" class="se-import-panel" style="display:none">
+        <label>🎵 선율로 쓸 파트 <select id="si-track"></select></label>
+        <label><input type="checkbox" id="si-chords"> 나머지 파트로 화음 반주 넣기</label>
+        <label>화음 간격 <select id="si-every"><option value="beat">박마다</option><option value="measure">마디마다</option></select></label>
+        <div id="si-info" class="tr-tip"></div>
+      </div>
+      <div class="se-btns">
+        <button id="se-preview" type="button">▶ 미리 듣기</button>
+        <button id="se-save" class="primary" type="button">💾 저장하고 이 곡으로 연주</button>
+        <button id="se-delete" type="button">🗑 삭제</button>
+        <button id="se-close" type="button">닫기</button>
+      </div>
+      <div class="song-help">
+        <strong>입력 방법</strong> — 악보를 보고 음을 순서대로 띄어쓰기로 구분해 적으세요. 박자는 적지 않아도 됩니다 (타자 속도가 곧 템포).<br>
+        • 계이름: <code>도 레 미 파 솔 라 시</code> · 한 옥타브 위/아래: <code>높은도</code> <code>낮은솔</code> (두 번: <code>높은높은도</code>)<br>
+        • 반음: <code>파#</code> <code>시b</code> · 마디선 <code>|</code>은 적어도 되고 안 적어도 됩니다<br>
+        • 조를 고르면 그 조의 으뜸음이 '도'가 됩니다 (예: G장조 → 도 = G)<br>
+        • 반주(선택): 음 앞에 <code>[G]</code> <code>[C]</code> <code>[D7]</code> <code>[Em]</code>처럼 코드를 적으면 그 음과 함께 화음이 납니다<br>
+        • 음이름도 가능: <code>G4 B4 D5</code> <code>F#4</code> <code>Bb3</code> (4 = 가운데 옥타브)<br>
+        • 🎹 <strong>MIDI / MusicXML 불러오기</strong>: 악보 프로그램(MuseScore 등)에서 저장한 .mid · .musicxml · .mxl 파일을 고르면 가장 높은 파트를 선율로, 나머지 파트를 화음 반주로 자동 변환합니다. 조표도 자동으로 맞춰집니다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="float-stats" class="float-stats" aria-hidden="true">
+  <div class="fs-row"><span>타수</span><strong id="fs-cpm">0</strong></div>
+  <div class="fs-row"><span>정확도</span><strong id="fs-acc">100%</strong></div>
+  <div class="fs-row"><span id="fs-prog-label">진행</span><strong id="fs-prog"></strong></div>
+</div>
+
+<div id="help-modal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>💡 프로그램 사용법</h2>
+    <h3>⌨️ 성경 타자 연습</h3>
+    <ul>
+      <li><strong>챕터별 연습:</strong> 상단 드롭다운에서 원하는 챕터를 선택해 집중적으로 타자 연습을 할 수 있습니다.</li>
+      <li><strong>한글 / English:</strong> 같은 구절을 개역한글 또는 영어(NKJV)로 바꿔서 연습할 수 있습니다. 영어 본문은 장절을 기준으로 NKJV 성경에서 자동으로 가져옵니다.</li>
+      <li><strong>실시간 타수/정확도:</strong> 한국어 타수(CPM) 기준으로 정밀하게 측정되며, 문장을 끝까지 치면 내 기록이 고정되어 확인할 수 있습니다.</li>
+      <li><strong>🔁 반복 기능:</strong> 잘 안 외워지는 구절은 '반복' 스위치를 켜두세요! 완벽히 내 것이 될 때까지 같은 구절만 계속 연습할 수 있습니다.</li>
+      <li><strong>🙈 블라인드 모드:</strong> 원본 말씀을 가리고 내 기억력만으로 타이핑해 보세요. 암송 테스트에 완벽합니다.</li>
+      <li><strong>⌨️ 키보드 보기:</strong> 체크하면 화면 아래에 키보드가 나타나 타이핑할 때 누르는 키가 실시간으로 표시됩니다. 자판 위치를 익히거나 손가락을 확인할 때 좋습니다.</li>
+      <li><strong>🔊 피아노 소리:</strong> 체크하면 키를 칠 때 피아노 음이 납니다. 가운데 줄 <strong>A S D F G H J K</strong>가 <strong>도 레 미 파 솔 라 시 도</strong>, 윗줄은 반음(♯·♭), 아랫줄은 한 옥타브 아래입니다. 옆의 막대로 크기를 조절합니다.</li>
+      <li><strong>🎹 건반 연주:</strong> '키보드 보기'와 '피아노 소리'를 함께 켜면 아래 키보드에 계이름이 표시되고, 건반을 클릭·터치하거나 누른 채 끌어서 연주할 수 있습니다.</li>
+      <li><strong>🎼 연주 모드:</strong> 켜고 곡을 고르면 <strong>키를 칠 때마다 곡의 다음 음이 하나씩</strong> 연주됩니다. 빨리 치면 빠르게, 천천히 치면 느리게 — 타자 속도가 곧 템포입니다. 곡이 끝나면 처음부터 다시 이어집니다. 기본 연주곡은 <strong>'왕벌의 비행'</strong>(림스키코르사코프)이며, [✏️ 곡 편집]에서 악보의 계이름을 입력하거나, <strong>MIDI · MusicXML 악보 파일을 불러와</strong> 곡을 추가할 수 있습니다.</li>
+      <li><strong>구절 이동:</strong> 타자 중 언제든 하단의 [← 이전 구절], [다음 구절 →] 버튼을 눌러 자유롭게 넘나들 수 있습니다.</li>
+      <li><strong>긴 말씀:</strong> 타이핑하는 위치를 따라 화면이 자동으로 스크롤되고, 위쪽의 타수·정확도가 화면 밖으로 나가면 오른쪽에 작은 창으로 따라다닙니다.</li>
+      <li><strong>📌 이어서 연습:</strong> 마지막으로 연습하던 구절이 자동 저장되어, 다음에 프로그램을 열면 그 구절부터 이어서 시작합니다. 챕터를 끝까지 마치면 다음 챕터부터 시작합니다.</li>
+    </ul>
+    <h3>📜 성경 필사</h3>
+    <ul>
+      <li><strong>원하는 곳부터:</strong> 66권 중 책을 고르고 장을 고르면, 아직 쓰지 않은 첫 절부터 필사가 시작됩니다. 절 선택이나 본문 줄을 눌러 원하는 절로 바로 갈 수도 있습니다.</li>
+      <li><strong>쓰는 방법:</strong> 원고지 위 본문을 보며 아래 칸에 그대로 쓰세요. 모두 맞게 쓰면 자동으로 다음 절로 넘어가고, 오타가 있으면 고치거나 Enter로 넘어갈 수 있습니다. (붙여넣기는 할 수 없습니다)</li>
+      <li><strong>번역본:</strong> 위쪽에서 <strong>개역한글</strong> 또는 <strong>NKJV(영어)</strong>를 골라 필사할 수 있습니다. 진행률·이어서 쓸 위치·배지는 번역본마다 따로 저장되고, 오늘의 목표와 연속 필사 일수는 함께 셉니다.</li>
+      <li><strong>💾 필사 기록 백업·불러오기:</strong> 위쪽 버튼으로 필사 기록(두 번역본 모두)을 파일로 저장하고, 다른 기기에서 불러와 덮어쓰거나 합칠 수 있습니다.</li>
+      <li><strong>진행률:</strong> 성경 전체·구약·신약·책·장별 진행률과 오늘의 목표, 연속 필사 일수, 배지로 꾸준히 이어갈 수 있게 도와줍니다. 기록은 자동 저장되어 [이어서 필사하기]로 바로 이어집니다.</li>
+    </ul>
+    <h3>📝 나만의 말씀 노트</h3>
+    <ul>
+      <li><strong>성경에서 불러오기:</strong> 책·장·절을 고르고 [불러오기]를 누르거나, 장절 칸에 '요 3:16', '롬 8:28~30', '시 23편'처럼 입력하고 [본문 찾기]를 누르면 개역한글 본문이 자동으로 채워집니다.</li>
+      <li><strong>말씀 추가 & 분류:</strong> 외우고 싶은 말씀을 '챕터명'과 함께 등록해 보세요. 동일한 챕터끼리 폴더처럼 깔끔하게 묶여서 관리됩니다.</li>
+      <li><strong>💾 백업 & 📂 불러오기:</strong> 정성껏 모은 암송 구절이 지워지지 않도록 내 기기에 파일로 백업할 수 있습니다. 기기를 바꾸더라도 '불러오기'를 통해 기존 기록에 추가하거나 덮어씌울 수 있습니다!</li>
+    </ul>
+    <h3>⌨️ 키보드·마우스 테스트</h3>
+    <ul>
+      <li><strong>🖱️ 마우스 테스트:</strong> 테스트 영역에서 왼쪽·오른쪽·휠 클릭·사이드 버튼과 휠 위/아래를 확인할 수 있습니다. 한 번 눌렀는데 두 번 들어가는 '더블클릭 오작동'도 자동으로 잡아냅니다.</li>
+      <li><strong>키 입력 확인:</strong> 키보드의 모든 키를 하나씩 눌러 보세요. 정상적으로 입력된 키는 화면 키보드에 초록색으로 표시되고, 몇 개를 확인했는지 알려줍니다.</li>
+      <li><strong>동시 입력:</strong> 여러 키를 한꺼번에 눌러 동시에 몇 개까지 인식되는지 확인할 수 있습니다.</li>
+      <li><strong>🛠️ VIA:</strong> VIA 지원 키보드라면 버튼을 눌러 VIA 사이트에서 키 배열과 매크로를 설정할 수 있습니다 (Chrome/Edge 권장).</li>
+    </ul>
+    <button id="close-help-btn" class="close-modal-btn">확인했습니다</button>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+// ===== 기본 암송 구절 (개역한글) =====
+const DEFAULT_VERSES = [{id:1001,chapter:"1. 성경에 대하여",ref:"신명기 17:19",text:"평생에 자기 옆에 두고 읽어서 그 하나님 여호와 경외하기를 배우며 이 율법의 모든 말과 이 규례를 지켜 행할 것이라"},{id:1002,chapter:"1. 성경에 대하여",ref:"이사야 34:16",text:"너희는 여호와의 책을 자세히 읽어보라 이것들이 하나도 빠진 것이 없고 그 짝이 없는 것이 없으리니 이는 여호와의 입이 이를 명하셨고 그의 신이 이것들을 모으셨음이라"},{id:1003,chapter:"1. 성경에 대하여",ref:"시편 119:9,11",text:"청년이 무엇으로 그 행실을 깨끗케 하리이까 주의 말씀을 따라 삼갈 것이니이다 내가 주께 범죄치 아니하려 하여 주의 말씀을 내 마음에 두었나이다"},{id:1004,chapter:"1. 성경에 대하여",ref:"마태복음 4:4",text:"예수께서 대답하여 가라사대 기록되었으되 사람이 떡으로만 살 것이 아니요 하나님의 입으로 나오는 모든 말씀으로 살 것이라 하였느니라 하시니"},{id:1005,chapter:"1. 성경에 대하여",ref:"요한복음 1:1",text:"태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라"},{id:1006,chapter:"1. 성경에 대하여",ref:"요한복음 5:39",text:"너희가 성경에서 영생을 얻는 줄 생각하고 성경을 상고하거니와 이 성경이 곧 내게 대하여 증거하는 것이로다"},{id:1007,chapter:"1. 성경에 대하여",ref:"로마서 10:17",text:"그러므로 믿음은 들음에서 나며 들음은 그리스도의 말씀으로 말미암았느니라"},{id:1008,chapter:"1. 성경에 대하여",ref:"빌립보서 2:16",text:"생명의 말씀을 밝혀 나의 달음질도 헛되지 아니하고 수고도 헛되지 아니함으로 그리스도의 날에 나로 자랑할 것이 있게 하려 함이라"},{id:1009,chapter:"1. 성경에 대하여",ref:"디모데후서 3:16,17",text:"모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니 이는 하나님의 사람으로 온전하게 하며 모든 선한 일을 행하기에 온전케 하려 함이니라"},{id:1010,chapter:"1. 성경에 대하여",ref:"베드로후서 3:16",text:"또 그 모든 편지에도 이런 일에 관하여 말하였으되 그 중에 알기 어려운 것이 더러 있으니 무식한 자들과 굳세지 못한 자들이 다른 성경과 같이 그것도 억지로 풀다가 스스로 멸망에 이르느니라"},{id:1011,chapter:"1. 성경에 대하여",ref:"베드로후서 1:20,21",text:"먼저 알 것은 경의 모든 예언은 사사로이 풀 것이 아니니 예언은 언제든지 사람의 뜻으로 낸 것이 아니요 오직 성령의 감동하심을 입은 사람들이 하나님께 받아 말한 것임이라"},{id:1012,chapter:"1. 성경에 대하여",ref:"요한계시록 22:18,19",text:"내가 이 책의 예언의 말씀을 듣는 각인에게 증거하노니 만일 누구든지 이것들 외에 더하면 하나님이 이 책에 기록된 재앙들을 그에게 더하실 터이요 만일 누구든지 이 책의 예언의 말씀에서 제하여 버리면 하나님이 이 책에 기록된 생명나무와 및 거룩한 성에 참예함을 제하여 버리시리라"},{id:1013,chapter:"2. 하나님에 대하여",ref:"민수기 23:19",text:"하나님은 인생이 아니시니 식언치 않으시고 인자가 아니시니 후회가 없으시도다 어찌 그 말씀하신 바를 행치 않으시며 하신 말씀을 실행치 않으시랴"},{id:1014,chapter:"2. 하나님에 대하여",ref:"열왕기상 8:39",text:"주는 계신 곳 하늘에서 들으시고 사유하시며 각 사람의 마음을 아시오니 그 모든 행위대로 행하사 갚으옵소서 주만 홀로 인생의 마음을 다 아심이니이다"},{id:1015,chapter:"2. 하나님에 대하여",ref:"이사야 40:26",text:"너희는 눈을 높이 들어 누가 이 모든 것을 창조하였나 보라 주께서 수효대로 만상을 이끌어내시고 각각 그 이름을 부르시나니 그의 권세가 크고 그의 능력이 강하므로 하나도 빠짐이 없느니라"},{id:1016,chapter:"2. 하나님에 대하여",ref:"이사야 45:18",text:"여호와는 하늘을 창조하신 하나님이시며 땅도 조성하시고 견고케 하시되 헛되이 창조치 아니하시고 사람으로 거하게 지으신 자시니라 그 말씀에 나는 여호와라 나 외에 다른 이가 없느니라"},{id:1017,chapter:"2. 하나님에 대하여",ref:"느헤미야 9:6",text:"오직 주는 여호와시라 하늘과 하늘들의 하늘과 일월성신과 땅과 땅 위의 만물과 바다와 그 가운데 모든 것을 지으시고 다 보존하시오니 모든 천군이 주께 경배하나이다"},{id:1018,chapter:"2. 하나님에 대하여",ref:"욥기 11:7~9",text:"네가 하나님의 오묘를 어찌 능히 측량하며 전능자를 어찌 능히 온전히 알겠느냐 하늘보다 높으시니 네가 어찌 하겠으며 음부보다 깊으시니 네가 어찌 알겠느냐 그 도량은 땅보다 크고 바다보다 넓으니라"},{id:1019,chapter:"2. 하나님에 대하여",ref:"사도행전 17:24,25",text:"우주와 그 가운데 있는 만유를 지으신 신께서는 천지의 주재시니 손으로 지은 전에 계시지 아니하시고 또 무엇이 부족한 것처럼 사람의 손으로 섬김을 받으시는 것이 아니니 이는 만민에게 생명과 호흡과 만물을 친히 주시는 자이심이라"},{id:1020,chapter:"2. 하나님에 대하여",ref:"디모데전서 6:15,16",text:"기약이 이르면 하나님이 그의 나타나심을 보이시리니 하나님은 복되시고 홀로 한 분이신 능하신 자이며 만왕의 왕이시며 만주의 주시요 오직 그에게만 죽지 아니함이 있고 가까이 가지 못할 빛에 거하시고 아무 사람도 보지 못하였고 또 볼 수 없는 자시니 그에게 존귀와 영원한 능력을 돌릴찌어다 아멘"},{id:1021,chapter:"2. 하나님에 대하여",ref:"요한일서 1:5",text:"우리가 저에게서 듣고 너희에게 전하는 소식이 이것이니 곧 하나님은 빛이시라 그에게는 어두움이 조금도 없으시니라"},{id:1022,chapter:"2. 하나님에 대하여",ref:"요한일서 4:16",text:"하나님이 우리를 사랑하시는 사랑을 우리가 알고 믿었노니 하나님은 사랑이시라 사랑 안에 거하는 자는 하나님 안에 거하고 하나님도 그 안에 거하시느니라"},{id:1023,chapter:"3. 그리스도에 대하여",ref:"마가복음 10:45",text:"인자의 온 것은 섬김을 받으려 함이 아니라 도리어 섬기려 하고 자기 목숨을 많은 사람의 대속물로 주려 함이니라"},{id:1024,chapter:"3. 그리스도에 대하여",ref:"사도행전 10:43",text:"저에 대하여 모든 선지자도 증거하되 저를 믿는 사람들이 다 그 이름을 힘입어 죄 사함을 받는다 하였느니라"},{id:1025,chapter:"3. 그리스도에 대하여",ref:"로마서 1:3,4",text:"이 아들로 말하면 육신으로는 다윗의 혈통에서 나셨고 성결의 영으로는 죽은 가운데서 부활하여 능력으로 하나님의 아들로 인정되셨으니 곧 우리 주 예수 그리스도시니라"},{id:1026,chapter:"3. 그리스도에 대하여",ref:"이사야 7:14",text:"그러므로 주께서 친히 징조로 너희에게 주실 것이라 보라 처녀가 잉태하여 아들을 낳을 것이요 그 이름을 임마누엘이라 하리라"},{id:1027,chapter:"3. 그리스도에 대하여",ref:"이사야 9:6",text:"이는 한 아기가 우리에게 났고 한 아들을 우리에게 주신바 되었는데 그 어깨에는 정사를 메었고 그 이름은 기묘자라 모사라 전능하신 하나님이라 영존하시는 아버지라 평강의 왕이라 할 것임이라"},{id:1028,chapter:"3. 그리스도에 대하여",ref:"누가복음 1:35",text:"천사가 대답하여 가로되 성령이 네게 임하시고 지극히 높으신 이의 능력이 너를 덮으시리니 이러므로 나실 바 거룩한 자는 하나님의 아들이라 일컬으리라"},{id:1029,chapter:"3. 그리스도에 대하여",ref:"고린도후서 5:21",text:"하나님이 죄를 알지도 못하신 자로 우리를 대신하여 죄를 삼으신 것은 우리로 하여금 저의 안에서 하나님의 의가 되게 하려 하심이니라"},{id:1030,chapter:"3. 그리스도에 대하여",ref:"히브리서 7:24,25",text:"예수는 영원히 계시므로 그 제사 직분도 갈리지 아니하나니 그러므로 자기를 힘입어 하나님께 나아가는 자들을 온전히 구원하실 수 있으니 이는 그가 항상 살아서 저희를 위하여 간구하심이니라"},{id:1031,chapter:"3. 그리스도에 대하여",ref:"요한복음 14:6",text:"예수께서 가라사대 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라"},{id:1032,chapter:"3. 그리스도에 대하여",ref:"히브리서 9:28",text:"이와 같이 그리스도도 많은 사람의 죄를 담당하시려고 단번에 드리신바 되셨고 구원에 이르게 하기 위하여 죄와 상관없이 자기를 바라는 자들에게 두 번째 나타나시리라"},{id:1033,chapter:"3. 그리스도에 대하여",ref:"사도행전 13:38,39",text:"그러므로 형제들아 너희가 알 것은 이 사람을 힘입어 죄 사함을 너희에게 전하는 이것이며 또 모세의 율법으로 너희가 의롭다 하심을 얻지 못하던 모든 일에도 이 사람을 힘입어 믿는 자마다 의롭다 하심을 얻는 이것이라"},{id:1034,chapter:"4. 인생에 대하여",ref:"욥기 25:4~6",text:"그런즉 하나님 앞에서 사람이 어찌 의롭다 하며 부녀에게서 난 자가 어찌 깨끗하다 하랴 하나님의 눈에는 달이라도 명랑치 못하고 별도 깨끗지 못하거든 하물며 벌레인 사람 구더기인 인생이랴"},{id:1035,chapter:"4. 인생에 대하여",ref:"시편 39:4,5",text:"여호와여 나의 종말과 연한의 어떠함을 알게 하사 나로 나의 연약함을 알게 하소서 주께서 나의 날을 손 넓이만큼 되게 하시매 나의 일생이 주의 앞에는 없는 것 같사오니 사람마다 그 든든히 선 때도 진실로 허사 뿐이니이다"},{id:1036,chapter:"4. 인생에 대하여",ref:"시편 90:3,4",text:"주께서 사람을 티끌로 돌아가게 하시고 말씀하시기를 너희 인생들은 돌아가라 하셨사오니 주의 목전에는 천년이 지나간 어제 같으며 밤의 한 경점 같을 뿐임이니이다"},{id:1037,chapter:"4. 인생에 대하여",ref:"시편 90:10",text:"우리의 년수가 칠십이요 강건하면 팔십이라도 그 년수의 자랑은 수고와 슬픔 뿐이요 신속히 가니 우리가 날아가나이다"},{id:1038,chapter:"4. 인생에 대하여",ref:"시편 144:3,4",text:"여호와여 사람이 무엇이관대 주께서 저를 알아주시며 인생이 무엇이관대 저를 생각하시나이까 사람은 헛것 같고 그의 날은 지나가는 그림자 같으니이다"},{id:1039,chapter:"4. 인생에 대하여",ref:"전도서 5:15,16",text:"저가 모태에서 벌거벗고 나왔은즉 그 나온대로 돌아가고 수고하여 얻은 것을 아무 것도 손에 가지고 가지 못하리니 이것도 폐단이라 어떻게 왔든지 그대로 가리니 바람을 잡으려는 수고가 저에게 무엇이 유익하랴"},{id:1040,chapter:"4. 인생에 대하여",ref:"야고보서 4:14",text:"내일 일을 너희가 알지 못하는도다 너희 생명이 무엇이뇨 너희는 잠간 보이다가 없어지는 안개니라"},{id:1041,chapter:"4. 인생에 대하여",ref:"시편 14:1",text:"어리석은 자는 그 마음에 이르기를 하나님이 없다 하도다 저희는 부패하고 소행이 가증하여 선을 행하는 자가 없도다"},{id:1042,chapter:"4. 인생에 대하여",ref:"전도서 1:2~4",text:"전도자가 가로되 헛되고 헛되며 헛되고 헛되니 모든 것이 헛되도다 사람이 해 아래서 수고하는 모든 수고가 자기에게 무엇이 유익한고 한 세대는 가고 한 세대는 오되 땅은 영원히 있도다"},{id:1043,chapter:"4. 인생에 대하여",ref:"야고보서 1:9,10",text:"낮은 형제는 자기의 높음을 자랑하고 부한 형제는 자기의 낮아짐을 자랑할찌니 이는 풀의 꽃과 같이 지나감이라"},{id:1044,chapter:"4. 인생에 대하여",ref:"잠언 27:1",text:"너는 내일 일을 자랑하지 말라 하루 동안에 무슨 일이 날는 지 네가 알 수 없음이니라"},{id:1045,chapter:"5. 영혼에 대하여",ref:"욥기 19:26",text:"나의 이 가죽, 이것이 썩은 후에 내가 육체 밖에서 하나님을 보리라"},{id:1046,chapter:"5. 영혼에 대하여",ref:"창세기 2:7",text:"여호와 하나님이 흙으로 사람을 지으시고 생기를 그 코에 불어 넣으시니 사람이 생령이 된지라"},{id:1047,chapter:"5. 영혼에 대하여",ref:"이사야 57:16",text:"내가 영원히는 다투지 아니하며 내가 장구히는 노하지 아니할 것은 나의 지은 그 영과 혼이 내 앞에서 곤비할까 함이니라"},{id:1048,chapter:"5. 영혼에 대하여",ref:"누가복음 12:20,21",text:"하나님은 이르시되 어리석은 자여 오늘 밤에 네 영혼을 도로 찾으리니 그러면 네 예비한 것이 뉘 것이 되겠느냐 하셨으니 자기를 위하여 재물을 쌓아 두고 하나님께 대하여 부요치 못한 자가 이와 같으니라"},{id:1049,chapter:"5. 영혼에 대하여",ref:"전도서 3:11",text:"하나님이 모든 것을 지으시되 때를 따라 아름답게 하셨고 또 사람에게 영원을 사모하는 마음을 주셨느니라 그러나 하나님의 하시는 일의 시종을 사람으로 측량할 수 없게 하셨도다"},{id:1050,chapter:"5. 영혼에 대하여",ref:"야고보서 2:26",text:"영혼 없는 몸이 죽은 것 같이 행함이 없는 믿음은 죽은 것이니라"},{id:1051,chapter:"5. 영혼에 대하여",ref:"전도서 3:20,21",text:"다 흙으로 말미암았으므로 다 흙으로 돌아가나니 다 한 곳으로 가거니와 인생의 혼은 위로 올라가고 짐승의 혼은 아래 곧 땅으로 내려가는 줄을 누가 알랴"},{id:1052,chapter:"5. 영혼에 대하여",ref:"사도행전 7:59,60",text:"저희가 돌로 스데반을 치니 스데반이 부르짖어 가로되 주 예수여 내 영혼을 받으시옵소서 하고 무릎을 꿇고 크게 불러 가로되 주여 이 죄를 저들에게 돌리지 마옵소서 이 말을 하고 자니라"},{id:1053,chapter:"5. 영혼에 대하여",ref:"에스겔 18:4",text:"모든 영혼이 다 내게 속한지라 아비의 영혼이 내게 속함 같이 아들의 영혼도 내게 속하였나니 범죄하는 그 영혼이 죽으리라"},{id:1054,chapter:"5. 영혼에 대하여",ref:"마태복음 10:28",text:"몸은 죽여도 영혼은 능히 죽이지 못하는 자들을 두려워하지 말고 오직 몸과 영혼을 능히 지옥에 멸하시는 자를 두려워하라"},{id:1055,chapter:"5. 영혼에 대하여",ref:"전도서 2:24",text:"사람이 먹고 마시며 수고하는 가운데서 심령으로 낙을 누리게 하는 것보다 나은 것이 없나니 내가 이것도 본즉 하나님의 손에서 나는 것이로다"},{id:1056,chapter:"6. 죄에 대하여",ref:"욥기 15:14~16",text:"사람이 무엇이관대 깨끗하겠느냐 여인에게서 난 자가 무엇이관대 의롭겠느냐 하나님은 그 거룩한 자들을 믿지 아니 하시나니 하늘이라도 그의 보시기에 부정하거든 하물며 악을 짓기를 물 마심 같이 하는 가증하고 부패한 사람이겠느냐"},{id:1057,chapter:"6. 죄에 대하여",ref:"시편 38:3,4",text:"주의 진노로 인하여 내 살에 성한 곳이 없사오며 나의 죄로 인하여 내 뼈에 평안함이 없나이다 내 죄악이 내 머리에 넘쳐서 무거운 짐 같으니 감당할 수 없나이다"},{id:1058,chapter:"6. 죄에 대하여",ref:"시편 51:5",text:"내가 죄악 중에 출생하였음이여 모친이 죄 중에 나를 잉태하였나이다"},{id:1059,chapter:"6. 죄에 대하여",ref:"잠언 30:12",text:"스스로 깨끗한 자로 여기면서 오히려 그 더러운 것을 씻지 아니하는 무리가 있느니라"},{id:1060,chapter:"6. 죄에 대하여",ref:"전도서 9:3",text:"모든 사람의 결국이 일반인 그것은 해 아래서 모든 일 중에 악한 것이니 곧 인생의 마음에 악이 가득하여 평생에 미친 마음을 품다가 후에는 죽은 자에게로 돌아가는 것이라"},{id:1061,chapter:"6. 죄에 대하여",ref:"이사야 59:1~3",text:"여호와의 손이 짧아 구원치 못하심도 아니요 귀가 둔하여 듣지 못하심도 아니라 오직 너희 죄악이 너희와 너희 하나님 사이를 내었고 너희 죄가 그 얼굴을 가리워서 너희를 듣지 않으시게 함이니 이는 너희 손이 피에 너희 손가락이 죄악에 더러웠으며 너희 입술은 거짓을 말하며 너희 혀는 악독을 발함이라"},{id:1062,chapter:"6. 죄에 대하여",ref:"야고보서 2:9,10",text:"만일 너희가 외모로 사람을 취하면 죄를 짓는 것이니 율법이 너희를 범죄자로 정하리라 누구든지 온 율법을 지키다가 그 하나에 거치면 모두 범한 자가 되나니"},{id:1063,chapter:"6. 죄에 대하여",ref:"예레미야 17:9,10",text:"만물보다 거짓되고 심히 부패한 것은 마음이라 누가 능히 이를 알리요 마는 나 여호와는 심장을 살피며 폐부를 시험하고 각각 그 행위와 그 행실대로 보응하나니"},{id:1064,chapter:"6. 죄에 대하여",ref:"요한일서 2:15,16",text:"이 세상이나 세상에 있는 것들을 사랑치 말라 누구든지 세상을 사랑하면 아버지의 사랑이 그 속에 있지 아니하니 이는 세상에 있는 모든 것이 육신의 정욕과 안목의 정욕과 이생의 자랑이니 다 아버지께로 좇아 온 것이 아니요 세상으로 좇아 온 것이라"},{id:1065,chapter:"6. 죄에 대하여",ref:"요한일서 3:8",text:"죄를 짓는 자는 마귀에게 속하나니 마귀는 처음부터 범죄함이니라 하나님의 아들이 나타나신 것은 마귀의 일을 멸하려 하심이니라"},{id:1066,chapter:"6. 죄에 대하여",ref:"예레미야 2:22",text:"주 여호와 내가 말하노라 네가 잿물로 스스로 씻으며 수다한 비누를 쓸찌라도 네 죄악이 오히려 내 앞에 그저 있으리니"},{id:1067,chapter:"6. 죄에 대하여",ref:"예레미야 2:35",text:"그러나 너는 말하기를 나는 무죄하니 그 진노가 참으로 내게서 떠났다 하거니와 보라 네 말이 나는 죄를 범치 아니하였다 함을 인하여 내가 너를 심판하리라"},{id:1068,chapter:"6. 죄에 대하여",ref:"로마서 3:10~12",text:"기록한바 의인은 없나니 하나도 없으며 깨닫는 자도 없고 하나님을 찾는 자도 없고 다 치우쳐 한가지로 무익하게 되고 선을 행하는 자는 없나니 하나도 없도다"},{id:1069,chapter:"6. 죄에 대하여",ref:"욥기 13:26~28",text:"주께서 나를 대적하사 괴로운 일들을 기록하시며 나로 나의 어렸을 때에 지은 죄를 받게 하시오며 내 발을 착고에 채우시며 나의 모든 길을 살피사 내 발자취를 한정하시나이다 나는 썩은 물건의 후패함 같으며 좀먹은 의복 같으니이다"},{id:1070,chapter:"6. 죄에 대하여",ref:"이사야 64:6",text:"대저 우리는 다 부정한 자 같아서 우리의 의는 다 더러운 옷 같으며 우리는 다 쇠패함이 잎사귀 같으므로 우리의 죄악이 바람같이 우리를 몰아가나이다"},{id:1071,chapter:"7. 심판에 대하여",ref:"전도서 11:9",text:"청년이여 네 어린 때를 즐거워하며 네 청년의 날을 마음에 기뻐하여 마음에 원하는 길과 네 눈이 보는 대로 좇아 행하라 그러나 하나님이 이 모든 일로 인하여 너를 심판하실 줄 알라"},{id:1072,chapter:"7. 심판에 대하여",ref:"마태복음 3:12",text:"손에 키를 들고 자기의 타작마당을 정하게 하사 알곡은 모아 곡간에 들이고 쭉정이는 꺼지지 않는 불에 태우시리라"},{id:1073,chapter:"7. 심판에 대하여",ref:"사도행전 17:30,31",text:"알지 못하던 시대에는 하나님이 허물치 아니하셨거니와 이제는 어디든지 사람을 다 명하사 회개하라 하셨으니 이는 정하신 사람으로 하여금 천하를 공의로 심판할 날을 작정하시고 이에 저를 죽은 자 가운데서 다시 살리신 것으로 모든 사람에게 믿을만한 증거를 주셨음이니라 하니라"},{id:1074,chapter:"7. 심판에 대하여",ref:"로마서 14:11,12",text:"기록되었으되 주께서 가라사대 내가 살았노니 모든 무릎이 내게 꿇을 것이요 모든 혀가 하나님께 자백하리라 하였느니라 이러므로 우리 각인이 자기 일을 하나님께 직고하리라"},{id:1075,chapter:"7. 심판에 대하여",ref:"마태복음 12:36,37",text:"내가 너희에게 이르노니 사람이 무슨 무익한 말을 하든지 심판날에 이에 대하여 심문을 받으리니 네 말로 의롭다 함을 받고 네 말로 정죄함을 받으리라"},{id:1076,chapter:"7. 심판에 대하여",ref:"히브리서 4:13",text:"지으신 것이 하나라도 그 앞에 나타나지 않음이 없고 오직 만물이 우리를 상관하시는 자의 눈앞에 벌거벗은 것 같이 드러나느니라"},{id:1077,chapter:"7. 심판에 대하여",ref:"히브리서 9:27,28",text:"한번 죽는 것은 사람에게 정하신 것이요 그 후에는 심판이 있으리니 이와 같이 그리스도도 많은 사람의 죄를 담당하시려고 단번에 드리신바 되셨고 구원에 이르게 하기 위하여 죄와 상관없이 자기를 바라는 자들에게 두 번째 나타나시리라"},{id:1078,chapter:"7. 심판에 대하여",ref:"로마서 2:6~8",text:"하나님께서 각 사람에게 그 행한 대로 보응하시되 참고 선을 행하여 영광과 존귀와 썩지 아니함을 구하는 자에게는 영생으로 하시고 오직 당을 지어 진리를 좇지 아니하고 불의를 쫓는 자에게는 노와 분으로 하시리라"},{id:1079,chapter:"7. 심판에 대하여",ref:"요한계시록 22:10~13",text:"또 내게 말하되 이 책의 예언의 말씀을 인봉하지 말라 때가 가까우니라 불의를 하는 자는 그대로 불의를 하고 더러운 자는 그대로 더럽고 의로운 자는 그대로 의를 행하고 거룩한 자는 그대로 거룩되게 하라 보라 내가 속히 오리니 내가 줄 상이 내게 있어 각 사람에게 그의 일한 대로 갚아 주리라 나는 알파와 오메가요 처음과 나중이요 시작과 끝이라"},{id:1080,chapter:"7. 심판에 대하여",ref:"데살로니가후서 2:10~12",text:"불의의 모든 속임으로 멸망하는 자들에게 임하리니 이는 저희가 진리의 사랑을 받지 아니하여 구원함을 얻지 못함이니라 이러므로 하나님이 유혹을 저의 가운데 역사하게 하사 거짓 것을 믿게 하심은 진리를 믿지 않고 불의를 좋아하는 모든 자로 심판을 받게 하려 하심이니라"},{id:1081,chapter:"8. 율법에 대하여",ref:"욥기 22:2,3",text:"사람이 어찌 하나님께 유익하게 하겠느냐 지혜로운 자도 스스로 유익할 따름이니라 네가 의로운들 전능자에게 무슨 기쁨이 있겠으며 네 행위가 온전한들 그에게 무슨 이익이 있겠느냐"},{id:1082,chapter:"8. 율법에 대하여",ref:"로마서 3:28",text:"그러므로 사람이 의롭다 하심을 얻는 것은 율법의 행위에 있지 않고 믿음으로 되는 줄 우리가 인정하노라"},{id:1083,chapter:"8. 율법에 대하여",ref:"로마서 7:7",text:"그런즉 우리가 무슨 말 하리요 율법이 죄냐 그럴 수 없느니라 율법으로 말미암지 않고는 내가 죄를 알지 못하였으니 곧 율법이 탐내지 말라 하지 아니하였더면 내가 탐심을 알지 못하였으리라"},{id:1084,chapter:"8. 율법에 대하여",ref:"갈라디아서 2:21",text:"내가 하나님의 은혜를 폐하지 아니하노니 만일 의롭게 되는 것이 율법으로 말미암으면 그리스도께서 헛되이 죽으셨느니라"},{id:1085,chapter:"8. 율법에 대하여",ref:"갈라디아서 5:1",text:"그리스도께서 우리로 자유케 하려고 자유를 주셨으니 그러므로 굳세게 서서 다시는 종의 멍에를 메지 말라"},{id:1086,chapter:"8. 율법에 대하여",ref:"히브리서 10:1",text:"율법은 장차 오는 좋은 일의 그림자요 참형상이 아니므로 해마다 늘 드리는바 같은 제사로는 나아오는 자들을 언제든지 온전케 할 수 없느니라"},{id:1087,chapter:"8. 율법에 대하여",ref:"야고보서 2:10,11",text:"누구든지 온 율법을 지키다가 그 하나에 거치면 모두 범한 자가 되나니 간음하지 말라 하신 이가 또한 살인하지 말라 하셨은즉 네가 비록 간음하지 아니하여도 살인하면 율법을 범한 자가 되느니라"},{id:1088,chapter:"8. 율법에 대하여",ref:"갈라디아서 2:16",text:"사람이 의롭게 되는 것은 율법의 행위에서 난 것이 아니요 오직 예수 그리스도를 믿음으로 말미암는 줄 아는고로 우리도 그리스도 예수를 믿나니 이는 우리가 율법의 행위에서 아니고 그리스도를 믿음으로서 의롭다 함을 얻으려 함이라 율법의 행위로서는 의롭다 함을 얻을 육체가 없느니라"},{id:1089,chapter:"8. 율법에 대하여",ref:"갈라디아서 4:9~11",text:"이제는 너희가 하나님을 알뿐더러 하나님의 아신바 되었거늘 어찌하여 다시 약하고 천한 초등 학문으로 돌아가서 다시 저희에게 종노릇 하려 하느냐 너희가 날과 달과 절기와 해를 삼가 지키니 내가 너희를 위하여 수고한 것이 헛될까 두려워하노라"},{id:1090,chapter:"8. 율법에 대하여",ref:"갈라디아서 3:19",text:"그런즉 율법은 무엇이냐 범법함을 인하여 더한 것이라 천사들로 말미암아 중보의 손을 빌어 베푸신 것인데 약속하신 자손이 오시기까지 있을 것이라"},{id:1091,chapter:"8. 율법에 대하여",ref:"로마서 3:20",text:"그러므로 율법의 행위로 그의 앞에 의롭다 하심을 얻을 육체가 없나니 율법으로는 죄를 깨달음이니라"},{id:1092,chapter:"8. 율법에 대하여",ref:"갈라디아서 5:4",text:"율법 안에서 의롭다 함을 얻으려 하는 너희는 그리스도에게서 끊어지고 은혜에서 떨어진 자로다"},{id:1093,chapter:"9. 속죄에 대하여",ref:"출애굽기 12:13",text:"내가 애굽 땅을 칠 때에 그 피가 너희의 거하는 집에 있어서 너희를 위하여 표적이 될찌라 내가 피를 볼 때에 너희를 넘어가리니 재앙이 너희에게 내려 멸하지 아니하리라"},{id:1094,chapter:"9. 속죄에 대하여",ref:"레위기 17:11",text:"육체의 생명은 피에 있음이라 내가 이 피를 너희에게 주어 단에 뿌려 너희의 생명을 위하여 속하게 하였나니 생명이 피에 있으므로 피가 죄를 속하느니라"},{id:1095,chapter:"9. 속죄에 대하여",ref:"이사야 1:18",text:"여호와께서 말씀하시되 오라 우리가 서로 변론하자 너희 죄가 주홍 같을찌라도 눈과 같이 희어질 것이요 진홍 같이 붉을찌라도 양털 같이 되리라"},{id:1096,chapter:"9. 속죄에 대하여",ref:"이사야 38:17",text:"보옵소서 내게 큰 고통을 더하신 것은 내게 평안을 주려 하심이라 주께서 나의 영혼을 사랑하사 멸망의 구덩이에서 건지셨고 나의 모든 죄는 주의 등 뒤에 던지셨나이다"},{id:1097,chapter:"9. 속죄에 대하여",ref:"이사야 43:25",text:"나 곧 나는 나를 위하여 네 허물을 도말하는 자니 네 죄를 기억치 아니하리라"},{id:1098,chapter:"9. 속죄에 대하여",ref:"이사야 44:22",text:"내가 네 허물을 빽빽한 구름의 사라짐 같이, 네 죄를 안개의 사라짐 같이 도말하였으니 너는 내게로 돌아오라 내가 너를 구속하였음이니라"},{id:1099,chapter:"9. 속죄에 대하여",ref:"이사야 53:5,6",text:"그가 찔림은 우리의 허물을 인함이요 그가 상함은 우리의 죄악을 인함이라 그가 징계를 받음으로 우리가 평화를 누리고 그가 채찍에 맞음으로 우리가 나음을 입었도다 우리는 다 양 같아서 그릇 행하여 각기 제 길로 갔거늘 여호와께서는 우리 무리의 죄악을 그에게 담당시키셨도다"},{id:1100,chapter:"9. 속죄에 대하여",ref:"미가 7:19",text:"다시 우리를 긍휼히 여기셔서 우리의 죄악을 발로 밟으시고 우리의 모든 죄를 깊은 바다에 던지시리이다"},{id:1101,chapter:"9. 속죄에 대하여",ref:"고린도후서 5:21",text:"하나님이 죄를 알지도 못하신 자로 우리를 대신하여 죄를 삼으신 것은 우리로 하여금 저의 안에서 하나님의 의가 되게 하려 하심이니라"},{id:1102,chapter:"9. 속죄에 대하여",ref:"골로새서 1:13,14",text:"그가 우리를 흑암의 권세에서 건져내사 그의 사랑의 아들의 나라로 옮기셨으니 그 아들 안에서 우리가 구속 곧 죄 사함을 얻었도다"},{id:1103,chapter:"9. 속죄에 대하여",ref:"히브리서 1:3",text:"이는 하나님의 영광의 광채시요 그 본체의 형상이시라 그의 능력의 말씀으로 만물을 붙드시며 죄를 정결케 하는 일을 하시고 높은 곳에 계신 위엄의 우편에 앉으셨느니라"},{id:1104,chapter:"9. 속죄에 대하여",ref:"히브리서 9:12",text:"염소와 송아지의 피로 아니하고 오직 자기 피로 영원한 속죄를 이루사 단번에 성소에 들어 가셨느니라"},{id:1105,chapter:"9. 속죄에 대하여",ref:"베드로전서 2:24,25",text:"친히 나무에 달려 그 몸으로 우리 죄를 담당하셨으니 이는 우리로 죄에 대하여 죽고 의에 대하여 살게 하려 하심이라 저가 채찍에 맞음으로 너희는 나음을 얻었나니 너희가 전에는 양과 같이 길을 잃었더니 이제는 너희 영혼의 목자와 감독 되신 이에게 돌아왔느니라"},{id:1106,chapter:"9. 속죄에 대하여",ref:"히브리서 9:25,26",text:"대제사장이 해마다 다른 것의 피로써 성소에 들어가는 것 같이 자주 자기를 드리려고 아니하실찌니 그리하면 그가 세상을 창조할 때부터 자주 고난을 받았어야 할 것이로되 이제 자기를 단번에 제사로 드려 죄를 없게 하시려고 세상 끝에 나타나셨느니라"},{id:1107,chapter:"9. 속죄에 대하여",ref:"히브리서 10:17,18",text:"또 저희 죄와 저희 불법을 내가 다시 기억지 아니하리라 하셨으니 이것을 사하셨은즉 다시 죄를 위하여 제사드릴 것이 없느니라"},{id:1108,chapter:"10. 의에 대하여",ref:"욥기 35:7,8",text:"네가 의로운들 하나님께 무엇을 드리겠으며 그가 네 손에서 무엇을 받으시겠느냐 네 악은 너와 같은 사람이나 해할 따름이요 네 의는 인생이나 유익하게 할 뿐이니라"},{id:1109,chapter:"10. 의에 대하여",ref:"이사야 64:6",text:"대저 우리는 다 부정한 자 같아서 우리의 의는 다 더러운 옷 같으며 우리는 다 쇠패함이 잎사귀 같으므로 우리의 죄악이 바람같이 우리를 몰아가나이다"},{id:1110,chapter:"10. 의에 대하여",ref:"로마서 3:23,24",text:"모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니 그리스도 예수 안에 있는 구속으로 말미암아 하나님의 은혜로 값없이 의롭다 하심을 얻은 자 되었느니라"},{id:1111,chapter:"10. 의에 대하여",ref:"로마서 4:25",text:"예수는 우리 범죄함을 위하여 내어줌이 되고 또한 우리를 의롭다 하심을 위하여 살아나셨느니라"},{id:1112,chapter:"10. 의에 대하여",ref:"로마서 5:1",text:"그러므로 우리가 믿음으로 의롭다 하심을 얻었은즉 우리 주 예수 그리스도로 말미암아 하나님으로 더불어 화평을 누리자"},{id:1113,chapter:"10. 의에 대하여",ref:"로마서 5:18,19",text:"그런즉 한 범죄로 많은 사람이 정죄에 이른 것 같이 의의 한 행동으로 말미암아 많은 사람이 의롭다 하심을 받아 생명에 이르렀느니라 한 사람의 순종치 아니함으로 많은 사람이 죄인 된 것 같이 한 사람의 순종하심으로 많은 사람이 의인이 되리라"},{id:1114,chapter:"10. 의에 대하여",ref:"로마서 10:3,4",text:"하나님의 의를 모르고 자기 의를 세우려고 힘써 하나님의 의를 복종치 아니하였느니라 그리스도는 모든 믿는 자에게 의를 이루기 위하여 율법의 마침이 되시니라"},{id:1115,chapter:"10. 의에 대하여",ref:"고린도전서 1:30",text:"너희는 하나님께로부터 나서 그리스도 예수 안에 있고 예수는 하나님께로서 나와서 우리에게 지혜와 의로움과 거룩함과 구속함이 되셨으니"},{id:1116,chapter:"10. 의에 대하여",ref:"갈라디아서 3:10,11",text:"무릇 율법 행위에 속한 자들은 저주 아래 있나니 기록된바 누구든지 율법 책에 기록된 대로 온갖 일을 항상 행하지 아니하는 자는 저주 아래 있는 자라 하였음이라 또 하나님 앞에서 아무나 율법으로 말미암아 의롭게 되지 못할 것이 분명하니 이는 의인이 믿음으로 살리라 하였음이니라"},{id:1117,chapter:"10. 의에 대하여",ref:"시편 118:19,20",text:"내게 의의 문을 열찌어다 내가 들어가서 여호와께 감사하리로다 이는 여호와의 문이라 의인이 그리로 들어가리로다"},{id:1118,chapter:"10. 의에 대하여",ref:"빌립보서 3:9",text:"그 안에서 발견되려 함이니 내가 가진 의는 율법에서 난 것이 아니요 오직 그리스도를 믿음으로 말미암은 것이니 곧 믿음으로 하나님께로서 난 의라"},{id:1119,chapter:"11. 구원에 대하여",ref:"시편 34:18,19",text:"여호와는 마음이 상한 자에게 가까이 하시고 중심에 통회하는 자를 구원하시는도다 의인은 고난이 많으나 여호와께서 그 모든 고난에서 건지시는도다"},{id:1120,chapter:"11. 구원에 대하여",ref:"사도행전 4:12",text:"다른 이로서는 구원을 얻을 수 없나니 천하 인간에 구원을 얻을만한 다른 이름을 우리에게 주신 일이 없음이니라 하였더라"},{id:1121,chapter:"11. 구원에 대하여",ref:"고린도전서 1:18",text:"십자가의 도가 멸망하는 자들에게는 미련한 것이요 구원을 얻는 우리에게는 하나님의 능력이라"},{id:1122,chapter:"11. 구원에 대하여",ref:"히브리서 2:3,4",text:"우리가 이같이 큰 구원을 등한히 여기면 어찌 피하리요 이 구원은 처음에 주로 말씀하신 바요 들은 자들이 우리에게 확증한 바니 하나님도 표적들과 기사들과 여러가지 능력과 및 자기 뜻을 따라 성령의 나눠주신 것으로써 저희와 함께 증거하셨느니라"},{id:1123,chapter:"11. 구원에 대하여",ref:"에베소서 2:8,9",text:"너희가 그 은혜를 인하여 믿음으로 말미암아 구원을 얻었나니 이것이 너희에게서 난 것이 아니요 하나님의 선물이라 행위에서 난 것이 아니니 이는 누구든지 자랑치 못하게 함이니라"},{id:1124,chapter:"11. 구원에 대하여",ref:"골로새서 1:6",text:"이 복음이 이미 너희에게 이르매 너희가 듣고 참으로 하나님의 은혜를 깨달은 날부터 너희 중에서와 같이 또한 온 천하에서도 열매를 맺어 자라는도다"},{id:1125,chapter:"11. 구원에 대하여",ref:"디모데전서 1:15",text:"미쁘다 모든 사람이 받을만한 이 말이여 그리스도 예수께서 죄인을 구원하시려고 세상에 임하셨다 하였도다 죄인 중에 내가 괴수니라"},{id:1126,chapter:"11. 구원에 대하여",ref:"디도서 3:4,5",text:"우리 구주 하나님의 자비와 사람 사랑하심을 나타내실 때에 우리를 구원하시되 우리의 행한바 의로운 행위로 말미암지 아니하고 오직 그의 긍휼하심을 좇아 중생의 씻음과 성령의 새롭게 하심으로 하셨나니"},{id:1127,chapter:"11. 구원에 대하여",ref:"베드로전서 1:8,9",text:"예수를 너희가 보지 못하였으나 사랑하는도다 이제도 보지 못하나 믿고 말할 수 없는 영광스러운 즐거움으로 기뻐하니 믿음의 결국 곧 영혼의 구원을 받음이라"},{id:1128,chapter:"11. 구원에 대하여",ref:"베드로전서 1:23",text:"너희가 거듭난 것이 썩어질 씨로 된 것이 아니요 썩지 아니할 씨로 된 것이니 하나님의 살아 있고 항상 있는 말씀으로 되었느니라"},{id:1129,chapter:"11. 구원에 대하여",ref:"디모데전서 2:4",text:"하나님은 모든 사람이 구원을 받으며 진리를 아는데 이르기를 원하시느니라"},{id:1130,chapter:"12. 영생에 대하여",ref:"다니엘 12:2,3",text:"땅의 티끌 가운데서 자는 자 중에 많이 깨어 영생을 얻는 자도 있겠고 수욕을 받아서 무궁히 부끄러움을 입을 자도 있을 것이며 지혜 있는 자는 궁창의 빛과 같이 빛날 것이요 많은 사람을 옳은 데로 돌아오게 한 자는 별과 같이 영원토록 비취리라"},{id:1131,chapter:"12. 영생에 대하여",ref:"마태복음 7:13,14",text:"좁은 문으로 들어가라 멸망으로 인도하는 문은 크고 그 길이 넓어 그리로 들어가는 자가 많고 생명으로 인도하는 문은 좁고 길이 협착하여 찾는 이가 적음이니라"},{id:1132,chapter:"12. 영생에 대하여",ref:"요한복음 3:16",text:"하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 저를 믿는 자마다 멸망치 않고 영생을 얻게 하려 하심이니라"},{id:1133,chapter:"12. 영생에 대하여",ref:"요한복음 5:24",text:"내가 진실로 진실로 너희에게 이르노니 내 말을 듣고 또 나 보내신 이를 믿는 자는 영생을 얻었고 심판에 이르지 아니하나니 사망에서 생명으로 옮겼느니라"},{id:1134,chapter:"12. 영생에 대하여",ref:"요한복음 6:40",text:"내 아버지의 뜻은 아들을 보고 믿는 자마다 영생을 얻는 이것이니 마지막 날에 내가 이를 다시 살리리라 하시니라"},{id:1135,chapter:"12. 영생에 대하여",ref:"요한복음 10:28,29",text:"내가 저희에게 영생을 주노니 영원히 멸망치 아니할 터이요 또 저희를 내 손에서 빼앗을 자가 없느니라 저희를 주신 내 아버지는 만유보다 크시매 아무도 아버지 손에서 빼앗을 수 없느니라"},{id:1136,chapter:"12. 영생에 대하여",ref:"요한복음 11:25,26",text:"예수께서 가라사대 나는 부활이요 생명이니 나를 믿는 자는 죽어도 살겠고 무릇 살아서 나를 믿는 자는 영원히 죽지 아니하리니 이것을 네가 믿느냐"},{id:1137,chapter:"12. 영생에 대하여",ref:"요한복음 17:3",text:"영생은 곧 유일하신 참 하나님과 그의 보내신 자 예수 그리스도를 아는 것이니이다"},{id:1138,chapter:"12. 영생에 대하여",ref:"로마서 6:23",text:"죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라"},{id:1139,chapter:"12. 영생에 대하여",ref:"갈라디아서 6:7,8",text:"스스로 속이지 말라 하나님은 만홀히 여김을 받지 아니하시나니 사람이 무엇으로 심든지 그대로 거두리라 자기의 육체를 위하여 심는 자는 육체로부터 썩어진 것을 거두고 성령을 위하여 심는 자는 성령으로부터 영생을 거두리라"},{id:1140,chapter:"13. 소망에 대하여",ref:"요한복음 14:1~3",text:"너희는 마음에 근심하지 말라 하나님을 믿으니 또 나를 믿으라 내 아버지 집에 거할 곳이 많도다 그렇지 않으면 너희에게 일렀으리라 내가 너희를 위하여 처소를 예비하러 가노니 가서 너희를 위하여 처소를 예비하면 내가 다시 와서 너희를 내게로 영접하여 나 있는 곳에 너희도 있게 하리라"},{id:1141,chapter:"13. 소망에 대하여",ref:"로마서 5:5,6",text:"소망이 부끄럽게 아니함은 우리에게 주신 성령으로 말미암아 하나님의 사랑이 우리 마음에 부은바 됨이니 우리가 아직 연약할 때에 기약대로 그리스도께서 경건치 않은 자를 위하여 죽으셨도다"},{id:1142,chapter:"13. 소망에 대하여",ref:"로마서 8:22,23",text:"피조물이 다 이제까지 함께 탄식하며 함께 고통하는 것을 우리가 아나니 이뿐 아니라 또한 우리 곧 성령의 처음 익은 열매를 받은 우리까지도 속으로 탄식하여 양자 될 것 곧 우리 몸의 구속을 기다리느니라"},{id:1143,chapter:"13. 소망에 대하여",ref:"고린도전서 9:25",text:"이기기를 다투는 자마다 모든 일에 절제하나니 저희는 썩을 면류관을 얻고자 하되 우리는 썩지 아니할 것을 얻고자 하노라"},{id:1144,chapter:"13. 소망에 대하여",ref:"고린도후서 4:17,18",text:"우리의 잠시 받는 환난의 경한 것이 지극히 크고 영원한 영광의 중한 것을 우리에게 이루게 함이니 우리의 돌아보는 것은 보이는 것이 아니요 보이지 않는 것이니 보이는 것은 잠간이요 보이지 않는 것은 영원함이니라"},{id:1145,chapter:"13. 소망에 대하여",ref:"베드로전서 1:3,4",text:"찬송하리로다 우리 주 예수 그리스도의 아버지 하나님이 그 많으신 긍휼대로 예수 그리스도의 죽은 자 가운데서 부활하심으로 말미암아 우리를 거듭나게 하사 산 소망이 있게 하시며 썩지 않고 더럽지 않고 쇠하지 아니하는 기업을 잇게 하시나니 곧 너희를 위하여 하늘에 간직하신 것이라"},{id:1146,chapter:"13. 소망에 대하여",ref:"베드로전서 3:15,16",text:"너희 마음에 그리스도를 주로 삼아 거룩하게 하고 너희 속에 있는 소망에 관한 이유를 묻는 자에게는 대답할 것을 항상 예비하되 온유와 두려움으로 하고 선한 양심을 가지라 이는 그리스도 안에 있는 너희의 선행을 욕하는 자들로 그 비방하는 일에 부끄러움을 당하게 하려 함이라"},{id:1147,chapter:"13. 소망에 대하여",ref:"요한일서 3:1~3",text:"보라 아버지께서 어떠한 사랑을 우리에게 주사 하나님의 자녀라 일컬음을 얻게 하셨는고 우리가 그러하도다 그러므로 세상이 우리를 알지 못함은 그를 알지 못함이니라 사랑하는 자들아 우리가 지금은 하나님의 자녀라 장래에 어떻게 될 것은 아직 나타나지 아니하였으나 그가 나타내심이 되면 우리가 그와 같을 줄을 아는 것은 그의 계신 그대로 볼 것을 인함이니 주를 향하여 이 소망을 가진 자마다 그의 깨끗하심과 같이 자기를 깨끗하게 하느니라"},{id:1148,chapter:"13. 소망에 대하여",ref:"로마서 15:4",text:"무엇이든지 전에 기록한 바는 우리의 교훈을 위하여 기록된 것이니 우리로 하여금 인내로 또는 성경의 안위로 소망을 가지게 함이니라"},{id:1149,chapter:"13. 소망에 대하여",ref:"사도행전 24:15",text:"저희의 기다리는바 하나님께 향한 소망을 나도 가졌으니 곧 의인과 악인의 부활이 있으리라 함이라"},{id:1150,chapter:"14. 평안에 대하여",ref:"요한복음 14:27",text:"평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라 내가 너희에게 주는 것은 세상이 주는 것 같지 아니하니라 너희는 마음에 근심도 말고 두려워하지도 말라"},{id:1151,chapter:"14. 평안에 대하여",ref:"마태복음 11:28~30",text:"수고하고 무거운 짐진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라 나는 마음이 온유하고 겸손하니 나의 멍에를 메고 내게 배우라 그러면 너희 마음이 쉼을 얻으리니 이는 내 멍에는 쉽고 내 짐은 가벼움이라 하시니라"},{id:1152,chapter:"14. 평안에 대하여",ref:"잠언 14:12,13",text:"어떤 길은 사람의 보기에 바르나 필경은 사망의 길이니라 웃을 때에도 마음에 슬픔이 있고 즐거움의 끝에도 근심이 있느니라"},{id:1153,chapter:"14. 평안에 대하여",ref:"시편 4:7,8",text:"주께서 내 마음에 두신 기쁨은 저희의 곡식과 새 포도주의 풍성할 때보다 더하니이다 내가 평안히 눕고 자기도 하리니 나를 안전히 거하게 하시는 이는 오직 여호와시니이다"},{id:1154,chapter:"14. 평안에 대하여",ref:"로마서 14:17",text:"하나님의 나라는 먹는 것과 마시는 것이 아니요 오직 성령 안에서 의와 평강과 희락이라"},{id:1155,chapter:"14. 평안에 대하여",ref:"골로새서 3:15",text:"그리스도의 평강이 너희 마음을 주장하게 하라 평강을 위하여 너희가 한 몸으로 부르심을 받았나니 또한 너희는 감사하는 자가 되라"},{id:1156,chapter:"14. 평안에 대하여",ref:"시편 119:165",text:"주의 법을 사랑하는 자에게는 큰 평안이 있으니 저희에게 장애물이 없으리이다"},{id:1157,chapter:"14. 평안에 대하여",ref:"전도서 5:10",text:"은을 사랑하는 자는 은으로 만족함이 없고 풍부를 사랑하는 자는 소득으로 만족함이 없나니 이것도 헛되도다"},{id:1158,chapter:"15. 성령에 대하여",ref:"마태복음 12:31,32",text:"그러므로 내가 너희에게 이르노니 사람의 모든 죄와 훼방은 사하심을 얻되 성령을 훼방하는 것은 사하심을 얻지 못하겠고 또 누구든지 말로 인자를 거역하면 사하심을 얻되 누구든지 말로 성령을 거역하면 이 세상과 오는 세상에도 사하심을 얻지 못하리라"},{id:1159,chapter:"15. 성령에 대하여",ref:"요한복음 16:13",text:"그러하나 진리의 성령이 오시면 그가 너희를 모든 진리 가운데로 인도하시리니 그가 자의로 말하지 않고 오직 듣는 것을 말하시며 장래 일을 너희에게 알리시리라"},{id:1160,chapter:"15. 성령에 대하여",ref:"로마서 8:9",text:"만일 너희 속에 하나님의 영이 거하시면 너희가 육신에 있지 아니하고 영에 있나니 누구든지 그리스도의 영이 없으면 그리스도의 사람이 아니라"},{id:1161,chapter:"15. 성령에 대하여",ref:"로마서 8:14~16",text:"무릇 하나님의 영으로 인도함을 받는 그들은 곧 하나님의 아들이라 너희는 다시 무서워하는 종의 영을 받지 아니하였고 양자의 영을 받았으므로 아바 아버지라 부르짖느니라 성령이 친히 우리 영으로 더불어 우리가 하나님의 자녀인 것을 증거하시나니"},{id:1162,chapter:"15. 성령에 대하여",ref:"고린도후서 13:5",text:"너희가 믿음에 있는가 너희 자신을 시험하고 너희 자신을 확증하라 예수 그리스도께서 너희 안에 계신 줄을 너희가 스스로 알지 못하느냐 그렇지 않으면 너희가 버리운 자니라"},{id:1163,chapter:"15. 성령에 대하여",ref:"갈라디아서 2:20",text:"내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 산 것이 아니요 오직 내 안에 그리스도께서 사신 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 몸을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"},{id:1164,chapter:"15. 성령에 대하여",ref:"갈라디아서 5:22,23",text:"오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과 온유와 절제니 이 같은 것을 금지할 법이 없느니라"},{id:1165,chapter:"15. 성령에 대하여",ref:"빌립보서 2:13",text:"너희 안에서 행하시는 이는 하나님이시니 자기의 기쁘신 뜻을 위하여 너희로 소원을 두고 행하게 하시나니"},{id:1166,chapter:"15. 성령에 대하여",ref:"스바냐 3:17",text:"너의 하나님 여호와가 너의 가운데 계시니 그는 구원을 베푸실 전능자시라 그가 너로 인하여 기쁨을 이기지 못하여 하시며 너를 잠잠히 사랑하시며 너로 인하여 즐거이 부르며 기뻐하시리라 하리라"},{id:1167,chapter:"15. 성령에 대하여",ref:"베드로전서 4:14",text:"너희가 그리스도의 이름으로 욕을 받으면 복 있는 자로다 영광의 영 곧 하나님의 영이 너희 위에 계심이라"},{id:1168,chapter:"15. 성령에 대하여",ref:"시편 139:7,8",text:"내가 주의 신을 떠나 어디로 가며 주의 앞에서 어디로 피하리이까 내가 하늘에 올라갈찌라도 거기 계시며 음부에 내 자리를 펼찌라도 거기 계시니이다"},{id:1169,chapter:"16. 성결에 대하여",ref:"욥기 7:17~19",text:"사람이 무엇이관대 주께서 크게 여기사 그에게 마음을 두시고 아침마다 권징하시며 분초마다 시험하시나이까 주께서 내게서 눈을 돌이키지 아니하시며 나의 침 삼킬 동안도 나를 놓지 아니하시기를 어느 때까지 하시리이까"},{id:1170,chapter:"16. 성결에 대하여",ref:"욥기 23:10",text:"나의 가는 길을 오직 그가 아시나니 그가 나를 단련하신 후에는 내가 정금 같이 나오리라"},{id:1171,chapter:"16. 성결에 대하여",ref:"전도서 5:2",text:"너는 하나님 앞에서 함부로 입을 열지 말며 급한 마음으로 말을 내지 말라 하나님은 하늘에 계시고 너는 땅에 있음이니라 그런즉 마땅히 말을 적게 할 것이라"},{id:1172,chapter:"16. 성결에 대하여",ref:"고린도전서 6:11",text:"너희 중에 이와 같은 자들이 있더니 주 예수 그리스도의 이름과 우리 하나님의 성령 안에서 씻음과 거룩함과 의롭다 하심을 얻었느니라"},{id:1173,chapter:"16. 성결에 대하여",ref:"잠언 3:5,6",text:"너는 마음을 다하여 여호와를 의뢰하고 네 명철을 의지하지 말라 너는 범사에 그를 인정하라 그리하면 네 길을 지도하시리라"},{id:1174,chapter:"16. 성결에 대하여",ref:"고린도전서 10:13",text:"사람이 감당할 시험 밖에는 너희에게 당한 것이 없나니 오직 하나님은 미쁘사 너희가 감당치 못할 시험 당함을 허락지 아니하시고 시험 당할 즈음에 또한 피할 길을 내사 너희로 능히 감당하게 하시느니라"},{id:1175,chapter:"16. 성결에 대하여",ref:"고린도후서 7:1",text:"그런즉 사랑하는 자들아 이 약속을 가진 우리가 하나님을 두려워하는 가운데서 거룩함을 온전히 이루어 육과 영의 온갖 더러운 것에서 자신을 깨끗케 하자"},{id:1176,chapter:"16. 성결에 대하여",ref:"에베소서 5:25~27",text:"남편들아 아내 사랑하기를 그리스도께서 교회를 사랑하시고 위하여 자신을 주심 같이 하라 이는 곧 물로 씻어 말씀으로 깨끗하게 하사 거룩하게 하시고 자기 앞에 영광스러운 교회로 세우사 티나 주름잡힌 것이나 이런 것들이 없이 거룩하고 흠이 없게 하려 하심이니라"},{id:1177,chapter:"16. 성결에 대하여",ref:"골로새서 3:9,10",text:"너희가 서로 거짓말을 말라 옛 사람과 그 행위를 벗어버리고 새 사람을 입었으니 이는 자기를 창조하신 자의 형상을 좇아 지식에까지 새롭게 하심을 받는 자니라"},{id:1178,chapter:"16. 성결에 대하여",ref:"데살로니가전서 5:23",text:"평강의 하나님이 친히 너희로 온전히 거룩하게 하시고 또 너희 온 영과 혼과 몸이 우리 주 예수 그리스도 강림하실 때에 흠 없게 보전되기를 원하노라"},{id:1179,chapter:"16. 성결에 대하여",ref:"야고보서 3:17,18",text:"오직 위로부터 난 지혜는 첫째 성결하고 다음에 화평하고 관용하고 양순하며 긍휼과 선한 열매가 가득하고 편벽과 거짓이 없나니 화평케 하는 자들은 화평으로 심어 의의 열매를 거두느니라"},{id:1180,chapter:"16. 성결에 대하여",ref:"히브리서 12:6",text:"주께서 그 사랑하시는 자를 징계하시고 그의 받으시는 아들마다 채찍질하심이니라 하였으니"},{id:1181,chapter:"16. 성결에 대하여",ref:"디모데후서 2:20,21",text:"큰 집에는 금과 은의 그릇이 있을 뿐 아니요 나무와 질그릇도 있어 귀히 쓰는 것도 있고 천히 쓰는 것도 있나니 그러므로 누구든지 이런 것에서 자기를 깨끗하게 하면 귀히 쓰는 그릇이 되어 거룩하고 주인의 쓰심에 합당하며 모든 선한 일에 예비함이 되리라"},{id:1182,chapter:"17. 기도에 대하여",ref:"시편 51:17",text:"하나님의 구하시는 제사는 상한 심령이라 하나님이여 상하고 통회하는 마음을 주께서 멸시치 아니하시리이다"},{id:1183,chapter:"17. 기도에 대하여",ref:"시편 145:18",text:"여호와께서는 자기에게 간구하는 모든 자 곧 진실하게 간구하는 모든 자에게 가까이 하시는도다"},{id:1184,chapter:"17. 기도에 대하여",ref:"예레미야 29:12,13",text:"너희는 내게 부르짖으며 와서 내게 기도하면 내가 너희를 들을 것이요 너희가 전심으로 나를 찾고 찾으면 나를 만나리라"},{id:1185,chapter:"17. 기도에 대하여",ref:"예레미야 33:3",text:"너는 내게 부르짖으라 내가 네게 응답하겠고 네가 알지 못하는 크고 비밀한 일을 네게 보이리라"},{id:1186,chapter:"17. 기도에 대하여",ref:"마태복음 6:33",text:"너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라"},{id:1187,chapter:"17. 기도에 대하여",ref:"요한복음 15:7",text:"너희가 내 안에 거하고 내 말이 너희 안에 거하면 무엇이든지 원하는 대로 구하라 그리하면 이루리라"},{id:1188,chapter:"17. 기도에 대하여",ref:"로마서 8:26,27",text:"이와 같이 성령도 우리 연약함을 도우시나니 우리가 마땅히 빌바를 알지 못하나 오직 성령이 말할 수 없는 탄식으로 우리를 위하여 친히 간구하시느니라 마음을 감찰하시는 이가 성령의 생각을 아시나니 이는 성령이 하나님의 뜻대로 성도를 위하여 간구하심이니라"},{id:1189,chapter:"17. 기도에 대하여",ref:"빌립보서 4:6,7",text:"아무 것도 염려하지 말고 오직 모든 일에 기도와 간구로 너희 구할 것을 감사함으로 하나님께 아뢰라 그리하면 모든 지각에 뛰어난 하나님의 평강이 그리스도 예수 안에서 너희 마음과 생각을 지키시리라"},{id:1190,chapter:"17. 기도에 대하여",ref:"골로새서 4:2~4",text:"기도를 항상 힘쓰고 기도에 감사함으로 깨어 있으라 또한 우리를 위하여 기도하되 하나님이 전도할 문을 우리에게 열어 주사 그리스도의 비밀을 말하게 하시기를 구하라 내가 이것을 인하여 매임을 당하였노라 그리하면 내가 마땅히 할 말로써 이 비밀을 나타내리라"},{id:1191,chapter:"17. 기도에 대하여",ref:"디모데전서 2:1,2",text:"그러므로 내가 첫째로 권하노니 모든 사람을 위하여 간구와 기도와 도고와 감사를 하되 임금들과 높은 지위에 있는 모든 사람을 위하여 하라 이는 우리가 모든 경건과 단정한 중에 고요하고 평안한 생활을 하려 함이니라"},{id:1192,chapter:"17. 기도에 대하여",ref:"요한복음 15:16",text:"너희가 나를 택한 것이 아니요 내가 너희를 택하여 세웠나니 이는 너희로 가서 과실을 맺게 하고 또 너희 과실이 항상 있게 하여 내 이름으로 아버지께 무엇을 구하든지 다 받게 하려 함이니라"},{id:1193,chapter:"17. 기도에 대하여",ref:"요한일서 5:14,15",text:"그를 향하여 우리의 가진바 담대한 것이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라 우리가 무엇이든지 구하는 바를 들으시는 줄을 안즉 우리가 그에게 구한 그것을 얻은 줄을 또한 아느니라"},{id:1194,chapter:"17. 기도에 대하여",ref:"야고보서 1:5,6",text:"너희 중에 누구든지 지혜가 부족하거든 모든 사람에게 후히 주시고 꾸짖지 아니하시는 하나님께 구하라 그리하면 주시리라 오직 믿음으로 구하고 조금도 의심하지 말라 의심하는 자는 마치 바람에 밀려 요동하는 바다 물결 같으니"},{id:1195,chapter:"17. 기도에 대하여",ref:"마태복음 26:41",text:"시험에 들지 않게 깨어 있어 기도하라 마음에는 원이로되 육신이 약하도다 하시고"},{id:1196,chapter:"17. 기도에 대하여",ref:"야고보서 5:13",text:"너희 중에 고난 당하는 자가 있느냐 저는 기도할 것이요 즐거워하는 자가 있느냐 저는 찬송할찌니라"},{id:1197,chapter:"17. 기도에 대하여",ref:"이사야 58:9",text:"네가 부를 때에는 나 여호와가 응답하겠고 네가 부르짖을 때에는 말하기를 내가 여기 있다 하리라 만일 네가 너희 중에서 멍에와 손가락질과 허망한 말을 제하여 버리고"},{id:1198,chapter:"17. 기도에 대하여",ref:"골로새서 4:2",text:"기도를 항상 힘쓰고 기도에 감사함으로 깨어 있으라"},{id:1199,chapter:"17. 기도에 대하여",ref:"스바냐 1:6",text:"여호와를 배반하고 좇지 아니한 자와 여호와를 찾지도 아니하며 구하지도 아니한 자를 멸절하리라"},{id:1200,chapter:"17. 기도에 대하여",ref:"이사야 64:7",text:"주의 이름을 부르는 자가 없으며 스스로 분발하여 주를 붙잡는 자가 없사오니 이는 주께서 우리에게 얼굴을 숨기시며 우리의 죄악을 인하여 우리로 소멸되게 하셨음이니이다"},{id:1201,chapter:"17. 기도에 대하여",ref:"누가복음 22:40",text:"그곳에 이르러 저희에게 이르시되 시험에 들지 않기를 기도하라 하시고"},{id:1202,chapter:"18. 교제에 대하여",ref:"시편 133",text:"형제가 연합하여 동거함이 어찌 그리 선하고 아름다운고 머리에 있는 보배로운 기름이 수염 곧 아론의 수염에 흘러서 그 옷깃까지 내림 같고 헐몬의 이슬이 시온의 산들에 내림 같도다 거기서 여호와께서 복을 명하셨나니 곧 영생이로다"},{id:1203,chapter:"18. 교제에 대하여",ref:"이사야 41:10",text:"두려워 말라 내가 너와 함께 함이니라 놀라지 말라 나는 네 하나님이 됨이니라 내가 너를 굳세게 하리라 참으로 너를 도와주리라 참으로 나의 의로운 오른손으로 너를 붙들리라"},{id:1204,chapter:"18. 교제에 대하여",ref:"잠언 3:5~7",text:"너는 마음을 다하여 여호와를 의뢰하고 네 명철을 의지하지 말라 너는 범사에 그를 인정하라 그리하면 네 길을 지도하시리라 스스로 지혜롭게 여기지 말찌어다 여호와를 경외하며 악을 떠날찌어다"},{id:1205,chapter:"18. 교제에 대하여",ref:"마태복음 20:27,28",text:"너희 중에 누구든지 으뜸이 되고자 하는 자는 너희 종이 되어야 하리라 인자가 온것은 섬김을 받으려 함이 아니라 도리어 섬기려 하고 자기 목숨을 많은 사람의 대속물로 주려 함이니라"},{id:1206,chapter:"18. 교제에 대하여",ref:"로마서 6:12,13",text:"그러므로 너희는 죄로 너희 죽을 몸에 왕노릇하지 못하게 하여 몸의 사욕을 순종치 말고 또한 너희 지체를 불의의 병기로 죄에게 드리지 말고 오직 너희 자신을 죽은 자 가운데서 다시 산자 같이 하나님께 드리며 너희 지체를 의의 병기로 하나님께 드리라"},{id:1207,chapter:"18. 교제에 대하여",ref:"로마서 8:5~9",text:"육신을 좇는 자는 육신의 일을 영을 좇는 자는 영의 일을 생각하나니 육신의 생각은 사망이요 영의 생각은 생명과 평안이니라 육신의 생각은 하나님과 원수가 되나니 이는 하나님의 법에 굴복치 아니할뿐 아니라 할 수도 없음이라 육신에 있는 자들은 하나님을 기쁘시게 할 수 없느니라 만일 너희 속에 하나님의 영이 거하시면 너희가 육신에 있지 아니하고 영에 있나니 누구든지 그리스도의 영이 없으면 그리스도의 사람이 아니라"},{id:1208,chapter:"18. 교제에 대하여",ref:"고린도전서 1:9",text:"너희를 불러 그의 아들 예수 그리스도 우리 주로 더불어 교제케 하시는 하나님은 미쁘시도다"},{id:1209,chapter:"18. 교제에 대하여",ref:"고린도전서 15:57,58",text:"우리 주 예수 그리스도로 말미암아 우리에게 이김을 주시는 하나님께 감사하노니 그러므로 내 사랑하는 형제들아 견고하며 흔들리지 말며 항상 주의 일에 더욱 힘쓰는 자들이 되라 이는 너희 수고가 주 안에서 헛되지 않은 줄을 앎이니라"},{id:1210,chapter:"18. 교제에 대하여",ref:"고린도후서 2:14~16",text:"항상 우리를 그리스도 안에서 이기게 하시고 우리로 말미암아 각처에서 그리스도를 아는 냄새를 나타내시는 하나님께 감사하노라 우리는 구원 얻는 자들에게나 망하는 자들에게나 하나님 앞에서 그리스도의 향기니 이 사람에게는 사망으로 좇아 사망에 이르는 냄새요 저 사람에게는 생명으로 좇아 생명에 이르는 냄새라 누가 이것을 감당하리요"},{id:1211,chapter:"18. 교제에 대하여",ref:"고린도후서 4:7~10",text:"우리가 이 보배를 질그릇에 가졌으니 이는 능력의 심히 큰 것이 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라 우리가 사방으로 우겨쌈을 당하여도 싸이지 아니하며 답답한 일을 당하여도 낙심하지 아니하며 핍박을 받아도 버린바 되지 아니하며 거꾸러뜨림을 당하여도 망하지 아니하고 우리가 항상 예수 죽인 것을 몸에 짊어짐은 예수의 생명도 우리 몸에 나타나게 하려 함이라"},{id:1212,chapter:"18. 교제에 대하여",ref:"갈라디아서 5:13,14",text:"형제들아 너희가 자유를 위하여 부르심을 입었으나 그러나 그 자유로 육체의 기회를 삼지 말고 오직 사랑으로 서로 종노릇하라 온 율법은 네 이웃 사랑하기를 네 몸 같이 하라 하신 한 말씀에 이루었나니"},{id:1213,chapter:"18. 교제에 대하여",ref:"에베소서 4:15,16",text:"오직 사랑 안에서 참된 것을 하여 범사에 그에게까지 자랄찌라 그는 머리니 곧 그리스도라 그에게서 온 몸이 각 마디를 통하여 도움을 입음으로 연락하고 상합하여 각 지체의 분량대로 역사하여 그 몸을 자라게 하며 사랑 안에서 스스로 세우느니라"},{id:1214,chapter:"18. 교제에 대하여",ref:"빌립보서 2:12~14",text:"그러므로 나의 사랑하는 자들아 너희가 나 있을 때 뿐 아니라 더욱 지금 나 없을 때에도 항상 복종하여 두렵고 떨림으로 너희 구원을 이루라 너희 안에서 행하시는 이는 하나님이시니 자기의 기쁘신 뜻을 위하여 너희로 소원을 두고 행하게 하시나니 모든 일을 원망과 시비가 없이 하라"},{id:1215,chapter:"18. 교제에 대하여",ref:"데살로니가전서 5:14,15",text:"또 형제들아 너희를 권면하노니 규모 없는 자들을 권계하며 마음이 약한 자들을 안위하고 힘이 없는 자들을 붙들어 주며 모든 사람을 대하여 오래 참으라 삼가 누가 누구에게든지 악으로 악을 갚지 말게 하고 오직 피차 대하든지 모든 사람을 대하든지 항상 선을 좇으라"},{id:1216,chapter:"18. 교제에 대하여",ref:"야고보서 4:4",text:"간음하는 여자들이여 세상과 벗된 것이 하나님의 원수임을 알지 못하느뇨 그런즉 누구든지 세상과 벗이 되고자 하는 자는 스스로 하나님과 원수되게 하는 것이니라"},{id:1217,chapter:"18. 교제에 대하여",ref:"요한일서 1:3",text:"우리가 보고 들은 바를 너희에게도 전함은 너희로 우리와 사귐이 있게 하려 함이니 우리의 사귐은 아버지와 그 아들 예수 그리스도와 함께 함이라"},{id:1218,chapter:"18. 교제에 대하여",ref:"요한일서 1:6,7",text:"만일 우리가 하나님과 사귐이 있다 하고 어두운 가운데 행하면 거짓말을 하고 진리를 행치 아니함이거니와 저가 빛 가운데 계신것 같이 우리도 빛 가운데 행하면 우리가 서로 사귐이 있고 그 아들 예수의 피가 우리를 모든 죄에서 깨끗하게 하실 것이요"},{id:1219,chapter:"18. 교제에 대하여",ref:"히브리서 10:9",text:"그 후에 말씀하시기를 보시옵소서 내가 하나님의 뜻을 행하러 왔나이다 하셨으니 그 첫 것을 폐하심은 둘째 것을 세우려 하심이니라"},{id:1220,chapter:"19. 순종에 대하여",ref:"말라기 3:10",text:"만군의 여호와가 이르노라 너희의 온전한 십일조를 창고에 들여 나의 집에 양식이 있게 하고 그것으로 나를 시험하여 내가 하늘 문을 열고 너희에게 복을 쌓을 곳이 없도록 붓지 아니하나 보라"},{id:1221,chapter:"19. 순종에 대하여",ref:"사도행전 4:19,20",text:"베드로와 요한이 대답하여 가로되 하나님 앞에서 너희 말 듣는 것이 하나님 말씀 듣는 가보다 옳은가 판단하라 우리는 보고 들은 것을 말하지 아니할 수 없다 하니"},{id:1222,chapter:"19. 순종에 대하여",ref:"로마서 6:1,2",text:"그런즉 우리가 무슨 말 하리요 은혜를 더하게 하려고 죄에 거하겠느뇨 그럴 수 없느니라 죄에 대하여 죽은 우리가 어찌 그 가운데 더 살리요"},{id:1223,chapter:"19. 순종에 대하여",ref:"로마서 8:12~14",text:"그러므로 형제들아 우리가 빚진 자로되 육신에게 져서 육신대로 살 것이 아니니라 너희가 육신대로 살면 반드시 죽을 것이로되 영으로써 몸의 행실을 죽이면 살리니 무릇 하나님의 영으로 인도함을 받는 그들은 곧 하나님의 아들이라"},{id:1224,chapter:"19. 순종에 대하여",ref:"로마서 14:7,8",text:"우리 중에 누구든지 자기를 위하여 사는 자가 없고 자기를 위하여 죽는 자도 없도다 우리가 살아도 주를 위하여 살고 죽어도 주를 위하여 죽나니 그러므로 사나 죽으나 우리가 주의 것이로라"},{id:1225,chapter:"19. 순종에 대하여",ref:"고린도전서 6:19,20",text:"너희 몸은 너희가 하나님께로부터 받은바 너희 가운데 계신 성령의 전인 줄을 알지 못하느냐 너희는 너희의 것이 아니라 값으로 산 창이 되었으니 그런즉 너희 몸으로 하나님께 영광을 돌리라"},{id:1226,chapter:"19. 순종에 대하여",ref:"고린도전서 10:33",text:"나와 같이 모든 일에 모든 사람을 기쁘게 하여 나의 유익을 구치 아니하고 많은 사람의 유익을 구하여 저희로 구원을 얻게 하라"},{id:1227,chapter:"19. 순종에 대하여",ref:"에베소서 4:22~24",text:"너희는 유혹의 욕심을 따라 썩어져 가는 구습을 좇는 옛 사람을 벗어 버리고 오직 심령으로 새롭게 되어 하나님을 따라 의와 진리의 거룩함으로 지으심을 받은 새 사람을 입으라"},{id:1228,chapter:"19. 순종에 대하여",ref:"에베소서 5:8~11",text:"너희가 전에는 어두움이더니 이제는 주 안에서 빛이라 빛의 자녀들처럼 행하라 빛의 열매는 모든 착함과 의로움과 진실함에 있느니라 주께 기쁘시게 할 것이 무엇인가 시험하여 보라 너희는 열매 없는 어두움의 일에 참예하지 말고 도리어 책망하라"},{id:1229,chapter:"19. 순종에 대하여",ref:"히브리서 12:8~10",text:"징계는 다 받는 것이거늘 너희에게 없으면 사생자요 참 아들이 아니니라 또 우리 육체의 아버지가 우리를 징계하여도 공경하였거든 하물며 모든 영의 아버지께 더욱 복종하여 살려 하지 않겠느냐 저희는 잠시 자기의 뜻대로 우리를 징계하였거니와 오직 하나님은 우리의 유익을 위하여 그의 거룩하심에 참예케 하시느니라"},{id:1230,chapter:"20. 재림에 대하여",ref:"이사야 57:1,2",text:"의인이 죽을찌라도 마음에 두는 자가 없고 자비한 자들이 취하여 감을 입을찌라도 그 의인은 화액 전에 취하여 감을 입은 것인 줄로 깨닫는 자가 없도다 그는 평안에 들어갔나니 무릇 정로로 행하는 자는 자기들의 침상에서 편히 쉬느니라"},{id:1231,chapter:"20. 재림에 대하여",ref:"스가랴 14:4",text:"그 날에 그의 발이 예루살렘 앞 곧 동편 감람산에 서실 것이요 감람산은 그 한가운데가 동서로 갈라져 매우 큰 골짜기가 되어서 산 절반은 북으로 절반은 남으로 옮기고"},{id:1232,chapter:"20. 재림에 대하여",ref:"마태복음 24:30",text:"그 때에 인자의 징조가 하늘에서 보이겠고 그 때에 땅의 모든 족속들이 통곡하며 그들이 인자가 구름을 타고 능력과 큰 영광으로 오는 것을 보리라"},{id:1233,chapter:"20. 재림에 대하여",ref:"누가복음 17:34,35",text:"내가 너희에게 이르노니 그 밤에 두 남자가 한 자리에 누워 있으매 하나는 데려감을 당하고 하나는 버려둠을 당할 것이요 두 여자가 함께 매를 갈고 있으매 하나는 데려감을 당하고 하나는 버려둠을 당할 것이니라"},{id:1234,chapter:"20. 재림에 대하여",ref:"누가복음 21:34",text:"너희는 스스로 조심하라 그렇지 않으면 방탕함과 술취함과 생활의 염려로 마음이 둔하여지고 뜻밖에 그 날이 덫과 같이 너희에게 임하리라"},{id:1235,chapter:"20. 재림에 대하여",ref:"데살로니가전서 4:16,17",text:"주께서 호령과 천사장의 소리와 하나님의 나팔로 친히 하늘로 좇아 강림하시리니 그리스도 안에서 죽은 자들이 먼저 일어나고 그 후에 우리 살아남은 자도 저희와 함께 구름 속으로 끌어 올려 공중에서 주를 영접하게 하시리니 그리하여 우리가 항상 주와 함께 있으리라"},{id:1236,chapter:"20. 재림에 대하여",ref:"고린도전서 15:51,52",text:"보라 내가 너희에게 비밀을 말하노니 우리가 다 잠잘 것이 아니요 마지막 나팔에 순식간에 홀연히 다 변화하리니 나팔소리가 나매 죽은 자들이 썩지 아니할 것으로 다시 살고 우리도 변화하리라"},{id:1237,chapter:"20. 재림에 대하여",ref:"데살로니가전서 5:3",text:"저희가 평안하다 안전하다 할 그 때에 잉태된 여자에게 해산 고통이 이름과 같이 멸망이 홀연히 저희에게 이르리니 결단코 피하지 못하리라"},{id:1238,chapter:"20. 재림에 대하여",ref:"데살로니가후서 1:7~9",text:"환난 받는 너희에게는 우리와 함께 안식으로 갚으시는 것이 하나님의 공의시니 주 예수께서 저의 능력의 천사들과 함께 하늘로부터 불꽃 중에 나타나실 때에 하나님을 모르는 자들과 우리 주 예수의 복음을 복종치 않는 자들에게 형벌을 주시리니 이런 자들이 주의 얼굴과 그의 힘의 영광을 떠나 영원한 멸망의 형벌을 받으리로다"},{id:1239,chapter:"20. 재림에 대하여",ref:"빌립보서 3:20,21",text:"오직 우리의 시민권은 하늘에 있는지라 거기로서 구원하는 자 곧 주 예수 그리스도를 기다리노니 그가 만물을 자기에게 복종케 하실 수 있는 자의 역사로 우리의 낮은 몸을 자기 영광의 몸의 형체와 같이 변케 하시리라"},{id:1240,chapter:"20. 재림에 대하여",ref:"히브리서 9:28",text:"이와 같이 그리스도도 많은 사람의 죄를 담당하시려고 단번에 드리신바 되셨고 구원에 이르게 하기 위하여 죄와 상관없이 자기를 바라는 자들에게 두 번째 나타나시리라"},{id:1241,chapter:"20. 재림에 대하여",ref:"베드로후서 3:10~13",text:"그러나 주의 날이 도적 같이 오리니 그 날에는 하늘이 큰 소리로 떠나가고 체질이 뜨거운 불에 풀어지고 땅과 그 중에 있는 모든 일이 드러나리로다 이 모든 것이 이렇게 풀어지리니 너희가 어떠한 사람이 되어야 마땅하뇨 거룩한 행실과 경건함으로 하나님의 날이 임하기를 바라보고 간절히 사모하라 그 날에 하늘이 불에 타서 풀어지고 체질이 뜨거운 불에 녹아지려니와 우리는 그의 약속대로 의의 거하는바 새 하늘과 새 땅을 바라보도다"},{id:1242,chapter:"20. 재림에 대하여",ref:"요한계시록 1:7",text:"볼찌어다 구름을 타고 오시리라 각인의 눈이 그를 보겠고 그를 찌른 자들도 볼터이요 땅에 있는 모든 족속이 그를 인하여 애곡하리니 그러하리라 아멘"},{id:1243,chapter:"20. 재림에 대하여",ref:"요한계시록 16:15",text:"보라 내가 도적 같이 오리니 누구든지 깨어 자기 옷을 지켜 벌거벗고 다니지 아니하며 자기의 부끄러움을 보이지 아니하는 자가 복이 있도다"},{id:1244,chapter:"20. 재림에 대하여",ref:"요한계시록 22:20",text:"이것들을 증거하신 이가 가라사대 내가 진실로 속히 오리라 하시거늘 아멘 주 예수여 오시옵소서"}];
+
+const STORAGE_KEY = 'BibleVerses_v2';
+const LANG_KEY = 'PracticeLang';
+
+// ===== 성경 66권: [한글 이름, 한글 약어, 영어 이름] =====
+const BOOKS = [
+  ['창세기','창','Genesis'],['출애굽기','출','Exodus'],['레위기','레','Leviticus'],['민수기','민','Numbers'],['신명기','신','Deuteronomy'],
+  ['여호수아','수','Joshua'],['사사기','삿','Judges'],['룻기','룻','Ruth'],['사무엘상','삼상','1 Samuel'],['사무엘하','삼하','2 Samuel'],
+  ['열왕기상','왕상','1 Kings'],['열왕기하','왕하','2 Kings'],['역대상','대상','1 Chronicles'],['역대하','대하','2 Chronicles'],['에스라','스','Ezra'],
+  ['느헤미야','느','Nehemiah'],['에스더','에','Esther'],['욥기','욥','Job'],['시편','시','Psalm'],['잠언','잠','Proverbs'],
+  ['전도서','전','Ecclesiastes'],['아가','아','Song of Solomon'],['이사야','사','Isaiah'],['예레미야','렘','Jeremiah'],['예레미야애가','애','Lamentations'],
+  ['에스겔','겔','Ezekiel'],['다니엘','단','Daniel'],['호세아','호','Hosea'],['요엘','욜','Joel'],['아모스','암','Amos'],
+  ['오바댜','옵','Obadiah'],['요나','욘','Jonah'],['미가','미','Micah'],['나훔','나','Nahum'],['하박국','합','Habakkuk'],
+  ['스바냐','습','Zephaniah'],['학개','학','Haggai'],['스가랴','슥','Zechariah'],['말라기','말','Malachi'],['마태복음','마','Matthew'],
+  ['마가복음','막','Mark'],['누가복음','눅','Luke'],['요한복음','요','John'],['사도행전','행','Acts'],['로마서','롬','Romans'],
+  ['고린도전서','고전','1 Corinthians'],['고린도후서','고후','2 Corinthians'],['갈라디아서','갈','Galatians'],['에베소서','엡','Ephesians'],['빌립보서','빌','Philippians'],
+  ['골로새서','골','Colossians'],['데살로니가전서','살전','1 Thessalonians'],['데살로니가후서','살후','2 Thessalonians'],['디모데전서','딤전','1 Timothy'],['디모데후서','딤후','2 Timothy'],
+  ['디도서','딛','Titus'],['빌레몬서','몬','Philemon'],['히브리서','히','Hebrews'],['야고보서','약','James'],['베드로전서','벧전','1 Peter'],
+  ['베드로후서','벧후','2 Peter'],['요한일서','요일','1 John'],['요한이서','요이','2 John'],['요한삼서','요삼','3 John'],['유다서','유','Jude'],
+  ['요한계시록','계','Revelation']
+];
+const PSALMS = 18;
+const normName = s => s.toLowerCase().replace(/[\s.]/g, '');
+const BOOK_INDEX = {};
+BOOKS.forEach((b, i) => b.forEach(n => { BOOK_INDEX[normName(n)] = i; }));
+Object.entries({
+  '아가서':'아가', '계시록':'요한계시록',
+  'psalms':'시편', 'ps':'시편', 'songofsongs':'아가', 'song':'아가', 'gen':'창세기', 'ex':'출애굽기', 'matt':'마태복음',
+  'rom':'로마서', 'heb':'히브리서', 'rev':'요한계시록', 'jn':'요한복음'
+}).forEach(([alias, name]) => { BOOK_INDEX[normName(alias)] = BOOK_INDEX[normName(name)]; });
+
+// "요 3:16", "롬 8:28~30", "시편 119:9,11", "시 23편", "요한복음 3장 16절", "1 John 3:16" 등을 해석
+function parseRef(str) {
+  if (!str) return null;
+  const s = str.replace(/：/g, ':').replace(/\s+/g, ' ').trim()
+    .replace(/^요한\s*([123])\s*서/, (_, n) => '요한' + '일이삼'[n - 1] + '서');
+  const m = s.match(/^(\d?\s*[^\d]+?)\s*(\d+)\s*(?:장|편)?\s*(?:[:.]\s*)?([\d\s,~\-–―절]*)$/);
+  if (!m) return null;
+  const book = BOOK_INDEX[normName(m[1])];
+  if (book === undefined) return null;
+  const spec = m[3].replace(/[\s절]/g, '');
+  const verses = [];
+  for (const part of spec.split(',')) {
+    if (!part) continue;
+    const r = part.match(/^(\d+)(?:[~\-–―](\d+))?$/);
+    if (!r) return null;
+    const a = +r[1], b = r[2] ? +r[2] : a;
+    if (a < 1 || b < a) return null;
+    for (let v = a; v <= b; v++) if (!verses.includes(v)) verses.push(v);
+  }
+  return { book, chapter: +m[2], verses }; // verses가 비어 있으면 장 전체
+}
+
+// 연속된 절은 묶어서 표기: [16,17] → "16,17", [7,8,9] → "7~9"
+function formatVerseSpec(verses, lang) {
+  const groups = [];
+  verses.forEach(v => {
+    const g = groups[groups.length - 1];
+    if (g && v === g[1] + 1) g[1] = v; else groups.push([v, v]);
+  });
+  const dash = lang === 'en' ? '-' : '~';
+  return groups.map(([a, b]) => a === b ? `${a}` : b === a + 1 ? `${a},${b}` : `${a}${dash}${b}`).join(',');
+}
+
+function formatRef(p, lang) {
+  const name = lang === 'en' ? BOOKS[p.book][2] : BOOKS[p.book][0];
+  if (p.verses.length) return `${name} ${p.chapter}:${formatVerseSpec(p.verses, lang)}`;
+  if (lang === 'en') return `${name} ${p.chapter}`;
+  return `${name} ${p.chapter}${p.book === PSALMS ? '편' : '장'}`;
+}
+
+// ===== 성경 데이터 (data/bible-ko.js, data/bible-en.js) — 필요할 때만 불러옴 =====
+const bibleLoading = {};
+function loadBible(lang) {
+  const key = lang === 'en' ? 'BIBLE_EN' : 'BIBLE_KO';
+  if (window[key]) return Promise.resolve(true);
+  if (!bibleLoading[lang]) {
+    bibleLoading[lang] = new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = `data/bible-${lang}.js`;
+      s.onload = () => resolve(!!window[key]);
+      s.onerror = () => { bibleLoading[lang] = null; s.remove(); resolve(false); };
+      document.head.appendChild(s);
+    });
+  }
+  return bibleLoading[lang];
+}
+
+function bibleData(lang) { return lang === 'en' ? window.BIBLE_EN : window.BIBLE_KO; }
+
+// 여러 절을 한 문장으로 합침. 범위를 벗어나면 null
+function getPassage(lang, p) {
+  const data = bibleData(lang);
+  if (!data || !p) return null;
+  const ch = data[p.book] && data[p.book][p.chapter - 1];
+  if (!ch || !ch.length) return null;
+  const list = p.verses.length ? p.verses : ch.map((_, i) => i + 1);
+  const parts = [];
+  let prev = null;
+  for (const v of list) {
+    let t = ch[v - 1];
+    if (t === undefined) return null;
+    t = t.replace(/^\(\d+-\d+\)\s*/, ''); // 개역한글의 "(18-19)" 같은 합본 절 표시
+    if (!t || t === prev) continue;
+    parts.push(t);
+    prev = t;
+  }
+  if (!parts.length) return null;
+  let text = parts.join(' ');
+  if (lang === 'en' && (text.match(/"/g) || []).length % 2 === 1) {
+    // 인용문 중간부터 시작/끝나는 구절의 짝 없는 따옴표 제거 (예: 요 3:16)
+    if (text.startsWith('"')) text = text.slice(1);
+    else if (text.endsWith('"')) text = text.slice(0, -1);
+  }
+  return text;
+}
+
+// ===== 상태 =====
+let verses = null;
+try { verses = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) {}
+if (!Array.isArray(verses) || verses.length === 0) { verses = DEFAULT_VERSES; saveVerses(); }
+// 기본 구절 본문 수정분을 이미 저장된 데이터에도 반영 (사용자가 직접 고친 구절은 건드리지 않음)
+const PRESET_OLD_TEXT = {
+  1142: '이뿐 아니라 또한 우리 곧 성령의 처음 익은 열매를 받은 우리까지도 속으로 탄식하여 양자 될 것 곧 우리 몸의 구속을 기다리느니라',
+  1143: '우리가 소망으로 구원을 얻었으매 보이는 소망이 소망이 아니니 보는 것을 누가 바라리요 이기기를 다투는 자마다 모든 일에 절제하나니 저희는 썩을 면류관을 얻고자 하되 우리는 썩지 아니할 것을 얻고자 하노라',
+  1197: '네가 부를 때에는 나 여호와가 응답하겠고 네가 부르짖을 때에는 말하기를 내가 여기 있다 하리라',
+  1212: '형제들아 너희가 자유를 위하여 부르심을 입었으나 그러나 그 자유로 육체의 기회를 삼지 말고 오직 사랑으로 서로 종노릇하라 온 율법은 네 이웃 사랑하기를 네 몸 같이 하라 하신 한 말씀에 이루었나니 만일 서로 물고 먹으면 피차 멸망할까 조심하라'
+};
+(() => {
+  let changed = false;
+  verses.forEach(v => {
+    if (PRESET_OLD_TEXT[v.id] && v.text === PRESET_OLD_TEXT[v.id]) {
+      const d = DEFAULT_VERSES.find(x => x.id === v.id);
+      if (d) { v.text = d.text; changed = true; }
+    }
+  });
+  if (changed) saveVerses();
+})();
+let lang = 'ko';
+try { if (localStorage.getItem(LANG_KEY) === 'en') lang = 'en'; } catch (e) {}
+
+// chapterResults: 현재 챕터에서 완료한 구절 기록 { 구절 id: 기록 } — 종료 후 다시 들어와도 이어지도록 저장됨
+let chapterVerses = [], verseIdx = 0, current = null, isBlind = false, chapterResults = {}, repeatCount = 0;
+let startTime = null, endTime = null, statTimer = null, isComposing = false;
+
+const tabManage = $('tab-manage'), tabPractice = $('tab-practice'), tabKeyboard = $('tab-keyboard'), secKeyboard = $('section-keyboard');
+const practiceKb = $('practice-kb');
+const secManage = $('section-manage'), secPractice = $('section-practice'), secResults = $('section-results');
+const inChapter = $('verse-chapter'), inRef = $('verse-ref'), inText = $('verse-text');
+const verseListEl = $('verse-list'), chapterSelect = $('chapter-select'), refDisplay = $('current-ref');
+const typingDisplay = $('typing-display'), userInput = $('user-input'), progressText = $('progress-text');
+const blindToggle = $('blind-toggle'), repeatToggle = $('repeat-toggle'), feedbackMsg = $('feedback-msg');
+const themeToggle = $('theme-toggle'), helpModal = $('help-modal'), typingContainer = $('typing-container');
+const btnMobileNext = $('btn-mobile-next'), btnPrev = $('btn-prev-verse'), btnNext = $('btn-next-verse');
+const wpmDisplay = $('wpm-display'), accuracyDisplay = $('accuracy-display');
+const lkBook = $('lk-book'), lkChapter = $('lk-chapter'), lkVStart = $('lk-vstart'), lkVEnd = $('lk-vend');
+const lkLoad = $('lk-load'), lkStatus = $('lookup-status');
+
+function saveVerses() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(verses)); } catch (e) {} }
+
+async function init() {
+  renderVerseList();
+  loadTheme();
+  updateLangButtons();
+  if (lang === 'en' && !(await loadBible('en'))) setLangState('ko');
+  if (verses.length > 0) { if (updateChapterSelect()) showResumeNotice(); } else tabManage.click();
+}
+
+// ===== 테마 / 도움말 =====
+themeToggle.addEventListener('click', () => {
+  const dark = document.body.getAttribute('data-theme') === 'dark';
+  document.body.setAttribute('data-theme', dark ? 'light' : 'dark');
+  themeToggle.innerText = dark ? '🌙 Dark' : '☀️ Light';
+  try { localStorage.setItem('Theme', dark ? 'light' : 'dark'); } catch (e) {}
+});
+function loadTheme() {
+  let t = null;
+  try { t = localStorage.getItem('Theme'); } catch (e) {}
+  if (t === 'dark') { document.body.setAttribute('data-theme', 'dark'); themeToggle.innerText = '☀️ Light'; }
+}
+$('help-toggle').addEventListener('click', () => helpModal.classList.add('show'));
+$('close-help-btn').addEventListener('click', () => helpModal.classList.remove('show'));
+window.addEventListener('click', e => { if (e.target === helpModal) helpModal.classList.remove('show'); });
+
+// ===== 탭 =====
+function showSection(name) {
+  secManage.style.display = name === 'manage' ? 'block' : 'none';
+  secPractice.style.display = name === 'practice' ? 'block' : 'none';
+  secResults.style.display = name === 'results' ? 'block' : 'none';
+  secKeyboard.style.display = name === 'keyboard' ? 'block' : 'none';
+  secTranscribe.style.display = name === 'transcribe' ? 'block' : 'none';
+  tabManage.classList.toggle('active', name === 'manage');
+  tabPractice.classList.toggle('active', name === 'practice' || name === 'results');
+  tabKeyboard.classList.toggle('active', name === 'keyboard');
+  tabTranscribe.classList.toggle('active', name === 'transcribe');
+}
+tabKeyboard.addEventListener('click', () => {
+  showSection('keyboard');
+  buildKeyboard();
+  if (document.activeElement) document.activeElement.blur(); // 키 입력이 입력창으로 들어가지 않도록
+});
+tabManage.addEventListener('click', () => { showSection('manage'); initLookup(); });
+tabPractice.addEventListener('click', () => {
+  if (verses.length === 0) { alert('먼저 암송할 구절을 추가해주세요!'); return; }
+  showSection('practice');
+  updateChapterSelect();
+});
+
+// ===== 언어 (한글 / English) =====
+function setLangState(l) {
+  lang = l;
+  try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+  updateLangButtons();
+}
+function updateLangButtons() {
+  document.querySelectorAll('#lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+}
+document.querySelectorAll('#lang-switch button').forEach(b => b.addEventListener('click', async () => {
+  const l = b.dataset.lang;
+  if (l === lang) { focusInput(); return; }
+  if (l === 'en' && !window.BIBLE_EN) {
+    refDisplay.textContent = '영어 성경(NKJV) 데이터를 불러오는 중...';
+    if (!(await loadBible('en'))) {
+      alert('영어 성경 데이터(data/bible-en.js)를 불러오지 못했습니다.\nindex.html 옆에 data 폴더가 함께 있는지 확인해주세요.');
+      if (chapterVerses.length) loadPractice();
+      return;
+    }
+  }
+  setLangState(l);
+  if (chapterVerses.length) loadPractice();
+}));
+
+// 현재 언어에 맞는 연습 본문
+function practiceItem(v) {
+  if (lang === 'en') {
+    const p = parseRef(v.ref);
+    const text = v.textEn || (p && getPassage('en', p));
+    if (text) return { ref: p ? formatRef(p, 'en') : v.ref, text, fallback: false };
+    return { ref: v.ref, text: v.text, fallback: true };
+  }
+  return { ref: v.ref, text: v.text, fallback: false };
+}
+
+// ===== 챕터 선택 =====
+chapterSelect.addEventListener('change', e => selectChapter(e.target.value));
+function selectChapter(name, verseId) {
+  chapterSelect.value = name;
+  chapterVerses = verses.filter(v => v.chapter === name);
+  verseIdx = Math.max(0, chapterVerses.findIndex(v => v.id === verseId));
+  chapterResults = loadAllResults()[name] || {}; repeatCount = 0;
+  wpmDisplay.innerText = '0'; accuracyDisplay.innerText = '100';
+  repeatToggle.checked = false;
+  if (chapterVerses.length > 0) loadPractice();
+}
+function chapterNames() { return [...new Set(verses.map(v => v.chapter))]; }
+// 마지막으로 연습한 구절로 이어서 시작. 이어서 시작했으면 true
+function updateChapterSelect() {
+  chapterSelect.innerHTML = '';
+  const names = chapterNames();
+  names.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.innerText = c;
+    chapterSelect.appendChild(o);
+  });
+  if (!names.length) return false;
+  const r = readResume();
+  const resumed = !!(r && names.includes(r.chapter));
+  selectChapter(resumed ? r.chapter : names[0], resumed ? r.id : null);
+  return resumed && (verseIdx > 0 || r.chapter !== names[0]);
+}
+
+// ===== 이어서 연습하기: 마지막 연습 위치 저장 =====
+const RESUME_KEY = 'PracticeResume';
+function saveResume(chapter, id) {
+  try { localStorage.setItem(RESUME_KEY, JSON.stringify({ chapter, id })); } catch (e) {}
+}
+const RESULTS_KEY = 'PracticeResults'; // { 챕터명: { 구절 id: 기록 } }
+function loadAllResults() {
+  try { return JSON.parse(localStorage.getItem(RESULTS_KEY)) || {}; } catch (e) { return {}; }
+}
+function saveChapterResults(chapter, records) {
+  const all = loadAllResults();
+  if (records && Object.keys(records).length) all[chapter] = records; else delete all[chapter];
+  try { localStorage.setItem(RESULTS_KEY, JSON.stringify(all)); } catch (e) {}
+}
+function readResume() {
+  try { return JSON.parse(localStorage.getItem(RESUME_KEY)); } catch (e) { return null; }
+}
+function showResumeNotice() {
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  feedbackMsg.innerHTML = `📌 지난번에 연습하던 <strong>${esc(chapterSelect.value)} · ${esc(current.ref)}</strong> (${verseIdx + 1}/${chapterVerses.length})부터 이어서 시작합니다.`;
+  feedbackMsg.classList.add('show');
+}
+
+// ===== 성경에서 불러오기 =====
+let lookupReady = false;
+function fillNumberSelect(sel, n, selected) {
+  sel.innerHTML = '';
+  for (let i = 1; i <= n; i++) {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = i;
+    sel.appendChild(o);
+  }
+  sel.value = Math.min(selected || 1, n);
+}
+async function initLookup() {
+  if (lookupReady) return;
+  lkStatus.textContent = '성경 데이터 불러오는 중...';
+  if (!(await loadBible('ko'))) {
+    lkStatus.textContent = '⚠️ data/bible-ko.js를 불러오지 못했습니다';
+    return;
+  }
+  lkBook.innerHTML = '';
+  [['구약', 0, 39], ['신약', 39, 66]].forEach(([label, from, to]) => {
+    const g = document.createElement('optgroup');
+    g.label = label;
+    for (let i = from; i < to; i++) {
+      const o = document.createElement('option');
+      o.value = i; o.textContent = BOOKS[i][0];
+      g.appendChild(o);
+    }
+    lkBook.appendChild(g);
+  });
+  [lkBook, lkChapter, lkVStart, lkVEnd, lkLoad].forEach(el => el.disabled = false);
+  lookupReady = true;
+  lkStatus.textContent = '';
+  setLookup(42, 3, 16, 16); // 요한복음 3:16
+}
+function setLookup(book, chapter, vStart, vEnd) {
+  lkBook.value = book;
+  const chapters = window.BIBLE_KO[book];
+  fillNumberSelect(lkChapter, chapters.length, chapter);
+  $('lk-chapter-unit').textContent = book === PSALMS ? '편' : '장';
+  const n = chapters[lkChapter.value - 1].length;
+  fillNumberSelect(lkVStart, n, vStart);
+  fillNumberSelect(lkVEnd, n, Math.max(vEnd || 1, +lkVStart.value));
+}
+lkBook.addEventListener('change', () => setLookup(+lkBook.value, 1, 1, 1));
+lkChapter.addEventListener('change', () => setLookup(+lkBook.value, +lkChapter.value, 1, 1));
+lkVStart.addEventListener('change', () => { if (+lkVEnd.value < +lkVStart.value) lkVEnd.value = lkVStart.value; });
+lkVEnd.addEventListener('change', () => { if (+lkVEnd.value < +lkVStart.value) lkVStart.value = lkVEnd.value; });
+lkLoad.addEventListener('click', () => {
+  const a = +lkVStart.value, b = +lkVEnd.value, vs = [];
+  for (let v = a; v <= b; v++) vs.push(v);
+  fillFromRef({ book: +lkBook.value, chapter: +lkChapter.value, verses: vs });
+});
+function fillFromRef(p) {
+  const text = getPassage('ko', p);
+  if (!text) { alert('해당 구절을 성경에서 찾을 수 없습니다. 장과 절 번호를 확인해주세요.'); return false; }
+  inRef.value = formatRef(p, 'ko');
+  inText.value = text;
+  return true;
+}
+async function findRefText() {
+  const p = parseRef(inRef.value);
+  if (!p) { alert('장절을 인식하지 못했습니다.\n예: 요 3:16, 요한복음 3:16, 롬 8:28~30, 시편 119:9,11, 시 23편'); inRef.focus(); return; }
+  if (!(await loadBible('ko'))) { alert('한글 성경 데이터(data/bible-ko.js)를 불러오지 못했습니다.'); return; }
+  if (fillFromRef(p) && lookupReady) {
+    const vs = p.verses.length ? p.verses : [1];
+    setLookup(p.book, p.chapter, vs[0], vs[vs.length - 1]);
+  }
+}
+$('btn-find-ref').addEventListener('click', findRefText);
+inRef.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); findRefText(); } });
+
+// ===== 노트 관리 =====
+$('add-verse-btn').addEventListener('click', () => {
+  const chapter = inChapter.value.trim() || '기본 암송', ref = inRef.value.trim(), text = inText.value.trim();
+  if (ref && text) {
+    verses.push({ id: Date.now(), chapter, ref, text });
+    saveVerses();
+    inRef.value = ''; inText.value = '';
+    renderVerseList();
+  } else {
+    alert('장절과 말씀을 모두 입력해주세요.');
+  }
+});
+function deleteVerse(id) {
+  if (confirm('이 구절을 삭제하시겠습니까?')) {
+    verses = verses.filter(v => v.id !== id);
+    saveVerses();
+    renderVerseList();
+  }
+}
+$('btn-backup').addEventListener('click', () => {
+  if (verses.length === 0) { alert('백업할 데이터가 없습니다.'); return; }
+  const a = document.createElement('a');
+  a.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(verses));
+  a.download = `성경암송_백업_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+});
+$('btn-restore').addEventListener('click', () => $('file-restore').click());
+$('file-restore').addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      const d = JSON.parse(ev.target.result);
+      if (Array.isArray(d)) {
+        if (confirm('기존 데이터를 지우고 백업 파일로 덮어씌우시겠습니까?\n\n[확인] : 기존 데이터 삭제 후 복원\n[취소] : 기존 데이터에 추가 (병합)')) {
+          verses = d;
+        } else {
+          d.forEach(x => { x.id = Date.now() + Math.random(); verses.push(x); });
+        }
+        saveVerses();
+        renderVerseList();
+        alert('데이터 불러오기가 완료되었습니다!');
+      } else {
+        alert('유효한 암송 백업 파일이 아닙니다.');
+      }
+    } catch (err) {
+      alert('파일을 읽는 중 오류가 발생했습니다.');
+    }
+  };
+  r.readAsText(f);
+  e.target.value = '';
+});
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function renderVerseList() {
+  verseListEl.innerHTML = '';
+  const dl = $('chapter-list');
+  dl.innerHTML = '';
+  chapterNames().forEach(c => { const o = document.createElement('option'); o.value = c; dl.appendChild(o); });
+  if (verses.length === 0) {
+    verseListEl.innerHTML = '<div class="empty-state">등록된 구절이 없습니다. 새로운 말씀을 추가해보세요.</div>';
+    return;
+  }
+  const groups = verses.reduce((a, x) => { (a[x.chapter] = a[x.chapter] || []).push(x); return a; }, {});
+  for (const c in groups) {
+    const d = el('details', 'chapter-details');
+    d.appendChild(el('summary', 'chapter-header', `${c} (${groups[c].length}구절)`));
+    const ul = el('ul');
+    groups[c].forEach(x => {
+      const li = el('li', 'verse-item');
+      const info = el('div', 'verse-info');
+      info.appendChild(el('strong', null, x.ref));
+      info.appendChild(el('span', null, x.text));
+      const btns = el('div', 'action-btns');
+      const rep = el('button', 'repeat-btn', '반복');
+      rep.addEventListener('click', () => startRepeat(x.id));
+      const del = el('button', 'delete-btn', '삭제');
+      del.addEventListener('click', () => deleteVerse(x.id));
+      btns.append(rep, del);
+      li.append(info, btns);
+      ul.appendChild(li);
+    });
+    d.appendChild(ul);
+    verseListEl.appendChild(d);
+  }
+}
+function startRepeat(id) {
+  const x = verses.find(v => v.id === id);
+  if (!x) return;
+  chapterVerses = verses.filter(v => v.chapter === x.chapter);
+  verseIdx = chapterVerses.findIndex(v => v.id === id);
+  chapterSelect.value = x.chapter;
+  repeatToggle.checked = true;
+  repeatCount = 0; chapterResults = loadAllResults()[x.chapter] || {};
+  showSection('practice');
+  loadPractice();
+}
+
+// ===== 연습 =====
+blindToggle.addEventListener('change', e => {
+  isBlind = e.target.checked;
+  typingDisplay.classList.toggle('blind-mode', isBlind);
+  focusInput();
+});
+repeatToggle.addEventListener('change', e => {
+  repeatCount = 0;
+  updateProgress();
+  focusInput();
+});
+typingContainer.addEventListener('click', focusInput);
+
+function focusInput() {
+  try { userInput.focus({ preventScroll: true }); } catch (e) { userInput.focus(); }
+  syncCaret(true);
+}
+function updateProgress() {
+  let s = `${verseIdx + 1}/${chapterVerses.length}`;
+  if (repeatToggle.checked) s += repeatCount > 0 ? ` (반복: ${repeatCount}회)` : ' (반복 켜짐)';
+  progressText.innerText = s;
+}
+
+function loadPractice() {
+  feedbackMsg.classList.remove('show');
+  current = practiceItem(chapterVerses[verseIdx]);
+  saveResume(chapterVerses[verseIdx].chapter, chapterVerses[verseIdx].id);
+  refDisplay.textContent = current.ref;
+  if (current.fallback) refDisplay.appendChild(el('span', 'ref-note', '(영어 본문을 찾지 못해 한글로 표시)'));
+  updateProgress();
+  typingDisplay.innerHTML = '';
+  current.text.split('').forEach(ch => typingDisplay.appendChild(el('span', null, ch)));
+  typingDisplay.appendChild(el('span', 'end-caret'));
+  userInput.value = '';
+  userInput.disabled = false;
+  btnMobileNext.style.display = 'none';
+  clearInterval(statTimer);
+  startTime = null; endTime = null;
+  wpmDisplay.innerText = '0'; accuracyDisplay.innerText = '100';
+  btnPrev.disabled = verseIdx === 0;
+  btnNext.disabled = verseIdx === chapterVerses.length - 1;
+  // 새 구절은 장절 제목이 보이도록 스크롤
+  const r = refDisplay.getBoundingClientRect();
+  if (r.top < 0 || r.bottom > viewportHeight()) window.scrollBy({ top: r.top - 20 });
+  renderTyping();
+  focusInput();
+}
+
+userInput.addEventListener('compositionstart', () => { isComposing = true; });
+userInput.addEventListener('compositionend', () => { isComposing = false; checkTyping(); });
+userInput.addEventListener('input', checkTyping);
+
+function checkTyping() {
+  const target = current.text;
+  let typed = userInput.value;
+  if (!startTime && typed.length > 0) { startTime = Date.now(); statTimer = setInterval(refreshStats, 1000); }
+  if (typed.length > target.length) { typed = typed.substring(0, target.length); userInput.value = typed; }
+  if (typed.length === target.length) {
+    if (!endTime) { endTime = Date.now(); clearInterval(statTimer); }
+  } else if (endTime) {
+    endTime = null; clearInterval(statTimer); statTimer = setInterval(refreshStats, 1000);
+  }
+  renderTyping();
+  if (typed.length === target.length) {
+    feedbackMsg.classList.add('show');
+    btnMobileNext.style.display = 'block';
+    if (typed === target) {
+      feedbackMsg.innerHTML = repeatToggle.checked
+        ? '✨ <strong>[Enter]</strong>를 누르면 이 구절을 한 번 더 연습합니다.'
+        : '✨ 완벽합니다! <strong>[Enter]</strong>를 눌러 넘어가세요.';
+    } else {
+      feedbackMsg.innerHTML = '🚨 오타가 있습니다. 수정하거나 <strong>[Enter]</strong>로 넘어갈 수 있습니다.';
+    }
+  } else {
+    feedbackMsg.classList.remove('show');
+    btnMobileNext.style.display = 'none';
+  }
+}
+
+function renderTyping() {
+  const target = current.text, typed = userInput.value;
+  const spans = typingDisplay.querySelectorAll('span:not(.end-caret)'), endCaret = typingDisplay.querySelector('.end-caret');
+  let correct = 0, keys = 0;
+  spans.forEach((s, i) => {
+    const t = typed[i];
+    s.classList.remove('correct', 'incorrect', 'current-char', 'composing');
+    s.removeAttribute('data-typed');
+    if (t == null) return;
+    if (t === s.innerText) { s.classList.add('correct'); correct++; keys += keyCount(t); }
+    else if (isComposing && i === typed.length - 1) s.classList.add('composing');
+    else { s.classList.add('incorrect'); s.dataset.typed = t === ' ' ? '␣' : t; }
+  });
+  endCaret.classList.remove('current-char');
+  (typed.length < target.length ? spans[typed.length] : endCaret).classList.add('current-char');
+  updateStats(keys, correct, typed.length);
+  syncCaret(true);
+}
+
+// ===== 자동 스크롤: 입력창을 커서 위치로 옮기고, 커서가 화면 밖으로 나가면 따라 내려감 =====
+function viewportHeight() { return window.visualViewport ? window.visualViewport.height : window.innerHeight; }
+function syncCaret(scroll) {
+  const caret = typingDisplay.querySelector('.current-char');
+  if (!caret || secPractice.style.display === 'none') return;
+  const cr = caret.getBoundingClientRect(), br = typingContainer.getBoundingClientRect();
+  if (!isComposing) {
+    userInput.style.top = (cr.top - br.top) + 'px';
+    userInput.style.left = Math.max(0, Math.min(cr.left - br.left, br.width - 24)) + 'px';
+    userInput.style.height = Math.max(cr.height, 20) + 'px';
+  }
+  if (!scroll) return;
+  const offset = window.visualViewport ? window.visualViewport.offsetTop : 0;
+  let vh = viewportHeight();
+  // 키보드 보기가 화면 아래에 붙어 있으면 그 위까지만 보이는 영역으로 계산
+  if (practiceKb.style.display !== 'none') {
+    const kr = practiceKb.getBoundingClientRect();
+    if (kr.bottom - offset >= vh - 2) vh = Math.max(100, kr.top - offset);
+  }
+  const top = cr.top - offset, bottom = cr.bottom - offset;
+  const margin = Math.min(140, vh * 0.25);
+  if (bottom > vh - margin) window.scrollBy(0, bottom - vh * 0.6);
+  else if (top < 10) window.scrollBy(0, top - vh * 0.3);
+}
+window.addEventListener('resize', () => syncCaret(false));
+if (window.visualViewport) window.visualViewport.addEventListener('resize', () => syncCaret(true)); // 모바일 키보드
+
+userInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); goToNextVerse(); } });
+btnMobileNext.addEventListener('click', goToNextVerse);
+btnPrev.addEventListener('click', () => { if (verseIdx > 0) { verseIdx--; repeatCount = 0; loadPractice(); } });
+btnNext.addEventListener('click', () => { if (verseIdx < chapterVerses.length - 1) { verseIdx++; repeatCount = 0; loadPractice(); } });
+
+function goToNextVerse() {
+  if (userInput.value.length !== current.text.length) return;
+  clearInterval(statTimer);
+  if (repeatToggle.checked) { repeatCount++; loadPractice(); return; }
+  const v = chapterVerses[verseIdx];
+  chapterResults[v.id] = { ref: current.ref, text: current.text, cpm: wpmDisplay.innerText, accuracy: accuracyDisplay.innerText };
+  saveChapterResults(v.chapter, chapterResults);
+  verseIdx++; repeatCount = 0;
+  if (verseIdx >= chapterVerses.length) showResults(); else loadPractice();
+}
+
+function showResults() {
+  // 챕터를 끝냈으면 다음에는 다음 챕터 처음부터 (마지막 챕터면 첫 챕터로)
+  const names = chapterNames(), next = names[(names.indexOf(chapterSelect.value) + 1) % names.length];
+  const first = verses.find(v => v.chapter === next);
+  if (first) saveResume(next, first.id);
+  // 이전에 저장된 기록까지 포함해 챕터 순서대로 표시하고, 저장된 기록은 비움 (다음 회차는 새로 시작)
+  const records = chapterVerses.filter(v => chapterResults[v.id]).map(v => chapterResults[v.id]);
+  saveChapterResults(chapterSelect.value, null);
+  chapterResults = {};
+  showSection('results');
+  $('results-chapter-title').innerText = `🎉 '${chapterSelect.value}' 암송 완료`;
+  const list = $('results-list');
+  list.innerHTML = '';
+  let cpmSum = 0, accSum = 0;
+  records.forEach(x => {
+    cpmSum += parseInt(x.cpm); accSum += parseInt(x.accuracy);
+    const li = el('li');
+    li.appendChild(el('span', 'verse-ref', x.ref));
+    li.appendChild(el('span', 'verse-text', x.text));
+    const st = el('div', 'verse-stats');
+    st.innerHTML = `<span>타수 <strong>${x.cpm}</strong> | 정확도 <strong>${x.accuracy}</strong>%</span>`;
+    li.appendChild(st);
+    list.appendChild(li);
+  });
+  const avgCpm = Math.round(cpmSum / records.length) || 0, avgAcc = Math.round(accSum / records.length) || 0;
+  $('results-average-board').innerHTML = `<span>평균 타수 <strong>${avgCpm}</strong></span><span>평균 정확도 <strong>${avgAcc}</strong>%</span>`;
+  window.scrollTo(0, 0);
+}
+$('btn-back-to-manage').addEventListener('click', () => tabManage.click());
+
+// 한글 음절의 실제 타자 수 (쌍자음·겹모음·겹받침은 2타)
+function keyCount(c) {
+  const x = c.charCodeAt(0);
+  if (x >= 0xAC00 && x <= 0xD7A3) {
+    const o = x - 0xAC00, jong = o % 28, jung = ((o - jong) / 28) % 21, cho = Math.floor(((o - jong) / 28) / 21);
+    let n = [1, 4, 8, 10, 24].includes(cho) ? 2 : 1;
+    n += [3, 7, 9, 10, 11, 14, 15, 16, 19].includes(jung) ? 2 : 1;
+    if (jong > 0) n += [2, 3, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18, 20].includes(jong) ? 2 : 1;
+    return n;
+  }
+  return 1;
+}
+function updateStats(keys, correct, typedLen) {
+  if (!startTime) return;
+  const t = endTime || Date.now(), minutes = Math.max((t - startTime) / 60000, 0.0166);
+  wpmDisplay.innerText = Math.round(keys / minutes);
+  accuracyDisplay.innerText = typedLen > 0 ? Math.round((correct / typedLen) * 100) : 100;
+}
+function refreshStats() {
+  if (!current) return;
+  const target = current.text, typed = userInput.value;
+  let correct = 0, keys = 0;
+  for (let i = 0; i < typed.length; i++) if (typed[i] === target[i]) { correct++; keys += keyCount(typed[i]); }
+  updateStats(keys, correct, typed.length);
+}
+
+// ===== 키보드 테스트 =====
+// 배열 단위: 키 1개 = 1칸. 전체 22.5 x 6.5칸 (풀배열 104키 + 한/영·한자)
+const KB_W = 22.5, KB_H = 6.5;
+const KB_KEYS = [];
+const JAMO = { Q:'ㅂ',W:'ㅈ',E:'ㄷ',R:'ㄱ',T:'ㅅ',Y:'ㅛ',U:'ㅕ',I:'ㅑ',O:'ㅐ',P:'ㅔ',A:'ㅁ',S:'ㄴ',D:'ㅇ',F:'ㄹ',G:'ㅎ',H:'ㅗ',J:'ㅓ',K:'ㅏ',L:'ㅣ',Z:'ㅋ',X:'ㅌ',C:'ㅊ',V:'ㅍ',B:'ㅠ',N:'ㅜ',M:'ㅡ' };
+const two = (top, main) => `<small>${top}</small>${main}`;
+const letters = s => s.split('').map(c => ['Key' + c, `${c}<small>${JAMO[c]}</small>`]);
+const fkeys = (a, b) => { const r = []; for (let i = a; i <= b; i++) r.push(['F' + i, 'F' + i]); return r; };
+// 숫자 = 앞 칸 띄우기, [코드(여러 개는 공백 구분), 표시, 너비, 높이]
+function kbRow(y, keys) {
+  let x = 0;
+  keys.forEach(k => {
+    if (typeof k === 'number') { x += k; return; }
+    const [codes, label, w = 1, h = 1] = k;
+    KB_KEYS.push({ codes: codes.split(' '), label, x, y, w, h });
+    x += w;
+  });
+}
+kbRow(0, [['Escape', 'Esc'], 1, ...fkeys(1, 4), .5, ...fkeys(5, 8), .5, ...fkeys(9, 12), .25,
+  ['PrintScreen', 'Prt Sc'], ['ScrollLock', 'Scroll<br>Lock'], ['Pause', 'Pause']]);
+kbRow(1.5, [['Backquote', two('~', '`')], ...'1234567890'.split('').map((d, i) => ['Digit' + d, two('!@#$%^&*()'[i], d)]),
+  ['Minus', two('_', '-')], ['Equal', two('+', '=')], ['Backspace', 'Backspace', 2], .25,
+  ['Insert', 'Insert'], ['Home', 'Home'], ['PageUp', 'Page<br>Up'], .25,
+  ['NumLock', 'Num<br>Lock'], ['NumpadDivide', '/'], ['NumpadMultiply', '*'], ['NumpadSubtract', '-']]);
+kbRow(2.5, [['Tab', 'Tab', 1.5], ...letters('QWERTYUIOP'), ['BracketLeft', two('{', '[')], ['BracketRight', two('}', ']')], ['Backslash', two('|', '\\'), 1.5], .25,
+  ['Delete', 'Delete'], ['End', 'End'], ['PageDown', 'Page<br>Down'], .25,
+  ['Numpad7', '7'], ['Numpad8', '8'], ['Numpad9', '9'], ['NumpadAdd', '+', 1, 2]]);
+kbRow(3.5, [['CapsLock', 'Caps Lock', 1.75], ...letters('ASDFGHJKL'), ['Semicolon', two(':', ';')], ['Quote', two('"', "'")], ['Enter', 'Enter', 2.25], 3.5,
+  ['Numpad4', '4'], ['Numpad5', '5'], ['Numpad6', '6']]);
+kbRow(4.5, [['ShiftLeft', 'Shift', 2.25], ...letters('ZXCVBNM'), ['Comma', two('&lt;', ',')], ['Period', two('&gt;', '.')], ['Slash', two('?', '/')], ['ShiftRight', 'Shift', 2.75], 1.25,
+  ['ArrowUp', '↑'], 1.25, ['Numpad1', '1'], ['Numpad2', '2'], ['Numpad3', '3'], ['NumpadEnter', 'Enter', 1, 2]]);
+kbRow(5.5, [['ControlLeft', 'Ctrl', 1.25], ['MetaLeft', 'Win', 1.25], ['AltLeft', 'Alt', 1.25], ['Space', 'Space', 6.25],
+  ['AltRight Lang1', '한/영<small>Alt</small>', 1.25], ['MetaRight', 'Win', 1.25], ['ContextMenu', 'Menu', 1.25], ['ControlRight Lang2', '한자<small>Ctrl</small>', 1.25], .25,
+  ['ArrowLeft', '←'], ['ArrowDown', '↓'], ['ArrowRight', '→'], .25, ['Numpad0', '0', 2], ['NumpadDecimal', '.']]);
+
+const kbCodeMap = {};
+KB_KEYS.forEach(k => k.codes.forEach(c => { kbCodeMap[c] = k; }));
+const KB_KEYCODE_FALLBACK = { 21: 'Lang1', 25: 'Lang2' }; // 한/영, 한자 (code가 비어 있는 경우)
+const kbPressed = new Set(), kbTested = new Set(), kbExtra = new Set();
+let kbBuilt = false, kbMaxHeld = 0, kbHistory = [];
+
+function buildKeyboard() {
+  if (kbBuilt) return;
+  const board = $('keyboard');
+  KB_KEYS.forEach(k => {
+    const d = el('div', 'key');
+    d.style.left = (k.x / KB_W * 100) + '%';
+    d.style.top = (k.y / KB_H * 100) + '%';
+    d.style.width = (k.w / KB_W * 100) + '%';
+    d.style.height = (k.h / KB_H * 100) + '%';
+    const face = el('span');
+    face.innerHTML = k.label;
+    d.appendChild(face);
+    board.appendChild(d);
+    k.el = d;
+  });
+  kbBuilt = true;
+  updateKbStats();
+}
+function kbFind(e) { return kbCodeMap[e.code] || kbCodeMap[KB_KEYCODE_FALLBACK[e.keyCode]] || null; }
+function kbKeyId(e, k) { return k ? k.codes[0] : (e.code || e.key || `keyCode ${e.keyCode}`); }
+function kbActive() { return secKeyboard.style.display === 'block'; }
+function kbMarkTested(e, k) {
+  if (k) {
+    kbTested.add(k.codes[0]);
+    k.el.classList.add('tested');
+  } else {
+    const id = kbKeyId(e, k);
+    if (!kbExtra.has(id)) {
+      kbExtra.add(id);
+      $('kb-extra-list').appendChild(el('span', 'chip', id));
+      $('kb-extra').style.display = 'block';
+    }
+  }
+}
+function updateKbStats() {
+  $('kb-held').textContent = `${kbPressed.size} (${kbMaxHeld})`;
+  $('kb-count').textContent = `${kbTested.size} / ${KB_KEYS.length}`;
+  $('kb-progress-bar').style.width = (kbTested.size / KB_KEYS.length * 100) + '%';
+}
+function updateKbLocks(e) {
+  [['CapsLock', 'kb-lock-caps'], ['NumLock', 'kb-lock-num'], ['ScrollLock', 'kb-lock-scroll']].forEach(([m, id]) => {
+    if (e.getModifierState) $(id).classList.toggle('on', e.getModifierState(m));
+  });
+}
+window.addEventListener('keydown', e => {
+  if (!kbActive()) return;
+  e.preventDefault(); // Tab·F5·Space 등 브라우저 동작 막기
+  const k = kbFind(e), id = kbKeyId(e, k);
+  kbPressed.add(id);
+  kbMaxHeld = Math.max(kbMaxHeld, kbPressed.size);
+  if (k) k.el.classList.add('pressed');
+  kbMarkTested(e, k);
+  $('kb-last-key').textContent = e.key === ' ' ? 'Space' : (e.key || '-');
+  $('kb-last-code').textContent = `${e.code || '-'} / ${e.keyCode}`;
+  if (!e.repeat) {
+    kbHistory.push(e.key === ' ' ? '␣' : e.key.length === 1 ? e.key : `[${e.key}]`);
+    if (kbHistory.length > 30) kbHistory.shift();
+    $('kb-history').textContent = '입력 기록: ' + kbHistory.join(' ');
+  }
+  updateKbLocks(e);
+  updateKbStats();
+}, true);
+window.addEventListener('keyup', e => {
+  if (!kbActive()) return;
+  e.preventDefault();
+  const k = kbFind(e);
+  kbPressed.delete(kbKeyId(e, k));
+  if (k) k.el.classList.remove('pressed');
+  kbMarkTested(e, k); // Print Screen은 keyup만 들어옴
+  updateKbLocks(e);
+  updateKbStats();
+}, true);
+window.addEventListener('blur', () => {
+  kbPressed.clear();
+  KB_KEYS.forEach(k => {
+    if (k.el) k.el.classList.remove('pressed');
+    if (k.miniEl) k.miniEl.classList.remove('pressed');
+  });
+  if (kbBuilt) updateKbStats();
+});
+
+// ===== 연습 화면의 '키보드 보기' (기능키·숫자패드 없이 타자용 자판만) =====
+const kbViewToggle = $('kbview-toggle');
+const MINI_KEYS = KB_KEYS.filter(k => k.y >= 1.5 && k.x < 15);
+let miniBuilt = false;
+function buildMiniKeyboard() {
+  if (miniBuilt) return;
+  const board = $('practice-keyboard'), W = 15, H = 5, oy = 1.5;
+  MINI_KEYS.forEach(k => {
+    const d = el('div', 'key');
+    d.style.left = (k.x / W * 100) + '%';
+    d.style.top = ((k.y - oy) / H * 100) + '%';
+    d.style.width = (k.w / W * 100) + '%';
+    d.style.height = (k.h / H * 100) + '%';
+    const face = el('span');
+    face.innerHTML = k.label;
+    d.appendChild(face);
+    board.appendChild(d);
+    k.miniEl = d;
+  });
+  miniBuilt = true;
+}
+function setKbView(on) {
+  kbViewToggle.checked = on;
+  if (on) buildMiniKeyboard();
+  practiceKb.style.display = on ? 'block' : 'none';
+  try { localStorage.setItem('ShowKeyboard', on ? '1' : '0'); } catch (e) {}
+}
+kbViewToggle.addEventListener('change', e => { setKbView(e.target.checked); focusInput(); });
+function miniActive() { return kbViewToggle.checked && secPractice.style.display !== 'none'; }
+window.addEventListener('keydown', e => {
+  if (!miniActive()) return;
+  const k = kbFind(e); // 한글 입력(IME) 중에도 e.code는 실제 누른 자리를 알려줌
+  if (k && k.miniEl) k.miniEl.classList.add('pressed');
+}, true);
+window.addEventListener('keyup', e => {
+  const k = kbFind(e); // 탭을 옮긴 뒤 키를 떼도 눌림 표시가 남지 않도록 항상 해제
+  if (k && k.miniEl) k.miniEl.classList.remove('pressed');
+}, true);
+try { if (localStorage.getItem('ShowKeyboard') === '1') setKbView(true); } catch (e) {}
+
+// ===== 피아노 소리 (Web Audio로 직접 합성 — 소리 파일 없음) =====
+const SOUND_KEY = 'TypingSound';
+const soundCfg = { on: false, vol: 80, song: false, songId: 'bumblebee' };
+try {
+  const s = JSON.parse(localStorage.getItem(SOUND_KEY)) || {};
+  ['on', 'vol', 'song', 'songId', 'defaultSong'].forEach(k => { if (s[k] !== undefined) soundCfg[k] = s[k]; });
+} catch (e) {}
+if (soundCfg.defaultSong !== 2) { soundCfg.songId = 'bumblebee'; soundCfg.defaultSong = 2; } // 기본 연주곡을 왕벌의 비행으로 (한 번만)
+const soundToggle = $('sound-toggle'), soundVol = $('sound-vol');
+const songToggle = $('song-toggle'), songSelect = $('song-select'), songProgress = $('song-progress');
+let audioCtx = null, masterGain = null;
+function getAudio() {
+  if (!audioCtx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    audioCtx = new AC();
+    // 여러 음이 겹쳐도 소리가 깨지지 않게 압축기를 거침
+    const comp = audioCtx.createDynamicsCompressor();
+    comp.threshold.value = -6; comp.knee.value = 3; comp.ratio.value = 12;
+    comp.attack.value = 0.003; comp.release.value = 0.08;
+    masterGain = audioCtx.createGain();
+    masterGain.connect(comp).connect(audioCtx.destination);
+  }
+  masterGain.gain.value = soundCfg.vol / 100;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+const midiFreq = m => 440 * Math.pow(2, (m - 69) / 12);
+
+// 피아노 배열: 가운데 줄 = 흰 건반(A=도4 … '=파5), 윗줄 = 검은 건반, 아랫줄 = 한 옥타브 낮은 흰 건반. 나머지 키는 소리 없음
+const KEY_MIDI_PIANO = {};
+[['KeyA', 60], ['KeyW', 61], ['KeyS', 62], ['KeyE', 63], ['KeyD', 64], ['KeyF', 65], ['KeyT', 66], ['KeyG', 67], ['KeyY', 68],
+ ['KeyH', 69], ['KeyU', 70], ['KeyJ', 71], ['KeyK', 72], ['KeyO', 73], ['KeyL', 74], ['KeyP', 75], ['Semicolon', 76], ['Quote', 77],
+ ['BracketRight', 78], ['KeyZ', 48], ['KeyX', 50], ['KeyC', 52], ['KeyV', 53], ['KeyB', 55], ['KeyN', 57], ['KeyM', 59],
+ ['Comma', 60], ['Period', 62], ['Slash', 64]].forEach(([c, m]) => { KEY_MIDI_PIANO[c] = m; });
+function midiFor(e) {
+  const k = kbFind(e);
+  return k ? KEY_MIDI_PIANO[k.codes[0]] : undefined;
+}
+
+// 피아노 음색: 배음을 섞고, 누르고 있어도 자연스럽게 잦아듦
+const activeNotes = new Map();
+function noteOn(id, midi, level = 1) {
+  const ctx = getAudio();
+  if (!ctx) return;
+  noteOff(id, true);
+  const t = ctx.currentTime, f = midiFreq(midi), g = ctx.createGain(), oscs = [];
+  g.connect(masterGain);
+  const add = (wave, mul, amp) => {
+    const o = ctx.createOscillator(), a = ctx.createGain();
+    o.type = wave; o.frequency.value = f * mul; a.gain.value = amp;
+    o.connect(a).connect(g);
+    o.start(t);
+    oscs.push(o);
+  };
+  add('sine', 1, 1); add('sine', 2, 0.35); add('sine', 3, 0.12); add('triangle', 4, 0.05);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.3 * level, t + 0.005);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+  const n = { g, oscs };
+  n.timer = setTimeout(() => noteOff(id), 1700);
+  activeNotes.set(id, n);
+}
+function noteOff(id, immediate) {
+  const n = activeNotes.get(id);
+  if (!n) return;
+  activeNotes.delete(id);
+  clearTimeout(n.timer);
+  const t = audioCtx.currentTime, rel = immediate ? 0.01 : 0.15;
+  n.g.gain.cancelScheduledValues(t);
+  n.g.gain.setValueAtTime(n.g.gain.value, t);
+  n.g.gain.linearRampToValueAtTime(0, t + rel);
+  n.oscs.forEach(o => o.stop(t + rel + 0.02));
+}
+function allNotesOff() { [...activeNotes.keys()].forEach(id => noteOff(id)); }
+function previewSound() { // 켜거나 크기를 바꾸면 "도-미-솔" 미리 듣기
+  [60, 64, 67].forEach((m, i) => setTimeout(() => {
+    noteOn('preview' + i, m);
+    setTimeout(() => noteOff('preview' + i), 200);
+  }, i * 140));
+}
+
+// ===== 연주 모드: 키를 누를 때마다 곡의 다음 음이 하나씩 (타자 속도 = 템포) =====
+// 곡 표기: 계이름(도 레 미…, 높은도/낮은솔, 파#/시b) 또는 음이름(G4, F#4), [G] [D7] 같은 코드는 반주
+const BUILTIN_SONGS = [{
+  id: 'bumblebee', title: '왕벌의 비행 (림스키코르사코프)', key: 'C', builtin: true,
+  // 기본 연주곡 (가단조 → C장조 기준 계이름)
+  notes: '높은솔 높은파# 높은파 높은미 높은파 높은미 높은미b 높은레 높은미b 높은레 높은도# 높은도 시 시b 라 솔# 솔 파# 파 미 파 미 미b 레 미b 레 | 도# 도 낮은시 낮은시b 낮은라 낮은솔# 낮은솔 낮은파# 낮은파 낮은미 낮은파 낮은미 낮은미b 낮은레 낮은솔 낮은파# 낮은파 낮은미 낮은파 낮은미 낮은미b 낮은레 낮은솔 낮은파# 낮은파 | 낮은미 낮은파 낮은미 낮은미b 낮은레 낮은솔 낮은파# 낮은파 낮은미 낮은파 낮은미 낮은미b 낮은레 [A]낮은솔 낮은미b 낮은파# 낮은파 낮은미 낮은미b 낮은솔# 낮은솔 낮은파# 낮은미b 낮은솔 낮은파# 낮은파 낮은미 | [D7]낮은미b 낮은낮은라 낮은미 낮은파 낮은파# 낮은솔 낮은낮은솔 낮은파# 낮은파 낮은미 낮은미b 낮은솔# 낮은솔 낮은파# 낮은솔 낮은파# 낮은파 낮은미 낮은미b 낮은미 [Am]낮은파 낮은파# 낮은낮은도 낮은솔 낮은파# 낮은파 낮은미 낮은파 |\n' +
+    '[Esus4]낮은낮은솔# 낮은미 낮은미b 낮은레 낮은미b 낮은도 낮은미 낮은파 [B7]낮은파# 낮은낮은시 낮은솔 낮은솔# 낮은솔 낮은파# 낮은솔 낮은낮은솔 [Dm7]낮은파# 낮은파 낮은미 낮은파 낮은낮은도 낮은미 낮은미b [D7]낮은레 낮은미b 낮은미 낮은파 낮은파# 낮은낮은레 낮은낮은낮은솔 낮은솔 | [A]낮은라 낮은시b 낮은시 낮은낮은낮은미 도 낮은낮은솔 낮은시 낮은시b [F]낮은라 낮은낮은낮은파 낮은낮은도 낮은솔# 도# 도 낮은시 도 낮은시 [Bm]낮은시b 낮은라 낮은낮은시b 낮은솔# 낮은라 낮은시b 낮은시 [Dm]도 낮은도 낮은시 낮은시b 낮은라 낮은솔# 도# | [F]도 낮은시 도 낮은낮은파 낮은시 낮은시b 낮은라 [G]낮은솔# 낮은낮은파 낮은라 낮은시b 낮은시 도 낮은시 낮은시b [A]낮은라 낮은시b 낮은도# 낮은라 낮은솔 낮은솔# [A7]낮은라 낮은시b 낮은시 도 도# 도 | [Bbmaj7]낮은시 도 낮은시 낮은시b 낮은라 낮은시b 낮은낮은시b 낮은라 낮은솔# 낮은솔 낮은솔# 낮은라 낮은시b [Faug]낮은시 도 낮은낮은낮은시b 도# 도 낮은시 도 낮은도 낮은낮은시 낮은도 낮은낮은시 낮은도 낮은낮은시 |\n' +
+    '[Amaj7]낮은도 낮은도# 도# 낮은도# 도# 낮은도# 낮은낮은시 [A]도# 낮은도# 낮은낮은시 도# 도 낮은도 도 낮은시 [Amaj7]도 낮은시 도 낮은시 도 도# 높은도# 레 도# 높은도# 도# 높은도# 도# 낮은시 높은도# | 도 도# 도 낮은시 도 [Ab]도# 도 낮은시 낮은도 도 도# 낮은도# 도 낮은시 [A7]낮은레 도 도# 낮은미b 낮은낮은라 낮은시 낮은미 도 [Bbm]도# 레 미b 높은도 높은도# 높은레 높은미b | 높은미 높은미b 높은레 높은도# 높은도 미b [Dmaj7]레 도# 도 낮은미 [C#]낮은파 낮은미 낮은파 낮은미 낮은파 낮은파# [Dmaj7]파# 낮은파 낮은파# 낮은미 낮은파 파# 낮은파# 파# 낮은파# 낮은미 | 파# 낮은파 파 파 미 파 [C#]미 파 미 파 파# 파 높은파# 솔 파# [Dmaj7]파 높은파# 파# 높은파# 파# 미 높은파# 파 파# 파 미 파 파# |\n' +
+    '[C#]파 미 낮은파 파 파# 낮은파# 파 미 낮은솔 낮은미b 파 [F#maj7]파# 파 낮은레 미 파 낮은파 파# 솔 솔# 높은파 높은파# 높은솔 높은솔# 높은라 [E7]높은솔# 파# 높은솔 높은파# 높은파 라 솔# | [Gm]솔 파# 낮은시b 파 미 미b 레 도# 높은파# 파# 높은파 높은미 높은파 파 높은미 [Ebm]높은미b 높은레 높은도# 높은레 높은미b [Bbsus4]높은미 높은파 파 높은미 높은미b 높은레 높은미b 낮은라 높은레 | [G]높은도# 높은도 높은도# 파 도# 높은레 높은미b 높은미 [C#m]높은미b 도 높은미 파 높은파 파# 높은파# 높은솔 높은파# [F]높은파 높은미 높은파 솔 높은미 솔 높은미b 높은레 [Fmaj7]높은미b 솔 높은레 솔# 높은도# 솔 높은도 시 시b | [E]라 솔# 솔 솔# 솔 파# 솔 낮은솔 솔# 솔 낮은미b 파# 솔 낮은도 솔# 솔 낮은낮은솔# 파# 솔 낮은도 솔# 솔 낮은미b 파# 낮은솔 낮은솔# 낮은솔 낮은파# 낮은낮은솔 낮은솔 낮은솔# |\n' +
+    '[F]낮은솔 낮은파# 낮은솔 낮은낮은도 낮은솔# 낮은솔 낮은파# [Am]낮은솔 낮은솔# 낮은솔 낮은낮은미b 낮은파# 낮은솔 낮은낮은솔 낮은파# 낮은파 낮은미 낮은파 낮은미 낮은미b 낮은레 낮은미b 낮은레 낮은도# 낮은도 낮은낮은시 낮은낮은시b 낮은낮은라 | 낮은낮은솔# 낮은낮은솔 낮은낮은솔# 낮은낮은솔 낮은낮은파# 낮은낮은솔 낮은낮은솔# 낮은낮은솔 낮은낮은파# 낮은낮은솔 낮은낮은솔# 낮은낮은솔 낮은낮은파# 낮은낮은솔 낮은낮은솔# 낮은낮은솔 낮은낮은파# 낮은낮은솔 [Eaug]낮은낮은솔# 낮은낮은솔 낮은낮은파# 솔 낮은낮은솔# 미b 도 낮은낮은파# | [Fmaj7]낮은낮은솔 도 낮은낮은솔# 낮은미 낮은솔# 낮은낮은솔 낮은낮은파# 도 낮은낮은솔# [Am]미b 낮은낮은파# 낮은낮은솔 솔 낮은낮은솔# 낮은낮은솔 [A]낮은낮은파# 낮은낮은솔 높은솔 높은미b 낮은낮은솔# 높은미b 솔 낮은낮은파# 낮은낮은솔 높은도 [C#m]낮은낮은솔# 도 솔# 낮은낮은파# 미 높은도 낮은낮은솔# 높은미b 높은도 | [Esus4]낮은낮은파# 높은솔 높은미b 낮은낮은솔# 낮은낮은솔 낮은낮은파# 낮은솔 [C#sus4]낮은솔# 낮은라 낮은시b 낮은시 도 도# 레 [Em]미b 낮은시 미 파 파# 솔 미b [F]솔# 라 시b 시 미b 높은도 높은도# 높은레 |\n' +
+    '[Ab]높은미b 높은미 높은파 높은파# 높은솔 솔# [A]솔 파# 높은도 낮은솔 낮은미b 파# 파 미 [Am]미b 솔# 솔 파# 솔 도 낮은솔 파# [F#aug]파 미 낮은도 미b 높은도 도 미 파 | [Am]파# 높은도 낮은솔 파# 파 미 미b 솔# 솔 파# 솔 낮은솔 낮은도 파# 파 [A]미 낮은낮은라 낮은파 미b 높은도 미 파 파# 높은도 솔 파# 파 미 파 낮은파 낮은낮은솔# 미 미b | [Am]레 미b 미 파 파# 솔 [C]솔# 솔 파# 낮은도 솔 파# 파 [Dm7]미 파 미 미b 레 미b [E7]미 파 파# 솔 낮은낮은낮은솔 라 | 시b 시 낮은낮은낮은미 높은도 낮은낮은도 시 시b 라 낮은낮은도 [Dm]솔# 높은도# 높은도 시 높은도 시 [G7]시b 라 높은파 낮은파 라 시b 시 [A]낮은낮은파 높은파 낮은솔# 시 시b 라 솔# |\n' +
+    '[Dm]높은도# 높은도 시 높은도 낮은도 시 시b [A]라 낮은낮은레 낮은낮은시b 솔# 높은파 낮은파 라 시b 시 낮은낮은파 낮은도 높은파 낮은솔# 시 시b 라 시b 낮은낮은도# 낮은낮은시b 낮은낮은파 라 솔# 솔 [A7]낮은낮은파 솔# 라 시b 시 높은도 | [Dm]높은도# 높은도 시 높은도 낮은낮은도 시 시b [Dm7]라 낮은도 솔# 라 시b 시 높은도 낮은낮은솔 높은레 [Abm]높은미b 높은파 높은솔 낮은낮은솔 높은솔# 높은솔 높은파# [Am]낮은낮은솔 높은솔 높은파# 높은파 도 높은미 높은미b 높은솔# | [E]높은솔 높은파# 낮은낮은도 높은솔 낮은미b 높은파# 높은파 높은미 [C]낮은낮은낮은라 낮은낮은파 높은높은도 낮은도 높은미 높은파 높은파# 낮은낮은도 낮은낮은솔 높은높은도 [A]높은파# 높은파 도 낮은미b 높은미 높은미b 높은솔# 높은솔 높은파# [Am]낮은낮은솔 높은솔 낮은미b 높은파# 높은파 높은미 낮은낮은낮은라 낮은낮은파 높은높은도 낮은도 높은미 | [A]높은파 높은파# 낮은낮은솔 높은솔 높은높은도 낮은미b 시 높은도 [D]높은도# 높은레 낮은솔# 높은미b 높은미 높은파 낮은낮은솔# 높은미 높은미b [A]낮은레 높은레 높은미b 낮은파 높은레 높은도# 낮은솔# 높은도 시 [Am]낮은솔 높은도 높은도# 높은레 높은미b 낮은낮은솔 높은미 높은파 |\n' +
+    '[E7]높은파# 높은솔 높은솔# 높은솔 높은파# 높은솔 [Am]높은솔# 높은솔 높은파# 높은솔 낮은솔 높은시 [F]높은높은도 높은높은도# 미b 높은높은레 높은높은미b 도 높은높은미 높은높은파 파 높은높은미 [Bdim]높은높은미b 높은높은레 높은높은미b 높은높은레 높은높은도# 솔# 도 높은높은도 | [C]높은도 높은시 높은높은도 높은높은도# 높은높은레 높은높은미b 낮은솔 높은높은미 [D]높은높은파 높은높은파# 시 높은높은솔 솔 높은높은솔# 높은높은솔 높은높은파# [Am]높은높은솔 높은높은라 높은높은시b 높은높은시 높은높은높은도 솔 높은높은시 높은높은시b 높은높은라 도# 낮은시b 낮은미 높은높은시b 높은높은라 높은높은솔# 높은높은솔 | [F]도 낮은파 높은높은솔# 높은높은솔 높은높은파# 높은높은파 높은높은미 높은높은미b [Am]높은높은레 높은높은도# 높은높은도 낮은솔 높은시 높은시b 높은라 [A7]높은시b 낮은도# 높은라 높은솔# 높은솔 높은솔# 낮은낮은솔# 높은솔 [A]높은파# 높은파 높은미 높은미b 높은레 높은도# | [Amaj7]높은도 낮은미b 높은도# 높은도 시 높은도 높은도# 도# 높은도 [Bbmaj7]시 높은도 도 높은도# 낮은시b 높은레 도# 높은미b [F]높은미 높은파 높은파# 높은솔 낮은솔 높은솔# 높은솔 [F7]높은파# 높은솔 솔 높은솔# 솔 높은솔 높은파# 높은솔 |\n' +
+    '[G]높은파# 라 높은솔 높은솔# 미b 높은라 높은시b 시 높은시 [Am]높은높은도 솔 솔 솔# [C#]라 낮은도 시b 낮은솔 시 미b 높은도 높은도# 높은레 [Faug]높은미b 높은미 높은파 높은파# 높은솔 높은솔# | [Emaj7]높은라 높은시b 높은시 높은높은도 높은높은도# 높은높은레 높은미b 높은높은미b [C]높은높은미 높은높은파 높은높은파# 높은높은솔 시 높은높은라 높은높은시b [Cmaj7]높은높은시 높은높은높은도 높은도 [Am]높은도 솔 | [A]낮은도'
+}];
+const SONG_LIB_KEY = 'SongLibrary';
+let userSongs = null;
+try { userSongs = JSON.parse(localStorage.getItem(SONG_LIB_KEY)); } catch (e) {}
+if (!Array.isArray(userSongs)) {
+  // 저작권이 있는 곡은 악보를 보고 직접 계이름을 입력하도록 빈 곡으로 준비
+  userSongs = [['haneul-somang', '하늘 소망'], ['eunhye', '은혜'], ['gwoeroul-ttae', '괴로울 때 주님 얼굴 보라']]
+    .map(([id, title]) => ({ id, title, key: 'C', notes: '' }));
+}
+function saveSongs() { try { localStorage.setItem(SONG_LIB_KEY, JSON.stringify(userSongs)); } catch (e) {} }
+function allSongs() { return [...BUILTIN_SONGS, ...userSongs]; }
+function findSong(id) { return allSongs().find(s => s.id === id); }
+function hasNotes(s) { return !!(s && s.notes && s.notes.trim()); }
+
+const KEY_PC = { C: 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, F: 5, 'F#': 6, Gb: 6, G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, Bb: 10, B: 11 };
+const SOLFA = { 도: 0, 레: 2, 미: 4, 파: 5, 솔: 7, 라: 9, 시: 11 };
+const CHORD_TYPES = { '': [0, 4, 7], m: [0, 3, 7], '7': [0, 4, 7, 10], m7: [0, 3, 7, 10], maj7: [0, 4, 7, 11], dim: [0, 3, 6], sus4: [0, 5, 7], aug: [0, 4, 8] };
+const accOf = a => (a === '#' || a === '♯') ? 1 : (a === 'b' || a === '♭') ? -1 : 0;
+const normAcc = a => a === '♯' ? '#' : a === '♭' ? 'b' : a;
+// → { events: [{ midi, chord }], errors: [알 수 없는 표기] }
+function parseSong(text, key) {
+  const tonic = 60 + (KEY_PC[key] || 0);
+  const events = [], errors = [];
+  let chord = null, octave = 0;
+  const tokens = String(text).replace(/\[/g, ' [').replace(/\]/g, '] ').split(/[\s,|]+/).filter(Boolean);
+  for (const tok of tokens) {
+    let m;
+    if ((m = tok.match(/^\[([A-G])([#b♯♭]?)(maj7|m7|m|7|dim|sus4|aug)?\]$/))) {
+      const root = KEY_PC[m[1] + normAcc(m[2])];
+      chord = CHORD_TYPES[m[3] || ''].map(i => 48 + root + i);
+      continue;
+    }
+    if ((m = tok.match(/^((?:높은|낮은)+)$/))) { // "높은 도"처럼 띄어 쓴 경우
+      octave += (m[1].match(/높은/g) || []).length - (m[1].match(/낮은/g) || []).length;
+      continue;
+    }
+    let midi;
+    if ((m = tok.match(/^([A-G])([#b♯♭]?)(\d)$/))) {
+      midi = 12 * (+m[3] + 1) + KEY_PC[m[1]] + accOf(m[2]);
+    } else if ((m = tok.match(/^((?:높은|낮은)*)(도|레|미|파|솔|라|시)([#b♯♭]?)$/))) {
+      const oct = octave + (m[1].match(/높은/g) || []).length - (m[1].match(/낮은/g) || []).length;
+      midi = tonic + SOLFA[m[2]] + accOf(m[3]) + 12 * oct;
+    } else { errors.push(tok); octave = 0; continue; }
+    events.push({ midi, chord });
+    chord = null; octave = 0;
+  }
+  return { events, errors };
+}
+
+let songEvents = [], songPos = 0, songTitle = '', songNoteSeq = 0;
+function loadSong() {
+  let s = findSong(soundCfg.songId);
+  if (!s) { s = BUILTIN_SONGS[0]; soundCfg.songId = s.id; }
+  songEvents = hasNotes(s) ? parseSong(s.notes, s.key).events : [];
+  songTitle = s.title;
+  songPos = 0;
+  updateSongProgress();
+  updateNoteLabels();
+}
+function songModeActive() { return soundCfg.on && soundCfg.song && songEvents.length > 0; }
+function updateSongProgress() {
+  songProgress.textContent = songEvents.length ? `${songPos} / ${songEvents.length}` : '⚠️ 계이름 입력 필요 → ✏️ 곡 편집';
+  songProgress.classList.toggle('empty', !songEvents.length);
+}
+function playNextSongNote() {
+  if (!songEvents.length) return;
+  if (songPos >= songEvents.length) songPos = 0; // 곡이 끝나면 처음부터 다시
+  const ev = songEvents[songPos++];
+  noteOn('song' + songNoteSeq, ev.midi);
+  noteOff('song' + (songNoteSeq - 2)); // 두 음 전 소리는 부드럽게 정리 (빨리 칠 때 소리가 뭉치지 않게)
+  songNoteSeq++;
+  if (ev.chord) {
+    for (let i = 0; i < 4; i++) noteOff('chord' + i);
+    ev.chord.forEach((m, i) => noteOn('chord' + i, m, 0.3));
+  }
+  flashSongKey(ev.midi);
+  updateSongProgress();
+}
+// 지금 나는 음의 건반을 주황색으로 잠깐 표시
+function flashSongKey(midi) {
+  if (!noteModeOn()) return;
+  let best = null;
+  Object.entries(KEY_MIDI_PIANO).forEach(([c, m]) => {
+    if (m === midi) best = c;
+    else if (best === null || KEY_MIDI_PIANO[best] !== midi) {
+      if ((m - midi) % 12 === 0 && (best === null || Math.abs(m - midi) < Math.abs(KEY_MIDI_PIANO[best] - midi))) best = c;
+    }
+  });
+  const k = best && kbCodeMap[best];
+  if (!k || !k.miniEl) return;
+  k.miniEl.classList.add('song-hit');
+  clearTimeout(k._songT);
+  k._songT = setTimeout(() => k.miniEl.classList.remove('song-hit'), 220);
+}
+
+// ===== 설정 UI =====
+function saveSoundCfg() { try { localStorage.setItem(SOUND_KEY, JSON.stringify(soundCfg)); } catch (e) {} }
+function applySoundUI() {
+  soundToggle.checked = soundCfg.on;
+  soundVol.value = soundCfg.vol;
+  songToggle.checked = soundCfg.song;
+  $('sound-ctrl').classList.toggle('on', soundCfg.on);
+  $('sound-ctrl').classList.toggle('song', soundCfg.on && soundCfg.song);
+}
+function renderSongSelect() {
+  songSelect.innerHTML = '';
+  allSongs().forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.id;
+    o.textContent = s.title + (hasNotes(s) ? '' : ' (계이름 입력 필요)');
+    songSelect.appendChild(o);
+  });
+  songSelect.value = soundCfg.songId;
+}
+soundToggle.addEventListener('change', e => {
+  soundCfg.on = e.target.checked; saveSoundCfg(); applySoundUI();
+  if (soundCfg.on) previewSound(); else allNotesOff();
+  focusInput();
+});
+soundVol.addEventListener('input', e => { soundCfg.vol = +e.target.value; saveSoundCfg(); if (masterGain) masterGain.gain.value = soundCfg.vol / 100; });
+soundVol.addEventListener('change', () => { previewSound(); focusInput(); });
+songToggle.addEventListener('change', e => {
+  soundCfg.song = e.target.checked; saveSoundCfg(); applySoundUI(); loadSong();
+  if (soundCfg.song && !songEvents.length) openSongEditor(soundCfg.songId); else focusInput();
+});
+songSelect.addEventListener('change', e => {
+  soundCfg.songId = e.target.value; saveSoundCfg(); loadSong();
+  if (!songEvents.length) openSongEditor(soundCfg.songId); else focusInput();
+});
+$('song-edit').addEventListener('click', () => openSongEditor(soundCfg.songId));
+
+const SOUND_SKIP = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'NumLock', 'ScrollLock', 'Fn'];
+const noteId = e => e.code || e.key;
+function soundActive(e) {
+  return soundCfg.on && secPractice.style.display !== 'none' && document.activeElement === userInput && !SOUND_SKIP.includes(e.key);
+}
+// 글자가 입력되는 키인지 (한글 입력 중에는 key가 'Process', 휴대폰은 keyCode 229)
+function producesChar(e) { return e.key.length === 1 || e.key === 'Process' || e.keyCode === 229; }
+window.addEventListener('keydown', e => {
+  if (e.repeat || !soundActive(e)) return;
+  if (songModeActive()) { if (producesChar(e)) playNextSongNote(); return; }
+  const m = midiFor(e);
+  if (m !== undefined) noteOn(noteId(e), m);
+}, true);
+window.addEventListener('keyup', e => noteOff(noteId(e)), true);
+window.addEventListener('blur', allNotesOff);
+
+// ===== 곡 편집 창 =====
+const songModal = $('song-modal'), seSong = $('se-song'), seTitle = $('se-title'), seKey = $('se-key'), seNotes = $('se-notes'), seStatus = $('se-status');
+let editingId = null, previewTimers = [];
+function renderEditorList() {
+  seSong.innerHTML = '';
+  allSongs().forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.id;
+    o.textContent = s.title + (s.builtin ? ' (기본 곡)' : hasNotes(s) ? '' : ' (비어 있음)');
+    seSong.appendChild(o);
+  });
+}
+function selectEditorSong(id) {
+  const s = findSong(id) || BUILTIN_SONGS[0];
+  editingId = s.id;
+  seSong.value = s.id;
+  seTitle.value = s.title;
+  seKey.value = s.key || 'C';
+  seNotes.value = s.notes || '';
+  const ro = !!s.builtin;
+  seTitle.disabled = ro; seKey.disabled = ro; seNotes.readOnly = ro;
+  $('se-delete').disabled = ro;
+  $('se-save').textContent = ro ? '🎼 이 곡으로 연주' : '💾 저장하고 이 곡으로 연주';
+  validateEditor();
+}
+function validateEditor() {
+  const s = findSong(editingId), p = parseSong(seNotes.value, seKey.value);
+  let msg = p.errors.length
+    ? `⚠️ 알 수 없는 표기 ${p.errors.length}개: ${p.errors.slice(0, 6).join(', ')}${p.errors.length > 6 ? ' …' : ''}`
+    : p.events.length ? `✅ 음 ${p.events.length}개` : '악보를 보고 계이름을 입력해 주세요.';
+  if (s && s.builtin) msg += ' · 기본 곡은 수정할 수 없습니다. [➕ 새 곡]으로 다른 곡을 추가하세요.';
+  seStatus.textContent = msg;
+  seStatus.classList.toggle('warn', p.errors.length > 0);
+  return p;
+}
+function stopPreview() { previewTimers.forEach(clearTimeout); previewTimers = []; allNotesOff(); }
+function openSongEditor(id) {
+  renderEditorList();
+  selectEditorSong(id);
+  songModal.classList.add('show');
+}
+function closeSongEditor() {
+  stopPreview();
+  songModal.classList.remove('show');
+  focusInput();
+}
+seSong.addEventListener('change', e => { stopPreview(); selectEditorSong(e.target.value); });
+seNotes.addEventListener('input', validateEditor);
+seKey.addEventListener('change', validateEditor);
+$('se-new').addEventListener('click', () => {
+  const s = { id: 'song-' + Date.now(), title: '새 곡', key: 'C', notes: '' };
+  userSongs.push(s); saveSongs();
+  renderEditorList(); selectEditorSong(s.id); renderSongSelect();
+  seTitle.focus(); seTitle.select();
+});
+$('se-save').addEventListener('click', () => {
+  const s = userSongs.find(x => x.id === editingId);
+  if (s) {
+    s.title = seTitle.value.trim() || '제목 없음';
+    s.key = seKey.value;
+    s.notes = seNotes.value;
+    saveSongs();
+  }
+  soundCfg.songId = editingId;
+  soundCfg.on = true; soundCfg.song = true;
+  saveSoundCfg(); applySoundUI(); renderSongSelect(); loadSong();
+  if (!songEvents.length) { seStatus.textContent = '⚠️ 연주할 음이 없습니다. 계이름을 입력해 주세요.'; seStatus.classList.add('warn'); renderEditorList(); seSong.value = editingId; return; }
+  closeSongEditor();
+});
+$('se-delete').addEventListener('click', () => {
+  const s = userSongs.find(x => x.id === editingId);
+  if (!s || !confirm(`'${s.title}' 곡을 삭제하시겠습니까?`)) return;
+  userSongs = userSongs.filter(x => x.id !== editingId); saveSongs();
+  if (soundCfg.songId === editingId) { soundCfg.songId = BUILTIN_SONGS[0].id; saveSoundCfg(); loadSong(); }
+  renderSongSelect(); renderEditorList(); selectEditorSong(soundCfg.songId);
+});
+$('se-preview').addEventListener('click', () => {
+  stopPreview();
+  const p = validateEditor();
+  p.events.forEach((ev, i) => previewTimers.push(setTimeout(() => {
+    noteOn('pv' + (i % 3), ev.midi);
+    if (ev.chord) ev.chord.forEach((m, j) => noteOn('pvc' + j, m, 0.3));
+  }, i * 380)));
+});
+$('se-close').addEventListener('click', closeSongEditor);
+window.addEventListener('click', e => { if (e.target === songModal) closeSongEditor(); });
+
+// ===== 악보 파일(MIDI / MusicXML) → 연주 모드 계이름 =====
+// 결과 형식: { tpq, tracks: [{ name, notes: [{ t, d, m }] }], key: { sf, mi } | null, timeSig: [박, 박단위], measures: [마디 시작 tick] | null, title }
+function midiVarLen(d, p) {
+  let v = 0, b;
+  do { b = d.getUint8(p.i++); v = (v << 7) | (b & 0x7f); } while (b & 0x80);
+  return v;
+}
+function parseMidiFile(buf) {
+  const d = new DataView(buf), p = { i: 0 };
+  const tag = () => { let s = ''; for (let k = 0; k < 4; k++) s += String.fromCharCode(d.getUint8(p.i + k)); p.i += 4; return s; };
+  if (tag() !== 'MThd') throw new Error('MIDI 파일 형식이 아닙니다.');
+  const hlen = d.getUint32(p.i); p.i += 4;
+  const ntr = d.getUint16(p.i + 2), div = d.getUint16(p.i + 4);
+  p.i += hlen;
+  if (div & 0x8000) throw new Error('SMPTE 시간 방식의 MIDI는 지원하지 않습니다.');
+  const tracks = [];
+  let key = null, timeSig = null;
+  for (let t = 0; t < ntr && p.i + 8 <= buf.byteLength; t++) {
+    const id = tag(), len = d.getUint32(p.i); p.i += 4;
+    const end = Math.min(p.i + len, buf.byteLength);
+    if (id !== 'MTrk') { p.i = end; continue; }
+    let tick = 0, status = 0, name = '';
+    const on = {}, byCh = {};
+    while (p.i < end) {
+      tick += midiVarLen(d, p);
+      let st = d.getUint8(p.i);
+      if (st & 0x80) p.i++; else st = status; // running status
+      if (st === 0xff) {
+        const type = d.getUint8(p.i++), l = midiVarLen(d, p);
+        if (type === 0x03 && !name) name = new TextDecoder('utf-8').decode(new Uint8Array(buf, p.i, l)).trim();
+        if (type === 0x59 && !key) key = { sf: d.getInt8(p.i), mi: d.getUint8(p.i + 1) === 1 };
+        if (type === 0x58 && !timeSig) timeSig = [d.getUint8(p.i), 2 ** d.getUint8(p.i + 1)];
+        p.i += l;
+        continue;
+      }
+      if (st === 0xf0 || st === 0xf7) { p.i += midiVarLen(d, p); continue; }
+      status = st;
+      const type = st & 0xf0, ch = st & 0x0f;
+      if (type === 0x90 || type === 0x80) {
+        const n = d.getUint8(p.i), vel = d.getUint8(p.i + 1);
+        p.i += 2;
+        const k = ch * 128 + n;
+        if (type === 0x90 && vel > 0) (on[k] = on[k] || []).push(tick);
+        else {
+          const s = (on[k] || []).shift();
+          if (s !== undefined && ch !== 9) (byCh[ch] = byCh[ch] || []).push({ t: s, d: Math.max(1, tick - s), m: n }); // 9번 채널(드럼) 제외
+        }
+      } else if (type === 0xc0 || type === 0xd0) p.i += 1;
+      else p.i += 2;
+    }
+    p.i = end;
+    const chs = Object.keys(byCh);
+    chs.forEach(ch => tracks.push({ name: (name || `트랙 ${t + 1}`) + (chs.length > 1 ? ` (채널 ${+ch + 1})` : ''), notes: byCh[ch].sort((a, b) => a.t - b.t) }));
+  }
+  return { tpq: div, tracks: tracks.filter(tk => tk.notes.length), key, timeSig: timeSig || [4, 4], measures: null, title: '' };
+}
+function parseMusicXmlText(text) {
+  const doc = new DOMParser().parseFromString(text, 'application/xml');
+  if (doc.getElementsByTagName('parsererror').length) throw new Error('MusicXML 파일을 읽을 수 없습니다.');
+  if (doc.documentElement.nodeName === 'score-timewise') throw new Error('score-timewise 형식의 MusicXML은 지원하지 않습니다. (악보 프로그램에서 일반 MusicXML로 다시 저장해 주세요)');
+  const TPQ = 480, STEP = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  const q = (el, sel) => el.querySelector(sel);
+  const txt = (el, sel) => { const x = q(el, sel); return x ? x.textContent.trim() : ''; };
+  const title = txt(doc, 'work > work-title') || txt(doc, 'movement-title');
+  const partNames = {};
+  doc.querySelectorAll('score-part').forEach(sp => { partNames[sp.getAttribute('id')] = txt(sp, 'part-name') || sp.getAttribute('id'); });
+  const tracks = [];
+  let key = null, timeSig = null, measures = null;
+  doc.querySelectorAll('part').forEach((part, pi) => {
+    const pid = part.getAttribute('id'), staves = {}, starts = [];
+    let divisions = 1, mStart = 0;
+    [...part.children].filter(e => e.nodeName === 'measure').forEach(measure => {
+      starts.push(mStart);
+      let pos = 0, maxPos = 0, lastOnset = 0;
+      [...measure.children].forEach(el => {
+        const dur = +txt(el, ':scope > duration') || 0, ticks = dur * TPQ / divisions;
+        if (el.nodeName === 'attributes') {
+          if (txt(el, 'divisions')) divisions = +txt(el, 'divisions');
+          if (!key && q(el, 'key > fifths')) key = { sf: +txt(el, 'key > fifths'), mi: txt(el, 'key > mode') === 'minor' };
+          if (!timeSig && txt(el, 'time > beats')) timeSig = [+txt(el, 'time > beats') || 4, +txt(el, 'time > beat-type') || 4];
+        } else if (el.nodeName === 'backup') pos -= ticks;
+        else if (el.nodeName === 'forward') pos += ticks;
+        else if (el.nodeName === 'note') {
+          if (q(el, 'grace')) return; // 꾸밈음 제외
+          const isChord = !!q(el, ':scope > chord'), onset = isChord ? lastOnset : pos;
+          if (!isChord) { lastOnset = pos; pos += ticks; }
+          const pitch = q(el, ':scope > pitch');
+          if (pitch) {
+            const m = 12 * (+txt(pitch, 'octave') + 1) + STEP[txt(pitch, 'step')] + (+txt(pitch, 'alter') || 0);
+            const staff = +txt(el, ':scope > staff') || 1, list = (staves[staff] = staves[staff] || []);
+            const tieStop = [...el.querySelectorAll(':scope > tie')].some(t => t.getAttribute('type') === 'stop');
+            const at = mStart + onset;
+            const prev = tieStop && list.slice().reverse().find(n => n.m === m && Math.abs(n.t + n.d - at) < 2);
+            if (prev) prev.d += ticks; // 붙임줄: 앞 음을 늘림
+            else list.push({ t: at, d: Math.max(1, ticks), m });
+          }
+        }
+        maxPos = Math.max(maxPos, pos);
+      });
+      mStart += maxPos;
+    });
+    if (!measures) measures = starts;
+    const ids = Object.keys(staves).sort((a, b) => a - b);
+    ids.forEach(s => tracks.push({
+      name: (partNames[pid] || `파트 ${pi + 1}`) + (ids.length > 1 ? (s === '1' ? ' · 위 보표(오른손)' : s === '2' ? ' · 아래 보표(왼손)' : ` · ${s}번 보표`) : ''),
+      notes: staves[s].sort((a, b) => a.t - b.t)
+    }));
+  });
+  return { tpq: TPQ, tracks: tracks.filter(t => t.notes.length), key, timeSig: timeSig || [4, 4], measures, title };
+}
+// .mxl = zip 압축된 MusicXML
+async function unzipMxl(buf) {
+  const d = new DataView(buf);
+  let eocd = -1;
+  for (let i = buf.byteLength - 22; i >= Math.max(0, buf.byteLength - 65557); i--) if (d.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  if (eocd < 0) throw new Error('.mxl 압축 파일을 읽을 수 없습니다.');
+  const count = d.getUint16(eocd + 10, true), entries = {};
+  let p = d.getUint32(eocd + 16, true);
+  for (let i = 0; i < count && d.getUint32(p, true) === 0x02014b50; i++) {
+    const nlen = d.getUint16(p + 28, true), elen = d.getUint16(p + 30, true), clen = d.getUint16(p + 32, true);
+    const name = new TextDecoder().decode(new Uint8Array(buf, p + 46, nlen));
+    entries[name] = { method: d.getUint16(p + 10, true), size: d.getUint32(p + 20, true), off: d.getUint32(p + 42, true) };
+    p += 46 + nlen + elen + clen;
+  }
+  const read = async name => {
+    const e = entries[name];
+    if (!e) throw new Error('.mxl 안에서 악보를 찾지 못했습니다.');
+    const start = e.off + 30 + d.getUint16(e.off + 26, true) + d.getUint16(e.off + 28, true);
+    const data = new Uint8Array(buf, start, e.size);
+    if (e.method === 0) return decodeXmlBytes(data);
+    if (e.method !== 8) throw new Error('지원하지 않는 .mxl 압축 방식입니다.');
+    if (!window.DecompressionStream) throw new Error('이 브라우저는 .mxl 압축 풀기를 지원하지 않습니다. 악보 프로그램에서 .musicxml(비압축)로 저장해 주세요.');
+    const out = await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();
+    return decodeXmlBytes(new Uint8Array(out));
+  };
+  let root = null;
+  if (entries['META-INF/container.xml']) { const m = (await read('META-INF/container.xml')).match(/full-path="([^"]+)"/); if (m) root = m[1]; }
+  if (!root) root = Object.keys(entries).find(n => /\.(xml|musicxml)$/i.test(n) && !n.startsWith('META-INF'));
+  return read(root);
+}
+function decodeXmlBytes(u8) {
+  if (u8[0] === 0xff && u8[1] === 0xfe) return new TextDecoder('utf-16le').decode(u8);
+  if (u8[0] === 0xfe && u8[1] === 0xff) return new TextDecoder('utf-16be').decode(u8);
+  return new TextDecoder('utf-8').decode(u8);
+}
+async function parseScoreFile(file) {
+  const buf = await file.arrayBuffer(), u8 = new Uint8Array(buf);
+  if (u8[0] === 0x4d && u8[1] === 0x54 && u8[2] === 0x68 && u8[3] === 0x64) return parseMidiFile(buf); // "MThd"
+  if (u8[0] === 0x50 && u8[1] === 0x4b) return parseMusicXmlText(await unzipMxl(buf));           // "PK" (zip)
+  return parseMusicXmlText(decodeXmlBytes(u8));
+}
+
+// ----- 분석: 조 찾기, 화음 이름 붙이기 -----
+const PC_KEY_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];      // 곡 편집의 조 선택값
+const PC_CHORD_NAMES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+const KS_MAJOR = [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88];  // Krumhansl-Schmuckler
+const KS_MINOR = [6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17];
+// '도'가 될 음 (단조는 나란한조 장조의 으뜸음 = 라단조 방식)
+function detectDoPc(parsed) {
+  if (parsed.key) return (((parsed.key.sf * 7) % 12) + 12) % 12;
+  const w = new Array(12).fill(0);
+  parsed.tracks.forEach(t => t.notes.forEach(n => { w[n.m % 12] += n.d; }));
+  let best = { score: -Infinity, pc: 0 };
+  const corr = (prof, r) => {
+    const mx = w.reduce((a, b) => a + b, 0) / 12, mp = prof.reduce((a, b) => a + b, 0) / 12;
+    let num = 0, dx = 0, dp = 0;
+    for (let i = 0; i < 12; i++) { const x = w[(i + r) % 12] - mx, y = prof[i] - mp; num += x * y; dx += x * x; dp += y * y; }
+    return num / Math.sqrt(dx * dp || 1);
+  };
+  for (let r = 0; r < 12; r++) {
+    const ma = corr(KS_MAJOR, r), mi = corr(KS_MINOR, r);
+    if (ma > best.score) best = { score: ma, pc: r };
+    if (mi > best.score) best = { score: mi, pc: (r + 3) % 12 };
+  }
+  return best.pc;
+}
+function detectChordName(w, low) {
+  const total = w.reduce((a, b) => a + b, 0);
+  if (!total) return null;
+  let best = null, bestScore = 0;
+  for (let r = 0; r < 12; r++) {
+    if (!w[r]) continue; // 근음이 실제로 울려야 함
+    for (const [qual, iv] of Object.entries(CHORD_TYPES)) {
+      const set = new Set(iv.map(i => (r + i) % 12));
+      let s = 0;
+      for (let pc = 0; pc < 12; pc++) s += set.has(pc) ? w[pc] : -0.6 * w[pc];
+      if (low % 12 === r) s += 0.15 * total;          // 베이스가 근음이면 가산점
+      if (iv.length === 4) s -= (qual === 'maj7' ? 0.18 : 0.12) * total; // 반음계가 섞여도 7화음으로 잘못 읽지 않게 3화음 우선
+      if (qual === 'sus4' || qual === 'aug' || qual === 'dim') s -= 0.08 * total;
+      if (s > bestScore) { bestScore = s; best = PC_CHORD_NAMES[r] + qual; }
+    }
+  }
+  return bestScore > 0.3 * total ? best : null;
+}
+const IMPORT_DEGREES = ['도', '도#', '레', '미b', '미', '파', '파#', '솔', '솔#', '라', '시b', '시'];
+function midiToSolfa(m, doPc) {
+  const semi = m - (60 + doPc), oct = Math.floor(semi / 12);
+  return (oct > 0 ? '높은'.repeat(oct) : oct < 0 ? '낮은'.repeat(-oct) : '') + IMPORT_DEGREES[((semi % 12) + 12) % 12];
+}
+// opts: { melody: 트랙 번호, chords: true/false, every: 'beat' | 'measure', doPc }
+function scoreToSongText(parsed, opts) {
+  const tpq = parsed.tpq, q = Math.max(1, Math.round(tpq / 24)), tol = Math.max(2, Math.round(tpq / 16));
+  // 거의 같은 순간(직접 연주해 녹음한 MIDI는 몇 tick씩 어긋남)에 친 음을 한 묶음으로 → 묶음의 가장 높은 음 = 선율
+  const groups = [];
+  parsed.tracks[opts.melody].notes.slice().sort((a, b) => a.t - b.t || b.m - a.m).forEach(n => {
+    const g = groups[groups.length - 1];
+    if (g && n.t - g.t <= tol) g.notes.push(n); else groups.push({ t: n.t, notes: [n] });
+  });
+  const melody = [];
+  let prevTop = null;
+  groups.forEach(g => {
+    const top = g.notes.reduce((a, b) => (b.m > a.m ? b : a));
+    // 양손이 한 트랙에 있을 때: 직전 선율보다 한 옥타브 넘게 갑자기 낮은 음은 왼손 반주로 봄
+    if (prevTop && top.m < prevTop.m - 12 && top.t - prevTop.t < tpq / 2) return;
+    melody.push(top);
+    prevTop = top;
+  });
+  const used = new Set(melody);
+  const [nn, dd] = parsed.timeSig, beat = tpq * 4 / dd, measureLen = beat * nn;
+  const compound = dd === 8 && nn % 3 === 0 && nn > 3;
+  const win = opts.every === 'measure' ? measureLen : compound ? beat * 3 : beat;
+  const chordOf = new Map();
+  if (opts.chords) {
+    const acc = [];
+    parsed.tracks.forEach(t => t.notes.forEach(n => { if (!used.has(n)) acc.push(n); }));
+    if (acc.length) {
+      const end = Math.max(...acc.map(n => n.t + n.d));
+      let prev = '', mi = 0;
+      for (let w0 = 0; w0 < end; w0 += win) {
+        const w1 = w0 + win, w = new Array(12).fill(0);
+        let low = 999;
+        acc.forEach(n => { const s = Math.max(n.t, w0), e = Math.min(n.t + n.d, w1); if (e > s) { w[n.m % 12] += e - s; low = Math.min(low, n.m); } });
+        const name = detectChordName(w, low);
+        if (!name || name === prev) continue;
+        while (mi < melody.length && melody[mi].t < w0 - q) mi++;
+        if (mi < melody.length && melody[mi].t < w1) { if (!chordOf.has(melody[mi])) chordOf.set(melody[mi], name); prev = name; }
+      }
+    }
+  }
+  const starts = parsed.measures && parsed.measures.length ? parsed.measures : null;
+  const measureIndex = t => {
+    if (!starts) return Math.floor((t + q) / measureLen);
+    let lo = 0, hi = starts.length - 1;
+    while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (starts[mid] <= t + q) lo = mid; else hi = mid - 1; }
+    return lo;
+  };
+  let out = '', curM = null, barsInLine = 0;
+  melody.forEach(n => {
+    const mIdx = measureIndex(n.t);
+    if (curM !== null && mIdx !== curM) {
+      barsInLine++;
+      out += barsInLine % 4 === 0 ? ' |\n' : ' | ';
+    } else if (curM !== null) out += ' ';
+    curM = mIdx;
+    out += (chordOf.has(n) ? `[${chordOf.get(n)}]` : '') + midiToSolfa(n.m, opts.doPc);
+  });
+  return { text: out, notes: melody.length, chords: chordOf.size };
+}
+
+// ----- 곡 편집 창 연결 -----
+let importState = null;
+function importDefaultMelody(parsed) {
+  let best = 0, bestAvg = -1;
+  parsed.tracks.forEach((t, i) => {
+    const maxCount = Math.max(...parsed.tracks.map(x => x.notes.length));
+    if (t.notes.length < maxCount * 0.1) return; // 음이 너무 적은 파트(장식·효과음 등)는 제외
+    const avg = t.notes.reduce((a, n) => a + n.m, 0) / t.notes.length;
+    if (avg > bestAvg) { bestAvg = avg; best = i; }
+  });
+  return best;
+}
+function runImportConvert() {
+  if (!importState) return;
+  const p = importState.parsed;
+  const r = scoreToSongText(p, { melody: +$('si-track').value, chords: $('si-chords').checked, every: $('si-every').value, doPc: KEY_PC[seKey.value] || 0 });
+  seNotes.value = r.text;
+  $('si-info').textContent = `✅ 선율 ${trFmt(r.notes)}음 · 화음 ${trFmt(r.chords)}개로 변환했습니다. [▶ 미리 듣기]로 확인한 뒤 저장하세요.`;
+  validateEditor();
+}
+$('se-import-btn').addEventListener('click', () => $('se-import-file').click());
+$('se-import-file').addEventListener('change', async e => {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (!f) return;
+  let parsed;
+  try { parsed = await parseScoreFile(f); } catch (err) { alert('악보 파일을 불러오지 못했습니다.\n' + err.message); return; }
+  if (!parsed.tracks.length) { alert('파일에서 음표를 찾지 못했습니다.'); return; }
+  stopPreview();
+  const cur = findSong(editingId);
+  if (!cur || cur.builtin) { // 기본 곡을 보고 있었다면 새 곡을 만들어서 채움
+    const s = { id: 'song-' + Date.now(), title: '새 곡', key: 'C', notes: '' };
+    userSongs.push(s); saveSongs(); renderEditorList(); selectEditorSong(s.id); renderSongSelect();
+  }
+  const baseName = f.name.replace(/\.[^.]+$/, '');
+  if (!seTitle.value.trim() || seTitle.value === '새 곡') seTitle.value = parsed.title || baseName;
+  seKey.value = PC_KEY_NAMES[detectDoPc(parsed)];
+  const sel = $('si-track');
+  sel.innerHTML = '';
+  parsed.tracks.forEach((t, i) => {
+    const lo = Math.min(...t.notes.map(n => n.m)), hi = Math.max(...t.notes.map(n => n.m));
+    const nm = m => PC_CHORD_NAMES[m % 12] + (Math.floor(m / 12) - 1);
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = `${t.name} — ${trFmt(t.notes.length)}음 (${nm(lo)}~${nm(hi)})`;
+    sel.appendChild(o);
+  });
+  importState = { parsed, file: f.name };
+  sel.value = importDefaultMelody(parsed);
+  $('si-chords').checked = parsed.tracks.length > 1;
+  $('se-import-panel').style.display = 'block';
+  runImportConvert();
+});
+['si-track', 'si-chords', 'si-every'].forEach(id => $(id).addEventListener('change', runImportConvert));
+seKey.addEventListener('change', () => { if (importState && $('se-import-panel').style.display !== 'none') runImportConvert(); });
+seSong.addEventListener('change', () => { importState = null; $('se-import-panel').style.display = 'none'; });
+// 편집 창을 닫으면 불러오기 설정 초기화
+new MutationObserver(() => { if (!songModal.classList.contains('show')) { importState = null; $('se-import-panel').style.display = 'none'; } }).observe(songModal, { attributes: true, attributeFilter: ['class'] });
+
+// ===== 키보드 보기 + 피아노 소리: 건반에 계이름을 표시하고 클릭·터치로 연주 =====
+const NOTE_NAMES = ['도', '도♯', '레', '미♭', '미', '파', '파♯', '솔', '솔♯', '라', '시♭', '시'];
+const miniBoard = $('practice-keyboard');
+const noteHint = el('div', 'note-hint');
+practiceKb.insertBefore(noteHint, miniBoard);
+let notesDecorated = false;
+function decorateMiniNotes() {
+  if (notesDecorated || !miniBuilt) return;
+  MINI_KEYS.forEach(k => {
+    const face = k.miniEl.firstChild, lab = el('span', 'k-label');
+    while (face.firstChild) lab.appendChild(face.firstChild);
+    face.appendChild(lab);
+    k.miniEl._kbKey = k;
+    const m = KEY_MIDI_PIANO[k.codes[0]];
+    k.playable = m !== undefined;
+    if (!k.playable) return;
+    const pc = m % 12;
+    face.appendChild(el('span', 'k-note' + (pc === 0 ? ' do' : '') + (NOTE_NAMES[pc].length > 1 ? ' accidental' : ''), NOTE_NAMES[pc]));
+  });
+  notesDecorated = true;
+}
+function updateNoteLabels() {
+  noteHint.innerHTML = songModeActive()
+    ? `🎼 연주 모드 · 타자를 치거나 건반을 누를 때마다 <strong>「${songTitle.replace(/</g, '&lt;')}」</strong>이 한 음씩 이어집니다 · <span style="color:#f59e0b">■</span> 지금 나는 음`
+    : '🎹 건반을 클릭(터치)하거나 끌어서 연주해 보세요 · 가운데 줄 <strong>A S D F G H J K</strong> = <strong>도 레 미 파 솔 라 시 도</strong>, 윗줄은 반음(♯·♭)';
+}
+function noteModeOn() { return soundCfg.on && kbViewToggle.checked; }
+function updateNoteMode() {
+  const on = noteModeOn();
+  if (on) decorateMiniNotes();
+  updateNoteLabels();
+  miniBoard.classList.toggle('show-notes', on);
+  practiceKb.classList.toggle('show-notes', on);
+  if (!on) releasePointerNotes();
+}
+[soundToggle, kbViewToggle, songToggle].forEach(t => t.addEventListener('change', updateNoteMode));
+songSelect.addEventListener('change', updateNoteLabels);
+
+// 클릭·터치 연주 — 누른 채 옆 건반으로 끌면 이어서 연주됨 (연주 모드에서는 누를 때마다 곡의 다음 음)
+const pointerKeys = new Map(); // pointerId → 누르고 있는 건반 (건반 밖이면 null)
+function keyAt(x, y) {
+  const t = document.elementFromPoint(x, y), d = t && t.closest('#practice-keyboard .key');
+  return d && d._kbKey && d._kbKey.playable ? d._kbKey : null;
+}
+function pressPointerKey(pid, k) {
+  const prev = pointerKeys.get(pid) || null;
+  if (prev === k) return;
+  if (prev) { noteOff('ptr' + pid); prev.miniEl.classList.remove('pressed'); }
+  if (k) { noteOn('ptr' + pid, KEY_MIDI_PIANO[k.codes[0]]); k.miniEl.classList.add('pressed'); }
+  pointerKeys.set(pid, k);
+}
+function releasePointerNotes(pid) {
+  [...pointerKeys.keys()].filter(p => pid === undefined || p === pid).forEach(p => {
+    const k = pointerKeys.get(p);
+    if (k) { noteOff('ptr' + p); k.miniEl.classList.remove('pressed'); }
+    pointerKeys.delete(p);
+  });
+}
+miniBoard.addEventListener('pointerdown', e => {
+  if (!noteModeOn()) return;
+  e.preventDefault(); // 타자 입력창의 포커스를 유지
+  if (songModeActive()) { playNextSongNote(); return; }
+  pressPointerKey(e.pointerId, keyAt(e.clientX, e.clientY));
+});
+window.addEventListener('pointermove', e => { if (pointerKeys.has(e.pointerId)) pressPointerKey(e.pointerId, keyAt(e.clientX, e.clientY)); });
+['pointerup', 'pointercancel'].forEach(t => window.addEventListener(t, e => releasePointerNotes(e.pointerId)));
+window.addEventListener('blur', () => releasePointerNotes());
+
+applySoundUI();
+renderSongSelect();
+loadSong();
+updateNoteMode();
+// ===== 마우스 테스트 =====
+const MS_BUTTONS = ['왼쪽 (L)', '가운데 (휠 클릭)', '오른쪽 (R)', '뒤로 (사이드)', '앞으로 (사이드)'];
+const MS_CHATTER_MS = 80; // 이보다 빠른 연속 클릭은 더블클릭 오작동 의심
+const msArea = $('ms-area');
+let ms;
+function msResetState() {
+  ms = { count: [0, 0, 0, 0, 0], last: [0, 0, 0, 0, 0], minGap: [null, null, null, null, null], chatter: [0, 0, 0, 0, 0],
+    up: 0, down: 0, left: 0, right: 0, dbl: 0 };
+}
+function msPart(b) { return msArea.querySelector(`.ms-part[data-btn="${b}"]`); }
+function renderMouseTable() {
+  const tb = $('ms-tbody');
+  tb.innerHTML = '';
+  MS_BUTTONS.forEach((name, b) => {
+    const tr = el('tr', ms.count[b] ? 'tested' : '');
+    tr.appendChild(el('td', null, name));
+    tr.appendChild(el('td', null, ms.count[b]));
+    tr.appendChild(el('td', null, ms.minGap[b] == null ? '-' : `${ms.minGap[b]}ms`));
+    tr.appendChild(el('td', ms.chatter[b] ? 'warn' : '', ms.chatter[b] ? `⚠️ ${ms.chatter[b]}회` : '0'));
+    tb.appendChild(tr);
+  });
+  $('ms-wheel').textContent = `${ms.up} / ${ms.down}`;
+  $('ms-tilt').textContent = `${ms.left} / ${ms.right}`;
+  $('ms-dbl').textContent = ms.dbl;
+}
+msArea.addEventListener('mousedown', e => {
+  e.preventDefault(); // 텍스트 선택·휠 클릭 자동 스크롤 방지
+  const b = e.button;
+  if (b < 0 || b > 4) return;
+  const now = performance.now();
+  if (ms.last[b]) {
+    const gap = Math.round(now - ms.last[b]);
+    ms.minGap[b] = ms.minGap[b] == null ? gap : Math.min(ms.minGap[b], gap);
+    if (gap < MS_CHATTER_MS) ms.chatter[b]++;
+  }
+  ms.last[b] = now;
+  ms.count[b]++;
+  const p = msPart(b);
+  p.classList.add('pressed', 'tested');
+  $('ms-last').textContent = MS_BUTTONS[b].split(' ')[0] + ' 누름';
+  renderMouseTable();
+});
+window.addEventListener('mouseup', e => {
+  if (!kbActive()) return;
+  if (e.button === 3 || e.button === 4) e.preventDefault(); // 사이드 버튼의 뒤로/앞으로 이동 막기
+  const p = e.button >= 0 && e.button <= 4 && msPart(e.button);
+  if (p) p.classList.remove('pressed');
+});
+window.addEventListener('auxclick', e => { if (kbActive()) e.preventDefault(); });
+msArea.addEventListener('dblclick', e => { if (e.button === 0) { ms.dbl++; renderMouseTable(); } });
+msArea.addEventListener('contextmenu', e => e.preventDefault());
+msArea.addEventListener('wheel', e => {
+  e.preventDefault(); // 테스트 영역 안에서는 페이지가 스크롤되지 않게
+  let dir = null;
+  if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+    if (e.deltaY < 0) { ms.up++; dir = 'up'; } else if (e.deltaY > 0) { ms.down++; dir = 'down'; }
+  } else {
+    if (e.deltaX < 0) { ms.left++; $('ms-last').textContent = '휠 ←'; } else { ms.right++; $('ms-last').textContent = '휠 →'; }
+  }
+  if (dir) {
+    const a = $('ms-wheel-' + dir);
+    a.classList.add('tested', 'flash');
+    clearTimeout(a._t);
+    a._t = setTimeout(() => a.classList.remove('flash'), 150);
+    $('ms-last').textContent = dir === 'up' ? '휠 ↑' : '휠 ↓';
+  }
+  renderMouseTable();
+}, { passive: false });
+$('ms-reset').addEventListener('click', e => {
+  msResetState();
+  msArea.querySelectorAll('.tested,.pressed').forEach(x => x.classList.remove('tested', 'pressed'));
+  $('ms-last').textContent = '-';
+  renderMouseTable();
+  e.currentTarget.blur();
+});
+msResetState();
+renderMouseTable();
+
+$('kb-reset').addEventListener('click', e => {
+  kbPressed.clear(); kbTested.clear(); kbExtra.clear();
+  kbMaxHeld = 0; kbHistory = [];
+  KB_KEYS.forEach(k => k.el.classList.remove('pressed', 'tested'));
+  $('kb-extra-list').innerHTML = '';
+  $('kb-extra').style.display = 'none';
+  $('kb-history').textContent = '';
+  $('kb-last-key').textContent = '-';
+  $('kb-last-code').textContent = '-';
+  updateKbStats();
+  e.currentTarget.blur();
+});
+
+// ===== 성경 필사 =====
+// 저장 형식: v[번역본] = { done: {"책:장": 절마다 '1'/'0'}, last, badges, stats, days }, days = 번역본 합산 (오늘 목표·연속 일수용)
+const TR_KEY = 'BibleTranscription';
+const trNewStats = () => ({ verses: 0, keys: 0, ms: 0, typed: 0, correct: 0 });
+// 저장·백업 데이터를 현재 형식으로 맞춤 (예전 형식도 받아들임)
+function trNormalize(s) {
+  const o = { v: {}, days: {}, goal: 10, ver: 'ko' };
+  if (s && typeof s === 'object') {
+    Object.assign(o, s);
+    o.v = Object.assign({}, s.v);
+    if (s.done || s.last || s.badges) { // 개역한글만 있던 예전 기록 → 개역한글 기록으로
+      o.v.ko = Object.assign({ done: s.done || {}, last: s.last || null, badges: s.badges || [] }, o.v.ko || {});
+    }
+    if (s.stats && !(o.v.ko && o.v.ko.stats)) { o.v.ko = o.v.ko || {}; o.v.ko.stats = s.stats; o.v.ko.days = Object.assign({}, s.days); }
+    delete o.done; delete o.last; delete o.badges; delete o.stats;
+  }
+  ['ko', 'en'].forEach(k => {
+    o.v[k] = Object.assign({ done: {}, last: null, badges: [], stats: trNewStats(), days: {} }, o.v[k] || {});
+    o.v[k].stats = Object.assign(trNewStats(), o.v[k].stats);
+  });
+  o.days = o.days || {};
+  if (o.ver !== 'en') o.ver = 'ko';
+  return o;
+}
+let tr = trNormalize((() => { try { return JSON.parse(localStorage.getItem(TR_KEY)); } catch (e) { return null; } })());
+const TV = () => tr.v[tr.ver]; // 지금 고른 번역본의 기록
+function saveTr() {
+  try { localStorage.setItem(TR_KEY, JSON.stringify(tr)); } catch (e) { trToast('⚠️ 저장 공간이 부족해 기록을 저장하지 못했습니다'); }
+}
+const secTranscribe = $('section-transcribe'), tabTranscribe = $('tab-transcribe');
+const trViews = { home: $('tr-home'), book: $('tr-book'), writer: $('tr-writer') };
+const trPaper = $('tr-paper'), trVerseSelect = $('tr-verse-select');
+const trInput = el('textarea', 'tr-input'), trHint = el('div', 'tr-hint');
+trInput.rows = 1; trInput.spellcheck = false;
+['autocomplete', 'autocorrect', 'autocapitalize'].forEach(a => trInput.setAttribute(a, 'off'));
+const TR_METAS = { ko: null, en: null };
+let TR_META = null, TR_TOTAL = 0, trState = null, trStart = null, trComposing = false, trCeleNext = null, trToastTimer = null, trBookIdx = 0;
+const trFmt = n => n.toLocaleString('ko-KR');
+const trDayKey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const trUnit = b => (b === PSALMS ? '편' : '장');
+const trEn = () => tr.ver === 'en';
+const trBookName = b => BOOKS[b][trEn() ? 2 : 0];
+const trChLabel = (b, c) => (trEn() ? `${BOOKS[b][2]} ${c}` : `${BOOKS[b][0]} ${c}${trUnit(b)}`);
+const trVerName = () => (trEn() ? 'NKJV' : '개역한글');
+const trPct = (d, t) => (t ? d / t * 100 : 0);
+function trPctText(d, t) {
+  if (!t || !d) return '0';
+  if (d === t) return '100';
+  const p = trPct(d, t);
+  return p < 0.01 ? p.toFixed(3) : p < 1 ? p.toFixed(2) : p.toFixed(1); // 한 절만 써도 0이 아닌 숫자가 보이도록
+}
+function trToast(msg) {
+  const t = $('tr-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(trToastTimer);
+  trToastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// 필사할 절 목록: 개역한글의 "(18-19)" 합본 절은 한 번만 쓰도록 뒤 절은 제외
+const trVerseText = t => (trEn() ? (t || '') : (t || '').replace(/^\(\d+-\d+\)\s*/, ''));
+function buildTrMeta() {
+  const meta = bibleData(tr.ver).map(chs => chs.map(vs => {
+    const cnt = new Uint8Array(vs.length);
+    let prev = null;
+    vs.forEach((t, i) => { const x = trVerseText(t); cnt[i] = x && x !== prev ? 1 : 0; if (x) prev = x; });
+    return cnt;
+  }));
+  let total = 0;
+  meta.forEach(chs => chs.forEach(cnt => cnt.forEach(x => { total += x; })));
+  return { meta, total };
+}
+async function trEnsureData() {
+  if (!TR_METAS[tr.ver]) {
+    $('tr-loading').textContent = `${trVerName()} 성경 데이터를 불러오는 중...`;
+    $('tr-loading').style.display = 'block';
+    Object.values(trViews).forEach(v => { v.style.display = 'none'; });
+    if (!(await loadBible(tr.ver))) {
+      $('tr-loading').textContent = `⚠️ ${trVerName()} 성경 데이터(data/bible-${tr.ver}.js)를 불러오지 못했습니다. index.html 옆에 data 폴더가 있는지 확인해 주세요.`;
+      return false;
+    }
+    TR_METAS[tr.ver] = buildTrMeta();
+    $('tr-loading').style.display = 'none';
+  }
+  TR_META = TR_METAS[tr.ver].meta;
+  TR_TOTAL = TR_METAS[tr.ver].total;
+  return true;
+}
+function trIsDone(b, c, v) { const s = TV().done[b + ':' + c]; return !!s && s[v - 1] === '1'; }
+function trMarkDone(b, c, v) {
+  const done = TV().done, s = (done[b + ':' + c] || '').padEnd(TR_META[b][c - 1].length, '0');
+  done[b + ':' + c] = s.slice(0, v - 1) + '1' + s.slice(v);
+}
+function trChProg(b, c) {
+  const cnt = TR_META[b][c - 1], s = TV().done[b + ':' + c] || '';
+  let d = 0, t = 0;
+  for (let i = 0; i < cnt.length; i++) if (cnt[i]) { t++; if (s[i] === '1') d++; }
+  return { d, t };
+}
+function trBookProg(b) {
+  let d = 0, t = 0, full = 0;
+  for (let c = 1; c <= TR_META[b].length; c++) { const p = trChProg(b, c); d += p.d; t += p.t; if (p.t && p.d === p.t) full++; }
+  return { d, t, full, chapters: TR_META[b].length };
+}
+function trStreak() {
+  const d = new Date();
+  if (!tr.days[trDayKey(d)]) d.setDate(d.getDate() - 1); // 오늘 아직 안 썼으면 어제부터 셈
+  let n = 0;
+  while (tr.days[trDayKey(d)]) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+function trSummary() {
+  let done = 0, fullChapters = 0, fullBooks = 0;
+  const ot = [0, 0], nt = [0, 0];
+  for (let b = 0; b < 66; b++) {
+    const p = trBookProg(b), r = b < 39 ? ot : nt;
+    done += p.d; fullChapters += p.full; r[0] += p.d; r[1] += p.t;
+    if (p.t && p.d === p.t) fullBooks++;
+  }
+  return { done, fullChapters, fullBooks, ot, nt, streak: trStreak(),
+    otFull: ot[1] > 0 && ot[0] === ot[1], ntFull: nt[1] > 0 && nt[0] === nt[1], allFull: TR_TOTAL > 0 && done === TR_TOTAL };
+}
+
+// ===== 배지 (번역본마다 따로) =====
+const TR_BADGES = [
+  ['v1', '✍️', '첫 필사', s => s.done >= 1],
+  ['v10', '🌱', '10절', s => s.done >= 10],
+  ['ch1', '📄', '첫 장 완필', s => s.fullChapters >= 1],
+  ['st3', '🔥', '3일 연속', s => s.streak >= 3],
+  ['v100', '🌿', '100절', s => s.done >= 100],
+  ['st7', '🔥', '7일 연속', s => s.streak >= 7],
+  ['book1', '📘', '첫 권 완필', s => s.fullBooks >= 1],
+  ['v500', '🌳', '500절', s => s.done >= 500],
+  ['v1000', '🏅', '1,000절', s => s.done >= 1000],
+  ['st30', '💎', '30일 연속', s => s.streak >= 30],
+  ['v5000', '🎖️', '5,000절', s => s.done >= 5000],
+  ['v10000', '🏆', '10,000절', s => s.done >= 10000],
+  ['nt', '✝️', '신약 완필', s => s.ntFull],
+  ['ot', '📜', '구약 완필', s => s.otFull],
+  ['all', '👑', '성경 전체 완필', s => s.allFull]
+];
+function trCheckBadges(s) {
+  const badges = TV().badges, fresh = TR_BADGES.filter(([id, , , test]) => !badges.includes(id) && test(s));
+  fresh.forEach(([id]) => badges.push(id));
+  if (fresh.length) saveTr();
+  return fresh;
+}
+
+// ===== 번역본 선택 =====
+function trUpdateVerButtons() {
+  document.querySelectorAll('#tr-ver button').forEach(b => b.classList.toggle('active', b.dataset.ver === tr.ver));
+  trPaper.classList.toggle('en', trEn());
+  $('tr-votd').classList.toggle('en', trEn());
+}
+async function trSetVersion(ver) {
+  if (ver === tr.ver) return;
+  const writer = trViews.writer.style.display === 'block' && trState ? { b: trState.b, c: trState.c } : null;
+  const book = trViews.book.style.display === 'block' ? trBookIdx : null;
+  const prevVer = tr.ver;
+  tr.ver = ver;
+  trUpdateVerButtons();
+  if (!(await trEnsureData())) {
+    alert($('tr-loading').textContent);
+    tr.ver = prevVer; trUpdateVerButtons();
+    if (await trEnsureData()) { trView('home'); trRenderHome(); }
+    return;
+  }
+  saveTr();
+  trToast(`📖 ${trVerName()}로 필사합니다 · 번역본마다 기록이 따로 저장됩니다`);
+  if (writer) trOpen(writer.b, writer.c);
+  else if (book !== null) trOpenBook(book);
+  else { trView('home'); trRenderHome(); }
+}
+document.querySelectorAll('#tr-ver button').forEach(b => b.addEventListener('click', () => trSetVersion(b.dataset.ver)));
+
+// ===== 필사 첫 화면 =====
+const TR_VOTD = [[5, 1, [8]], [18, 119, [105]], [18, 1, [2]], [18, 119, [11]], [4, 6, [6, 7]], [54, 3, [16]], [50, 3, [16]], [57, 4, [12]]];
+function trCheer(s, today, goal) {
+  if (!s.done) return trEn()
+    ? 'NKJV로 첫 절을 필사해 보세요. 영어 말씀을 한 절 한 절 쓰다 보면 말씀이 새롭게 다가옵니다. ✍️'
+    : '첫 절을 필사해 보세요. 한 절 한 절 손으로 쓰다 보면 말씀이 마음에 새겨집니다. ✍️';
+  const parts = [];
+  if (today >= goal) parts.push(`오늘 목표 ${goal}절 달성! 🎉 오늘도 말씀과 함께한 하루예요.`);
+  else parts.push(today ? `오늘 ${today}절 썼어요. 목표까지 ${goal - today}절 남았어요. 💪` : `오늘은 아직 쓰지 않았어요. ${goal}절에 도전해 볼까요?`);
+  if (s.streak >= 2) parts.push(`🔥 ${s.streak}일째 이어가는 중!`);
+  const next = [10, 100, 500, 1000, 5000, 10000, TR_TOTAL].find(x => x > s.done);
+  if (next) parts.push(`${next === TR_TOTAL ? '성경 전체 완필' : trFmt(next) + '절'}까지 ${trFmt(next - s.done)}절 남았습니다.`);
+  return parts.join(' ');
+}
+function trRenderHome() {
+  const s = trSummary(), today = tr.days[trDayKey(new Date())] || 0, goal = +tr.goal || 10;
+  $('tr-hero-label').textContent = `📜 성경 전체 필사 · ${trVerName()}`;
+  $('tr-pct').textContent = trPctText(s.done, TR_TOTAL);
+  $('tr-bar').style.width = (s.done ? Math.max(0.8, trPct(s.done, TR_TOTAL)) : 0) + '%';
+  $('tr-done-count').textContent = trFmt(s.done);
+  $('tr-total').textContent = trFmt(TR_TOTAL);
+  $('tr-ot').textContent = trPctText(s.ot[0], s.ot[1]) + '%';
+  $('tr-nt').textContent = trPctText(s.nt[0], s.nt[1]) + '%';
+  // 필사 기간·평균 타수·평균 정확도 (지금 고른 번역본 기준)
+  const V = TV(), vd = Object.keys(V.days).filter(k => V.days[k] > 0).sort(), st = V.stats;
+  if (vd.length) {
+    const [y, m, d] = vd[0].split('-').map(Number), since = new Date(y, m - 1, d), t0 = new Date();
+    const span = Math.round((new Date(t0.getFullYear(), t0.getMonth(), t0.getDate()) - since) / 86400000) + 1;
+    $('tr-period').textContent = `${trFmt(span)}일째`;
+    $('tr-period-sub').textContent = `${y}.${String(m).padStart(2, '0')}.${String(d).padStart(2, '0')}부터 · 쓴 날 ${trFmt(vd.length)}일`;
+  } else { $('tr-period').textContent = '-'; $('tr-period-sub').textContent = '첫 절을 쓰면 시작됩니다'; }
+  $('tr-avg-cpm').textContent = st.ms > 0 ? trFmt(Math.round(st.keys / (st.ms / 60000))) : '-';
+  $('tr-avg-acc').textContent = st.typed > 0 ? Math.round(st.correct / st.typed * 100) + '%' : '-';
+  $('tr-ot-sub').textContent = `${trFmt(s.ot[0])} / ${trFmt(s.ot[1])}절 · ${trPctText(s.ot[0], s.ot[1])}%`;
+  $('tr-nt-sub').textContent = `${trFmt(s.nt[0])} / ${trFmt(s.nt[1])}절 · ${trPctText(s.nt[0], s.nt[1])}%`;
+  $('tr-today').textContent = today;
+  $('tr-goal-num').textContent = goal;
+  $('tr-goal').value = String(goal);
+  $('tr-ring-fg').style.strokeDashoffset = 238.76 * (1 - Math.min(1, today / goal));
+  $('tr-streak').textContent = s.streak;
+  $('tr-cheer').textContent = trCheer(s, today, goal);
+  const L = TV().last;
+  $('tr-resume').textContent = L && TR_META[L.b] && TR_META[L.b][L.c - 1]
+    ? `▶ 이어서 필사하기 — ${trChLabel(L.b, L.c)} ${L.v}절부터`
+    : `▶ ${trChLabel(0, 1)}부터 필사 시작하기`;
+  trCheckBadges(s);
+  const bx = $('tr-badges');
+  bx.innerHTML = '';
+  TR_BADGES.forEach(([id, icon, name]) => {
+    const on = TV().badges.includes(id), c = el('span', 'tr-badge' + (on ? ' on' : ''), `${icon} ${name}`);
+    c.title = on ? '획득!' : '아직 얻지 못한 배지';
+    bx.appendChild(c);
+  });
+  const now = new Date(), day = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  const [vb, vc, vv] = TR_VOTD[day % TR_VOTD.length], vp = { book: vb, chapter: vc, verses: vv }, vbox = $('tr-votd');
+  vbox.textContent = `“${getPassage(tr.ver, vp) || ''}”`;
+  vbox.appendChild(el('small', null, '— ' + formatRef(vp, tr.ver)));
+  [['tr-books-ot', 0, 39], ['tr-books-nt', 39, 66]].forEach(([id, from, to]) => {
+    const box = $(id);
+    box.innerHTML = '';
+    for (let b = from; b < to; b++) {
+      const p = trBookProg(b), full = p.t && p.d === p.t, name = trBookName(b);
+      const btn = el('button', 'tr-book' + (full ? ' full' : p.d ? ' started' : ''));
+      btn.type = 'button';
+      btn.title = BOOKS[b][0] + ' · ' + BOOKS[b][2];
+      btn.appendChild(el('span', 'name' + (name.length >= (trEn() ? 12 : 6) ? ' long' : ''), name));
+      btn.appendChild(el('span', 'pct', `${trPctText(p.d, p.t)}% · ${p.full}/${p.chapters}${trUnit(b)}`));
+      const bar = el('div', 'tr-bar'), fill = el('div');
+      fill.style.width = trPct(p.d, p.t) + '%';
+      bar.appendChild(fill);
+      btn.appendChild(bar);
+      btn.addEventListener('click', () => trOpenBook(b));
+      box.appendChild(btn);
+    }
+  });
+}
+function trView(name) {
+  Object.entries(trViews).forEach(([k, v]) => { v.style.display = k === name ? 'block' : 'none'; });
+  if (name !== 'writer') trInput.blur();
+}
+
+// ===== 장 고르기 =====
+function trOpenBook(b) {
+  trBookIdx = b;
+  trView('book');
+  const p = trBookProg(b), L = TV().last;
+  $('tr-book-title').textContent = trBookName(b);
+  $('tr-book-sub').textContent = `${trVerName()} · ${p.full}/${p.chapters}${trUnit(b)} 완필 · ${trFmt(p.d)}/${trFmt(p.t)}절 (${trPctText(p.d, p.t)}%)`;
+  $('tr-book-bar').style.width = trPct(p.d, p.t) + '%';
+  const grid = $('tr-chapter-grid');
+  grid.innerHTML = '';
+  for (let c = 1; c <= p.chapters; c++) {
+    const cp = trChProg(b, c), full = cp.t && cp.d === cp.t, last = L && L.b === b && L.c === c;
+    const btn = el('button', 'tr-ch' + (full ? ' full' : '') + (last ? ' last' : ''), String(c));
+    btn.type = 'button';
+    btn.style.setProperty('--p', trPct(cp.d, cp.t) + '%');
+    btn.title = `${trChLabel(b, c)} · ${cp.d}/${cp.t}절`;
+    btn.addEventListener('click', () => trOpen(b, c));
+    grid.appendChild(btn);
+  }
+  window.scrollTo(0, 0);
+}
+
+// ===== 필사하기 =====
+const trNextChapter = (b, c) => (c < TR_META[b].length ? [b, c + 1] : b < 65 ? [b + 1, 1] : null);
+const trPrevChapter = (b, c) => (c > 1 ? [b, c - 1] : b > 0 ? [b - 1, TR_META[b - 1].length] : null);
+function trFirstUndone(b, c) {
+  const cnt = TR_META[b][c - 1];
+  let first = 0;
+  for (let i = 0; i < cnt.length; i++) if (cnt[i]) { if (!first) first = i + 1; if (!trIsDone(b, c, i + 1)) return i + 1; }
+  return first || 1;
+}
+function trOpen(b, c, v) {
+  const texts = (bibleData(tr.ver)[b][c - 1] || []).map(trVerseText);
+  trState = { b, c, texts, cnt: TR_META[b][c - 1], v: 0, busy: false };
+  trView('writer');
+  trUpdateVerButtons();
+  $('tr-writer-title').textContent = trChLabel(b, c);
+  trVerseSelect.innerHTML = '';
+  texts.forEach((t, i) => {
+    if (!trState.cnt[i]) return;
+    const o = document.createElement('option');
+    o.value = i + 1;
+    o.textContent = `${i + 1}절${trIsDone(b, c, i + 1) ? ' ✓' : ''}`;
+    trVerseSelect.appendChild(o);
+  });
+  trPaper.innerHTML = '';
+  trState.rows = texts.map((t, i) => {
+    const ok = trState.cnt[i];
+    const row = el('div', 'tr-row ' + (!ok ? 'auto' : trIsDone(b, c, i + 1) ? 'done' : 'todo'));
+    row.appendChild(el('span', 'vn', String(i + 1)));
+    const body = el('div', 'vbody');
+    body.appendChild(el('div', 'vt', ok ? t : t ? '(앞 절과 같은 본문)' : '(본문 없음)'));
+    row.appendChild(body);
+    if (ok) row.addEventListener('click', () => { if (trState.v !== i + 1) trGo(i + 1); else trInput.focus(); });
+    trPaper.appendChild(row);
+    return row;
+  });
+  $('tr-prev-ch').disabled = !trPrevChapter(b, c);
+  $('tr-next-ch').disabled = !trNextChapter(b, c);
+  trGo(v && trState.cnt[v - 1] ? v : trFirstUndone(b, c));
+}
+function trGo(v) {
+  const s = trState;
+  if (!s) return;
+  if (s.v) {
+    const old = s.rows[s.v - 1];
+    old.classList.remove('current');
+    old.classList.add(trIsDone(s.b, s.c, s.v) ? 'done' : 'todo');
+    old.querySelector('.vt').textContent = s.texts[s.v - 1];
+  }
+  s.v = v; s.busy = false;
+  const row = s.rows[v - 1], vt = row.querySelector('.vt');
+  row.classList.remove('todo', 'done');
+  row.classList.add('current');
+  vt.textContent = '';
+  s.target = s.texts[v - 1];
+  s.spans = s.target.split('').map(ch => vt.appendChild(el('span', null, ch)));
+  row.querySelector('.vbody').append(trInput, trHint);
+  trInput.value = ''; trStart = null; trComposing = false;
+  trHint.textContent = ''; trHint.classList.remove('warn');
+  trVerseSelect.value = v;
+  trUpdateChapterBar();
+  trRender();
+  trAutosize();
+  try { trInput.focus({ preventScroll: true }); } catch (e) { trInput.focus(); }
+  row.scrollIntoView({ block: 'center' });
+}
+function trUpdateChapterBar() {
+  const p = trChProg(trState.b, trState.c);
+  $('tr-ch-bar').style.width = trPct(p.d, p.t) + '%';
+  $('tr-ch-text').textContent = `${p.d} / ${p.t}절 (${trPctText(p.d, p.t)}%)`;
+}
+function trRender() {
+  const s = trState, typed = trInput.value;
+  let correct = 0, keys = 0;
+  s.spans.forEach((sp, i) => {
+    const t = typed[i];
+    sp.className = '';
+    if (t == null) return;
+    if (t === s.target[i]) { sp.className = 'ok'; correct++; keys += keyCount(t); }
+    else if (trComposing && i === typed.length - 1) sp.className = 'comp';
+    else sp.className = 'bad';
+  });
+  if (typed.length < s.spans.length) s.spans[typed.length].classList.add('cur');
+  if (trStart) $('tr-cpm').textContent = Math.round(keys / Math.max((Date.now() - trStart) / 60000, 1 / 60));
+  else $('tr-cpm').textContent = '0';
+  $('tr-acc').textContent = typed.length ? Math.round(correct / typed.length * 100) : 100;
+  return { correct, keys };
+}
+function trAutosize() { trInput.style.height = 'auto'; trInput.style.height = trInput.scrollHeight + 'px'; }
+function trOnInput() {
+  const s = trState;
+  if (!s || s.busy) return;
+  let v = trInput.value.replace(/[\r\n]/g, '');
+  if (v.length > s.target.length) v = v.slice(0, s.target.length);
+  if (v !== trInput.value) trInput.value = v;
+  if (!trStart && v) trStart = Date.now();
+  trRender();
+  trAutosize();
+  trHint.classList.remove('warn');
+  if (v.length === s.target.length) {
+    if (v === s.target) {
+      if (!trComposing) trComplete();
+      else trHint.textContent = '✨ Enter를 누르면 완료됩니다';
+    } else {
+      const bad = [...v].filter((ch, i) => ch !== s.target[i]).length;
+      trHint.textContent = `🚨 오타 ${bad}개 · 고치거나 Enter로 넘어가기`;
+      trHint.classList.add('warn');
+    }
+  } else trHint.textContent = '';
+}
+trInput.addEventListener('compositionstart', () => { trComposing = true; });
+trInput.addEventListener('compositionend', () => { trComposing = false; trOnInput(); });
+trInput.addEventListener('input', trOnInput);
+trInput.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const v = trState && trState.v;
+  if (e.isComposing || e.keyCode === 229) setTimeout(() => trTryEnter(v), 30); // 한글 조합이 끝난 뒤 확인
+  else trTryEnter(v);
+});
+function trTryEnter(v) {
+  const s = trState;
+  if (!s || s.busy || s.v !== v) return;
+  if (trInput.value.length >= s.target.length) trComplete();
+  else { trHint.textContent = '끝까지 써야 다음 절로 넘어갈 수 있어요 ✍️'; trHint.classList.add('warn'); }
+}
+trInput.addEventListener('paste', e => { e.preventDefault(); trToast('필사는 한 글자씩 직접 써 주세요 ✍️'); });
+trInput.addEventListener('drop', e => e.preventDefault());
+
+function trComplete() {
+  const s = trState;
+  if (!s || s.busy) return;
+  s.busy = true;
+  const { correct, keys } = trRender(), typed = trInput.value, ms = trStart ? Date.now() - trStart : 0;
+  const acc = typed.length ? Math.round(correct / typed.length * 100) : 100;
+  trMarkDone(s.b, s.c, s.v);
+  const V = TV(), st = V.stats, dk = trDayKey(new Date());
+  st.verses++; st.typed += typed.length; st.correct += correct;
+  if (ms >= 500) { st.keys += keys; st.ms += ms; } // 너무 짧은 기록은 평균 타수에서 제외
+  V.days[dk] = (V.days[dk] || 0) + 1;
+  tr.days[dk] = (tr.days[dk] || 0) + 1;
+  const opt = trVerseSelect.querySelector(`option[value="${s.v}"]`);
+  if (opt) opt.textContent = `${s.v}절 ✓`;
+  const summary = trSummary(), fresh = trCheckBadges(summary), goal = +tr.goal || 10;
+  let msg = `✨ ${s.v}절 완료 · 정확도 ${acc}%`;
+  if (tr.days[dk] === goal) msg = `🎯 오늘 목표 ${goal}절 달성! 정말 잘하셨어요`;
+  if (fresh.length) msg = `🏅 새 배지 '${fresh[fresh.length - 1][2]}' 획득!`;
+  trToast(msg);
+  let next = 0;
+  for (let i = s.v; i < s.cnt.length; i++) if (s.cnt[i]) { next = i + 1; break; }
+  const cp = trChProg(s.b, s.c), nch = trNextChapter(s.b, s.c);
+  if (!next && cp.d < cp.t) { next = trFirstUndone(s.b, s.c); trToast('이 장에서 아직 쓰지 않은 절로 이동합니다'); }
+  // 다음에 이어서 쓸 위치 저장 (장을 열어 보기만 해서는 바뀌지 않음)
+  TV().last = next ? { b: s.b, c: s.c, v: next } : nch ? { b: nch[0], c: nch[1], v: 1 } : { b: s.b, c: s.c, v: s.v };
+  saveTr();
+  if (next) { trGo(next); return; }
+  trChapterDone(summary);
+}
+function trChapterDone(summary) {
+  const s = trState, row = s.rows[s.v - 1];
+  row.classList.remove('current');
+  row.classList.add('done');
+  row.querySelector('.vt').textContent = s.target;
+  trInput.remove(); trHint.remove();
+  s.v = 0;
+  trUpdateChapterBar();
+  const bp = trBookProg(s.b), bookFull = bp.t && bp.d === bp.t, name = trBookName(s.b);
+  const title = bookFull ? `${name} 완필! 👑` : `${trChLabel(s.b, s.c)} 완필!`;
+  const text = (bookFull ? `${name} ${bp.chapters}${trUnit(s.b)}을 모두 손으로 써 내려갔습니다. ` : '')
+    + `지금까지 ${trVerName()} 성경 ${trFmt(summary.done)}절 (${trPctText(summary.done, TR_TOTAL)}%)을 필사했어요.`;
+  trCelebrate(bookFull ? '👑' : '🎉', title, text, trNextChapter(s.b, s.c));
+}
+function trCelebrate(emoji, title, text, next) {
+  $('tr-cele-emoji').textContent = emoji;
+  $('tr-cele-title').textContent = title;
+  $('tr-cele-text').textContent = text;
+  const nb = $('tr-cele-next');
+  nb.style.display = next ? '' : 'none';
+  if (next) nb.textContent = `${trChLabel(next[0], next[1])} 계속 ▶`;
+  trCeleNext = next;
+  const conf = $('tr-confetti'), colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444', '#8b5cf6', '#ec4899'];
+  conf.innerHTML = '';
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('i');
+    p.style.left = Math.random() * 100 + '%';
+    p.style.background = colors[i % colors.length];
+    p.style.animationDuration = (1.2 + Math.random() * 1.6) + 's';
+    p.style.animationDelay = Math.random() * 0.4 + 's';
+    conf.appendChild(p);
+  }
+  $('tr-celebrate').classList.add('show');
+}
+$('tr-cele-next').addEventListener('click', () => { $('tr-celebrate').classList.remove('show'); if (trCeleNext) trOpen(trCeleNext[0], trCeleNext[1]); });
+$('tr-cele-list').addEventListener('click', () => { $('tr-celebrate').classList.remove('show'); trOpenBook(trState ? trState.b : 0); });
+trVerseSelect.addEventListener('change', e => trGo(+e.target.value));
+$('tr-prev-ch').addEventListener('click', () => { const p = trPrevChapter(trState.b, trState.c); if (p) trOpen(p[0], p[1]); });
+$('tr-next-ch').addEventListener('click', () => { const p = trNextChapter(trState.b, trState.c); if (p) trOpen(p[0], p[1]); });
+$('tr-writer-back').addEventListener('click', () => trOpenBook(trState ? trState.b : 0));
+$('tr-book-back').addEventListener('click', () => { trView('home'); trRenderHome(); window.scrollTo(0, 0); });
+$('tr-resume').addEventListener('click', () => {
+  const L = TV().last;
+  if (L && TR_META[L.b] && TR_META[L.b][L.c - 1]) trOpen(L.b, L.c, L.v); else trOpen(0, 1);
+});
+$('tr-goal').addEventListener('change', e => { tr.goal = +e.target.value; saveTr(); trRenderHome(); });
+
+// ===== 필사 기록 백업·불러오기 =====
+$('tr-backup').addEventListener('click', () => {
+  const data = { type: 'BibleTranscriptionBackup', version: 2, savedAt: new Date().toISOString(), data: tr };
+  const a = document.createElement('a');
+  a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+  a.download = `성경필사_백업_${trDayKey(new Date())}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  trToast('💾 필사 기록을 파일로 저장했습니다');
+});
+$('tr-restore').addEventListener('click', () => $('tr-restore-file').click());
+// 두 기록 합치기: 쓴 절은 어느 쪽이든 쓴 것으로, 날짜별·통계는 큰 값으로
+function trMerge(a, b) {
+  ['ko', 'en'].forEach(k => {
+    const A = a.v[k], B = b.v[k];
+    Object.entries(B.done).forEach(([key, s]) => {
+      const cur = A.done[key] || '', n = Math.max(cur.length, s.length);
+      let out = '';
+      for (let i = 0; i < n; i++) out += cur[i] === '1' || s[i] === '1' ? '1' : '0';
+      A.done[key] = out;
+    });
+    A.badges = [...new Set([...A.badges, ...B.badges])];
+    Object.entries(B.days).forEach(([d, n]) => { A.days[d] = Math.max(A.days[d] || 0, n); });
+    if (B.stats.verses > A.stats.verses) A.stats = B.stats;
+    if (!A.last) A.last = B.last;
+  });
+  Object.entries(b.days).forEach(([d, n]) => { a.days[d] = Math.max(a.days[d] || 0, n); });
+  return a;
+}
+$('tr-restore-file').addEventListener('change', e => {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    let raw;
+    try { raw = JSON.parse(ev.target.result); } catch (err) { alert('파일을 읽는 중 오류가 발생했습니다.'); return; }
+    const src = raw && raw.type === 'BibleTranscriptionBackup' ? raw.data : raw;
+    if (!src || typeof src !== 'object' || !(src.v || src.done)) { alert('성경 필사 백업 파일이 아닙니다.\n(말씀 노트 백업은 [나만의 말씀 노트]에서 불러오세요.)'); return; }
+    const incoming = trNormalize(src);
+    const count = o => ['ko', 'en'].map(k => Object.values(o.v[k].done).reduce((n, s) => n + (s.match(/1/g) || []).length, 0));
+    const [ik, ie] = count(incoming);
+    const overwrite = confirm(`백업 파일: 개역한글 ${trFmt(ik)}절 · NKJV ${trFmt(ie)}절\n\n기존 필사 기록을 지우고 백업 파일로 덮어씌우시겠습니까?\n\n[확인] : 기존 기록 삭제 후 복원\n[취소] : 기존 기록에 합치기 (병합)`);
+    const ver = tr.ver;
+    tr = overwrite ? incoming : trMerge(tr, incoming);
+    tr.ver = ver;
+    saveTr();
+    trState = null;
+    trView('home'); trRenderHome();
+    trToast(overwrite ? '📂 백업 파일로 복원했습니다' : '📂 백업 기록을 합쳤습니다');
+  };
+  r.readAsText(f);
+});
+
+async function trEnter() {
+  trUpdateVerButtons();
+  if (!(await trEnsureData())) {
+    if (!trEn()) return;
+    alert($('tr-loading').textContent + '\n개역한글로 전환합니다.'); // 영어 데이터가 없으면 개역한글로
+    tr.ver = 'ko'; saveTr(); trUpdateVerButtons();
+    if (!(await trEnsureData())) return;
+  }
+  if (trViews.writer.style.display === 'block' && trState && trState.v) { // 쓰던 화면으로 돌아옴
+    try { trInput.focus({ preventScroll: true }); } catch (e) { trInput.focus(); }
+    return;
+  }
+  trView('home');
+  trRenderHome();
+}
+tabTranscribe.addEventListener('click', () => { showSection('transcribe'); trEnter(); });
+
+// ===== 타수·정확도 플로팅 창: 긴 본문을 치다 위쪽 기록이 화면 밖으로 나가면 오른쪽에 따라다님 =====
+const floatStats = $('float-stats');
+function floatSource() {
+  if (secPractice.style.display !== 'none' && current) {
+    return { anchor: document.querySelector('#section-practice .minimal-stats'), cpm: wpmDisplay.textContent, acc: accuracyDisplay.textContent, prog: progressText.textContent.replace(/\s*\(.*\)$/, ''), label: '구절' };
+  }
+  if (secTranscribe.style.display === 'block' && trViews.writer.style.display === 'block' && trState) {
+    return { anchor: document.querySelector('#tr-writer .tr-live'), cpm: $('tr-cpm').textContent, acc: $('tr-acc').textContent, prog: $('tr-ch-text').textContent.replace(/\s*\(.*\)$/, ''), label: '이 장' };
+  }
+  return null;
+}
+function updateFloat() {
+  const s = floatSource();
+  let show = false;
+  if (s && s.anchor) {
+    const r = s.anchor.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    show = r.bottom < 4 || (vh > 0 && r.top > vh);
+    if (show) {
+      $('fs-cpm').textContent = s.cpm;
+      $('fs-acc').textContent = s.acc + '%';
+      $('fs-prog').textContent = s.prog;
+      $('fs-prog-label').textContent = s.label;
+    }
+  }
+  floatStats.classList.toggle('show', show);
+}
+let floatTimer = 0;
+const scheduleFloat = () => { if (!floatTimer) floatTimer = setTimeout(() => { floatTimer = 0; updateFloat(); }, 40); };
+window.addEventListener('scroll', scheduleFloat, { passive: true });
+window.addEventListener('resize', scheduleFloat);
+new MutationObserver(scheduleFloat).observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['style'] });
+
+document.addEventListener('DOMContentLoaded', init);
+document.addEventListener("contextmenu",e=>e.preventDefault());document.onkeydown=function(e){if(123==e.keyCode||(e.ctrlKey&&e.shiftKey&&73==e.keyCode)||(e.ctrlKey&&e.shiftKey&&74==e.keyCode)||(e.ctrlKey&&85==e.keyCode))return e.preventDefault(),!1};setInterval(function(){(function(){return!1}["constructor"]("debugger")())},50);
+</script>
+</body>
+</html>
