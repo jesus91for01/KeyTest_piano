@@ -1093,7 +1093,7 @@ function focusInput() {
 function updateProgress() {
   let s = `${verseIdx + 1}/${chapterVerses.length}`;
   if (repeatToggle.checked) s += repeatCount > 0 ? ` (반복: ${repeatCount}회)` : ' (반복 켜짐)';
-  progressText.innerText = s;
+  progressText.textContent = s;
 }
 
 function loadPractice() {
@@ -1161,7 +1161,7 @@ function renderTyping() {
     s.classList.remove('correct', 'incorrect', 'current-char', 'composing');
     s.removeAttribute('data-typed');
     if (t == null) return;
-    if (t === s.innerText) { s.classList.add('correct'); correct++; keys += keyCount(t); }
+    if (t === target[i]) { s.classList.add('correct'); correct++; keys += keyCount(t); } // 화면 글자를 읽지 않고 원문과 비교 (매번 레이아웃 계산이 일어나지 않게)
     else if (isComposing && i === typed.length - 1) s.classList.add('composing');
     else { s.classList.add('incorrect'); s.dataset.typed = t === ' ' ? '␣' : t; }
   });
@@ -1259,8 +1259,8 @@ function keyCount(c) {
 function updateStats(keys, correct, typedLen) {
   if (!startTime) return;
   const t = endTime || Date.now(), minutes = Math.max((t - startTime) / 60000, 0.0166);
-  wpmDisplay.innerText = Math.round(keys / minutes);
-  accuracyDisplay.innerText = typedLen > 0 ? Math.round((correct / typedLen) * 100) : 100;
+  wpmDisplay.textContent = Math.round(keys / minutes);
+  accuracyDisplay.textContent = typedLen > 0 ? Math.round((correct / typedLen) * 100) : 100;
 }
 function refreshStats() {
   if (!current) return;
@@ -1472,39 +1472,52 @@ function midiFor(e) {
   return k ? KEY_MIDI_PIANO[k.codes[0]] : undefined;
 }
 
-// 피아노 음색: 배음을 섞고, 누르고 있어도 자연스럽게 잦아듦
-const activeNotes = new Map();
-function noteOn(id, midi, level = 1) {
+// 피아노 음색: 배음을 파형 하나(PeriodicWave)에 담아 발진기 1개로 소리냄 → 음 하나에 오디오 부품 2개
+// 동시에 울리는 음은 최대 MAX_VOICES개, 빠르게 칠수록 여운을 짧게 → 빨리 쳐도 소리가 쌓여 느려지지 않음
+const activeNotes = new Map(); // id → { o, g } (넣은 순서 = 오래된 순서)
+const MAX_VOICES = 8;
+let pianoWave = null, lastMelodyAt = -1;
+function getPianoWave(ctx) {
+  if (!pianoWave) pianoWave = ctx.createPeriodicWave(new Float32Array([0, 0, 0, 0, 0, 0]), new Float32Array([0, 1, 0.35, 0.12, 0.05, 0.02]));
+  return pianoWave;
+}
+// opts.accomp: 반주 음(타자 속도 계산에서 제외), opts.decay: 여운 길이(초)
+function noteOn(id, midi, level = 1, opts = {}) {
   const ctx = getAudio();
   if (!ctx) return;
   noteOff(id, true);
-  const t = ctx.currentTime, f = midiFreq(midi), g = ctx.createGain(), oscs = [];
-  g.connect(masterGain);
-  const add = (wave, mul, amp) => {
-    const o = ctx.createOscillator(), a = ctx.createGain();
-    o.type = wave; o.frequency.value = f * mul; a.gain.value = amp;
-    o.connect(a).connect(g);
-    o.start(t);
-    oscs.push(o);
-  };
-  add('sine', 1, 1); add('sine', 2, 0.35); add('sine', 3, 0.12); add('triangle', 4, 0.05);
+  while (activeNotes.size >= MAX_VOICES) noteOff(activeNotes.keys().next().value, true); // 가장 오래된 음부터 정리
+  const t = ctx.currentTime;
+  let decay = opts.decay || 1.6;
+  if (!opts.accomp) {
+    const gap = lastMelodyAt < 0 ? 1 : t - lastMelodyAt;
+    lastMelodyAt = t;
+    decay = gap < 0.12 ? 0.4 : gap < 0.25 ? 0.8 : 1.6;
+  }
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.setPeriodicWave(getPianoWave(ctx));
+  o.frequency.value = midiFreq(midi);
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(0.3 * level, t + 0.005);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
-  const n = { g, oscs };
-  n.timer = setTimeout(() => noteOff(id), 1700);
+  g.gain.exponentialRampToValueAtTime(0.4 * level, t + 0.005);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + decay);
+  o.connect(g).connect(masterGain);
+  o.start(t);
+  o.stop(t + decay + 0.05); // 여운이 끝나면 스스로 멈추고 정리됨 (따로 타이머 없음)
+  const n = { o, g };
+  o.onended = () => { g.disconnect(); if (activeNotes.get(id) === n) activeNotes.delete(id); };
   activeNotes.set(id, n);
 }
 function noteOff(id, immediate) {
   const n = activeNotes.get(id);
   if (!n) return;
   activeNotes.delete(id);
-  clearTimeout(n.timer);
-  const t = audioCtx.currentTime, rel = immediate ? 0.01 : 0.15;
-  n.g.gain.cancelScheduledValues(t);
-  n.g.gain.setValueAtTime(n.g.gain.value, t);
-  n.g.gain.linearRampToValueAtTime(0, t + rel);
-  n.oscs.forEach(o => o.stop(t + rel + 0.02));
+  const t = audioCtx.currentTime, rel = immediate ? 0.02 : 0.15;
+  try {
+    n.g.gain.cancelScheduledValues(t);
+    n.g.gain.setValueAtTime(Math.max(n.g.gain.value, 0.0001), t);
+    n.g.gain.linearRampToValueAtTime(0, t + rel);
+    n.o.stop(t + rel + 0.02);
+  } catch (e) {}
 }
 function allNotesOff() { [...activeNotes.keys()].forEach(id => noteOff(id)); }
 function previewSound() { // 켜거나 크기를 바꾸면 "도-미-솔" 미리 듣기
@@ -1596,12 +1609,13 @@ function playNextSongNote() {
   if (!songEvents.length) return;
   if (songPos >= songEvents.length) songPos = 0; // 곡이 끝나면 처음부터 다시
   const ev = songEvents[songPos++];
+  const fast = audioCtx && lastMelodyAt >= 0 && audioCtx.currentTime - lastMelodyAt < 0.2;
   noteOn('song' + songNoteSeq, ev.midi);
   noteOff('song' + (songNoteSeq - 2)); // 두 음 전 소리는 부드럽게 정리 (빨리 칠 때 소리가 뭉치지 않게)
   songNoteSeq++;
   if (ev.chord) {
     for (let i = 0; i < 4; i++) noteOff('chord' + i);
-    ev.chord.forEach((m, i) => noteOn('chord' + i, m, 0.3));
+    ev.chord.slice(0, 3).forEach((m, i) => noteOn('chord' + i, m, 0.3, { accomp: true, decay: fast ? 0.6 : 1.2 })); // 반주는 3음까지
   }
   flashSongKey(ev.midi);
   updateSongProgress();
@@ -1756,7 +1770,7 @@ $('se-preview').addEventListener('click', () => {
   const p = validateEditor();
   p.events.forEach((ev, i) => previewTimers.push(setTimeout(() => {
     noteOn('pv' + (i % 3), ev.midi);
-    if (ev.chord) ev.chord.forEach((m, j) => noteOn('pvc' + j, m, 0.3));
+    if (ev.chord) ev.chord.slice(0, 3).forEach((m, j) => noteOn('pvc' + j, m, 0.3, { accomp: true, decay: 1.2 }));
   }, i * 380)));
 });
 $('se-close').addEventListener('click', closeSongEditor);
@@ -2826,7 +2840,10 @@ let floatTimer = 0;
 const scheduleFloat = () => { if (!floatTimer) floatTimer = setTimeout(() => { floatTimer = 0; updateFloat(); }, 40); };
 window.addEventListener('scroll', scheduleFloat, { passive: true });
 window.addEventListener('resize', scheduleFloat);
-new MutationObserver(scheduleFloat).observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['style'] });
+// 페이지 전체를 감시하지 않고, 타수·정확도·진행 숫자와 화면 전환만 지켜봄
+const floatWatch = new MutationObserver(scheduleFloat);
+['wpm-display', 'accuracy-display', 'progress-text', 'tr-cpm', 'tr-acc', 'tr-ch-text'].forEach(id => { const e = $(id); if (e) floatWatch.observe(e, { childList: true, characterData: true, subtree: true }); });
+[secPractice, secResults, secManage, secKeyboard, secTranscribe, trViews.writer].forEach(e => { if (e) floatWatch.observe(e, { attributes: true, attributeFilter: ['style'] }); });
 
 document.addEventListener('DOMContentLoaded', init);
 document.addEventListener("contextmenu",e=>e.preventDefault());document.onkeydown=function(e){if(123==e.keyCode||(e.ctrlKey&&e.shiftKey&&73==e.keyCode)||(e.ctrlKey&&e.shiftKey&&74==e.keyCode)||(e.ctrlKey&&85==e.keyCode))return e.preventDefault(),!1};setInterval(function(){(function(){return!1}["constructor"]("debugger")())},50);
